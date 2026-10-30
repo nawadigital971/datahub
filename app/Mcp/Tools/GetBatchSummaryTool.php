@@ -5,6 +5,7 @@ namespace App\Mcp\Tools;
 use App\Enums\Permission;
 use App\Mcp\Concerns\ChecksPermissions;
 use App\Models\ImportBatch;
+use App\Queries\Imports\BatchNewReferenceItemsQuery;
 use App\Queries\Imports\StagedRowListQuery;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
 use Laravel\Mcp\Request;
@@ -31,7 +32,7 @@ class GetBatchSummaryTool extends Tool
         ];
     }
 
-    public function handle(Request $request, StagedRowListQuery $rows): Response
+    public function handle(Request $request, StagedRowListQuery $rows, BatchNewReferenceItemsQuery $newItems): Response
     {
         if (! $this->allowed($request->user())) {
             return $this->forbidden();
@@ -43,6 +44,8 @@ class GetBatchSummaryTool extends Tool
         return Response::json([
             ...$this->batchSummary($batch),
             'issues' => $rows->issueCounts($batch),
+            'added_on_commit' => $newItems->handle($batch),
+            'added_on_commit_note' => 'These countries, emirates / regions, areas and sectors are not in the lists yet and will be created when the batch is committed. If one is a misspelling, add it as an alias of the right item with save_reference_data and run recheck_batch.',
         ]);
     }
 }

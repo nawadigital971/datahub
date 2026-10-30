@@ -19,6 +19,7 @@ use App\Enums\IssueCode;
 use App\Enums\PhoneType;
 use App\Queries\Imports\CleaningRulesQuery;
 use App\Queries\Imports\ImportLookups;
+use App\Queries\Imports\WorldCountries;
 use DateTimeImmutable;
 
 /**
@@ -48,6 +49,7 @@ class AnalyzeRowAction
         private ParseNotesAction $notes,
         private ImportLookups $lookups,
         private CleaningRulesQuery $rules,
+        private WorldCountries $world,
     ) {}
 
     public function handle(MappedRow $row, AnalysisContext $context): AnalyzedRow
@@ -191,8 +193,24 @@ class AnalyzeRowAction
 
         /* ---------- location ---------- */
         $address = $this->clean($row->address);
-        $regionId = $row->presetRegionId ?? $this->areas->region($row->region);
+        $regionText = $this->clean($row->region);
+        $areaText = $this->clean($row->area);
+        $regionId = $row->presetRegionId ?? $this->areas->region($regionText);
         $areaId = $row->presetAreaId;
+
+        if ($regionId === null && $regionText !== null) {
+            // A city column often names an area ("Al Ain", "Deira") or misspells an emirate ("Dubay").
+            $match = $this->areas->handle($regionText);
+            $match = $match->areaId !== null ? $match : $this->areas->closest($regionText);
+            $regionId = $match->regionId;
+            $areaId ??= $match->areaId;
+        }
+        if ($areaId === null && $areaText !== null) {
+            $match = $this->areas->handle($areaText, $regionId);
+            $match = $match->areaId !== null ? $match : $this->areas->closest($areaText, $regionId);
+            $regionId ??= $match->regionId;
+            $areaId = $match->areaId;
+        }
         if ($areaId === null && $address !== null) {
             $match = $this->areas->handle($address, $regionId);
             $regionId ??= $match->regionId;
@@ -201,22 +219,45 @@ class AnalyzeRowAction
         if ($regionId === null && $landline?->e164 !== null) {
             $regionId = $this->regionFromLandline($landline->e164);
         }
-        if ($address !== null && $regionId === null) {
+
+        $regionName = $regionId === null && $regionText !== null ? mb_substr($regionText, 0, 120) : null;
+        $areaName = $areaId === null && $areaText !== null ? mb_substr($areaText, 0, 120) : null;
+
+        if ($regionName !== null) {
+            $issues[] = new Issue(IssueCode::NewRegion, 'region_id', "“{$regionName}” is not in the emirates / regions list yet. It will be added when the batch is committed; pick an existing one if it is a misspelling.");
+        } elseif ($address !== null && $regionId === null && $areaName === null) {
             $issues[] = new Issue(IssueCode::UnknownRegion, 'region_id', 'No emirate found in the address.');
+        }
+        if ($areaName !== null && ($regionId !== null || $regionName !== null)) {
+            $issues[] = new Issue(IssueCode::NewArea, 'area_id', "“{$areaName}” is not in the areas list yet. It will be added when the batch is committed; pick an existing one if it is a misspelling.");
+        } elseif ($areaName !== null) {
+            $issues[] = new Issue(IssueCode::UnknownArea, 'area_id', "“{$areaName}” cannot be added as an area until the row has an emirate.");
         } elseif ($address !== null && $areaId === null) {
             $issues[] = new Issue(IssueCode::UnknownArea, 'area_id', 'No known district found in the address.');
         }
 
         /* ---------- nationality, sector, country ---------- */
         $nationalityId = $row->presetNationalityId ?? $this->lookups->countryId($row->nationality);
+        $nationalityIso = null;
         if ($nationalityId === null && $row->nationality !== null) {
-            $extra['nationality_raw'] = $row->nationality;
+            $nationalityIso = $this->world->isoForName($row->nationality);
+            $nationalityId = $nationalityIso === null ? null : $this->lookups->countryIdByIso($nationalityIso);
+            $nationalityIso = $nationalityId === null ? $nationalityIso : null;
+            if ($nationalityId === null && $nationalityIso === null) {
+                $extra['nationality_raw'] = $row->nationality;
+            }
         }
-        $sectorId = $row->presetSectorId ?? $this->lookups->sectorId($row->sector);
-        if ($sectorId === null && $row->sector !== null) {
-            $extra['sector_raw'] = $row->sector;
+
+        $sectorText = $this->clean($row->sector);
+        $sectorId = $row->presetSectorId ?? $this->lookups->sectorId($sectorText);
+        $sectorName = $sectorId === null && $sectorText !== null ? mb_substr($sectorText, 0, 120) : null;
+        if ($sectorName !== null) {
+            $issues[] = new Issue(IssueCode::NewSector, 'sector_id', "“{$sectorName}” is not in the sectors list yet. It will be added when the batch is committed; pick an existing one if it is a misspelling.");
         }
-        $countryId = $this->lookups->countryIdByIso($mobile->countryIso ?? $landline?->countryIso);
+
+        $phoneIso = $mobile->countryIso ?? $landline?->countryIso;
+        $countryId = $this->lookups->countryIdByIso($phoneIso);
+        $countryIso = $countryId === null && $phoneIso !== null ? strtoupper($phoneIso) : null;
 
         /* ---------- year ---------- */
         $seenYear = $row->presetSeenYear ?? $this->year($row->seenYear) ?? $context->sourceYear;
@@ -244,6 +285,11 @@ class AnalyzeRowAction
             extra: $extra,
             issues: $issues,
             sourceName: $this->clean($row->source) === null ? null : mb_substr((string) $this->clean($row->source), 0, 120),
+            countryIso: $countryIso,
+            nationalityIso: $nationalityIso,
+            regionName: $regionName,
+            areaName: $areaName,
+            sectorName: $sectorName,
         );
     }
 

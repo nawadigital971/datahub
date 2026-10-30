@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Actions\Contacts\BustAudienceCacheAction;
 use App\Actions\Contacts\RefreshFacetCountsAction;
+use App\Actions\ReferenceData\ResolveBatchReferenceDataAction;
 use App\Actions\Sources\ResolveBatchSourcesAction;
 use App\Enums\ContactEventType;
 use App\Enums\ImportBatchStatus;
@@ -38,12 +39,13 @@ class CommitBatchJob implements ShouldQueue
 
     public function __construct(public int $batchId, public int $userId) {}
 
-    public function handle(RefreshFacetCountsAction $refreshFacetCounts, BustAudienceCacheAction $bustCache, ResolveBatchSourcesAction $resolveSources): void
+    public function handle(RefreshFacetCountsAction $refreshFacetCounts, BustAudienceCacheAction $bustCache, ResolveBatchSourcesAction $resolveSources, ResolveBatchReferenceDataAction $resolveReferenceData): void
     {
         $batch = ImportBatch::query()->findOrFail($this->batchId);
         $bindings = ['batch' => $batch->id];
 
         $resolveSources->handle($batch);
+        $resolveReferenceData->handle($batch);
         $this->recheckBeforeCommit($bindings);
 
         $bounds = DB::selectOne('SELECT min(id) AS lo, max(id) AS hi FROM staged_rows WHERE import_batch_id = :batch', $bindings);

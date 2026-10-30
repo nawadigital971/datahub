@@ -18,6 +18,9 @@ enum IssueCode: string
     case GenderSuspect = 'gender_suspect';
     case UnknownArea = 'unknown_area';
     case UnknownRegion = 'unknown_region';
+    case NewRegion = 'new_region';
+    case NewArea = 'new_area';
+    case NewSector = 'new_sector';
     case Suppressed = 'suppressed';
     case StaleData = 'stale_data';
 
@@ -43,6 +46,9 @@ enum IssueCode: string
             self::GenderSuspect => 'Gender looks wrong',
             self::UnknownArea => 'Unknown area',
             self::UnknownRegion => 'Unknown emirate',
+            self::NewRegion => 'New emirate / region',
+            self::NewArea => 'New area',
+            self::NewSector => 'New sector',
             self::Suppressed => 'On do-not-contact list',
             self::StaleData => 'Stale data',
         };

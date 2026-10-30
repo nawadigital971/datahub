@@ -42,6 +42,9 @@ use Laravel\Mcp\Server\Attributes\Version;
     4. If a problem repeats (an unknown area spelling, a new email typo, a call code, a header word),
        fix it at the source with save_reference_data (e.g. add the spelling as an area alias), then
        recheck_batch so every row is analysed again.
+       Countries, emirates / regions, areas and sectors that are not in the lists yet are added
+       automatically when the batch is committed; get_batch_summary lists them under added_on_commit.
+       Check that list for misspellings before telling the user the batch is ready.
     5. update_staged_rows for one-off fixes (phones, emails, areas, actions). Re-checking replaces these,
        so re-check first.
     6. Tell the user the batch is ready and give them the review_url. A person must review and commit it;

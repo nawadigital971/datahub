@@ -21,7 +21,7 @@ class MatchAreaAction
     /** @var list<array{alias: string, region_id: int, area_id: int}>|null */
     private ?array $areaAliases = null;
 
-    public function __construct(private NormalizeArabicTextAction $normalize) {}
+    public function __construct(private NormalizeArabicTextAction $normalize, private FindCloseMatchAction $close) {}
 
     public function handle(?string $text, ?int $knownRegionId = null): AreaMatch
     {
@@ -54,6 +54,41 @@ class MatchAreaAction
         $haystack = $this->prepare($text);
 
         return $haystack === '  ' ? null : $this->findRegion($haystack);
+    }
+
+    /**
+     * A short value that is a misspelling of a known area (in the given emirate) or emirate.
+     */
+    public function closest(?string $text, ?int $regionId = null): AreaMatch
+    {
+        $needle = trim($this->prepare($text));
+        if ($needle === '') {
+            return new AreaMatch($regionId, null);
+        }
+
+        $areas = [];
+        foreach ($this->areaAliases() as $entry) {
+            if ($regionId === null || $entry['region_id'] === $regionId) {
+                $areas[$entry['alias']] ??= $entry['area_id'];
+            }
+        }
+        $areaId = $this->close->handle($needle, $areas);
+        if ($areaId !== null) {
+            $area = collect($this->areaAliases())->firstWhere('area_id', $areaId);
+
+            return new AreaMatch($area['region_id'] ?? $regionId, $areaId);
+        }
+
+        if ($regionId === null) {
+            $regions = [];
+            foreach ($this->regionAliases() as $entry) {
+                $regions[$entry['alias']] ??= $entry['region_id'];
+            }
+
+            return new AreaMatch($this->close->handle($needle, $regions), null);
+        }
+
+        return new AreaMatch($regionId, null);
     }
 
     private function findRegion(string $haystack): ?int

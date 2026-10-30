@@ -41,6 +41,11 @@ use Illuminate\Support\Carbon;
  * @property int|null $area_id
  * @property int|null $sector_id
  * @property string|null $address_raw
+ * @property string|null $country_iso
+ * @property string|null $nationality_iso
+ * @property string|null $region_name
+ * @property string|null $area_name
+ * @property string|null $sector_name
  * @property int|null $seen_year
  * @property CallOutcome|null $call_outcome
  * @property array<string, mixed>|null $extra
@@ -56,7 +61,7 @@ use Illuminate\Support\Carbon;
  * @property int|null $edited_by
  * @property Carbon|null $edited_at
  */
-#[Fillable(['import_batch_id', 'row_number', 'source_name', 'source_id', 'raw', 'type', 'name_en', 'name_ar', 'company_name', 'gender', 'nationality_country_id', 'mobile_e164', 'landline_e164', 'email', 'country_id', 'region_id', 'area_id', 'sector_id', 'address_raw', 'seen_year', 'call_outcome', 'extra', 'issue_codes', 'issues', 'severity', 'match_status', 'matched_contact_id', 'dup_of_row_id', 'action', 'action_locked', 'merge_choices', 'edited_by', 'edited_at'])]
+#[Fillable(['import_batch_id', 'row_number', 'source_name', 'source_id', 'raw', 'type', 'name_en', 'name_ar', 'company_name', 'gender', 'nationality_country_id', 'mobile_e164', 'landline_e164', 'email', 'country_id', 'region_id', 'area_id', 'sector_id', 'address_raw', 'country_iso', 'nationality_iso', 'region_name', 'area_name', 'sector_name', 'seen_year', 'call_outcome', 'extra', 'issue_codes', 'issues', 'severity', 'match_status', 'matched_contact_id', 'dup_of_row_id', 'action', 'action_locked', 'merge_choices', 'edited_by', 'edited_at'])]
 #[WithoutTimestamps]
 class StagedRow extends Model
 {

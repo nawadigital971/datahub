@@ -1497,13 +1497,38 @@
     },
     {
         "type": "header_hint",
+        "key": "district",
+        "value": "area"
+    },
+    {
+        "type": "header_hint",
+        "key": "community",
+        "value": "area"
+    },
+    {
+        "type": "header_hint",
+        "key": "neighbourhood",
+        "value": "area"
+    },
+    {
+        "type": "header_hint",
+        "key": "neighborhood",
+        "value": "area"
+    },
+    {
+        "type": "header_hint",
+        "key": "الحي",
+        "value": "area"
+    },
+    {
+        "type": "header_hint",
         "key": "area",
-        "value": "address_raw"
+        "value": "area"
     },
     {
         "type": "header_hint",
         "key": "city",
-        "value": "address_raw"
+        "value": "region"
     },
     {
         "type": "header_hint",
@@ -1513,12 +1538,12 @@
     {
         "type": "header_hint",
         "key": "المنطقة",
-        "value": "address_raw"
+        "value": "area"
     },
     {
         "type": "header_hint",
         "key": "المدينة",
-        "value": "address_raw"
+        "value": "region"
     },
     {
         "type": "header_hint",

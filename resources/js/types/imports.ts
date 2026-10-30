@@ -104,6 +104,13 @@ export type BatchSource = {
     default: boolean;
 };
 
+export type NewReferenceItem = {
+    kind: 'country' | 'region' | 'area' | 'sector';
+    name: string;
+    parent: string | null;
+    rows: number;
+};
+
 export type RowUpdateResponse = { row: StagedRow; batch: ImportBatch };
 
 export type MergeComparison = {

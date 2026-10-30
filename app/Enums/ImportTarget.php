@@ -19,6 +19,7 @@ enum ImportTarget: string
     case Nationality = 'nationality';
     case Address = 'address_raw';
     case Region = 'region';
+    case Area = 'area';
     case Sector = 'sector';
     case Source = 'source';
     case SeenYear = 'seen_year';
@@ -40,7 +41,8 @@ enum ImportTarget: string
             self::Email => 'Email',
             self::Nationality => 'Nationality',
             self::Address => 'Address / location',
-            self::Region => 'Emirate',
+            self::Region => 'Emirate / region / city',
+            self::Area => 'Area / district',
             self::Sector => 'Business sector',
             self::Source => 'Source (the list this row came from)',
             self::SeenYear => 'Date or year collected',

@@ -2,6 +2,7 @@
 
 namespace App\Queries\Imports;
 
+use App\Actions\Normalization\FindCloseMatchAction;
 use App\Actions\Normalization\NormalizeArabicTextAction;
 use App\Models\Country;
 use App\Models\Sector;
@@ -23,7 +24,7 @@ class ImportLookups
     /** @var array<string, int>|null */
     private ?array $sectors = null;
 
-    public function __construct(private NormalizeArabicTextAction $normalize) {}
+    public function __construct(private NormalizeArabicTextAction $normalize, private FindCloseMatchAction $close) {}
 
     public function countryId(?string $value): ?int
     {
@@ -64,7 +65,9 @@ class ImportLookups
             }
         }
 
-        return $this->sectors[$this->normalize->handle($value)] ?? null;
+        $key = $this->normalize->handle($value);
+
+        return $this->sectors[$key] ?? $this->close->handle($key, $this->sectors);
     }
 
     /**

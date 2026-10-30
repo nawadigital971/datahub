@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useDebounceFn } from '@vueuse/core';
 import { Head, Link, router, usePoll } from '@inertiajs/vue3';
 import { computed, ref, watch } from 'vue';
 import AppSelect from '@/components/AppSelect.vue';
@@ -20,6 +21,7 @@ import { bulk as bulkRows } from '@/routes/imports/rows';
 import type {
     BatchSource,
     ImportBatch,
+    NewReferenceItem,
     ReviewOptions,
     RowUpdateResponse,
     SelectOption,
@@ -39,6 +41,7 @@ const props = defineProps<{
     filters: Record<string, string>;
     issueCounts: Record<string, number> | [];
     fileSources: BatchSource[];
+    newItems: NewReferenceItem[];
     options: ReviewOptions;
 }>();
 
@@ -59,12 +62,18 @@ function applyUpdate(response: RowUpdateResponse): void {
     rows.value = rows.value.map((row) =>
         row.id === response.row.id ? response.row : row,
     );
+    refreshNewItems();
 }
+
+const refreshNewItems = useDebounceFn(
+    () => router.reload({ only: ['fileSources', 'newItems'] }),
+    800,
+);
 
 /* ---------- busy states poll until the background job is done ---------- */
 const { start, stop } = usePoll(
     2000,
-    { only: ['batch', 'rows', 'issueCounts'] },
+    { only: ['batch', 'rows', 'issueCounts', 'fileSources', 'newItems'] },
     { autoStart: false },
 );
 watch(
@@ -297,6 +306,12 @@ function discard(): void {
 }
 
 const format = (value: number): string => value.toLocaleString('en-US');
+const NEW_ITEM_KINDS: Record<NewReferenceItem['kind'], string> = {
+    country: 'Country',
+    region: 'Emirate / region',
+    area: 'Area',
+    sector: 'Sector',
+};
 const dateFormat = new Intl.DateTimeFormat('en-GB', {
     dateStyle: 'medium',
     timeStyle: 'short',
@@ -548,6 +563,38 @@ const formatDate = (iso: string | null): string =>
                             source.default ? ' · rows without a source' : ''
                         }}</span
                     >
+                </span>
+            </div>
+        </div>
+
+        <div
+            v-if="newItems.length"
+            class="rounded-card border border-dashed border-sand bg-surface px-4 py-3 text-[12.5px]"
+        >
+            <h3 class="m-0 mb-1 text-[13.5px] font-semibold">
+                Added to the lists when you commit
+            </h3>
+            <p class="m-0 mb-2 text-subtle">
+                These are not in the reference lists yet. If one is a
+                misspelling, choose the right value on its rows (or add it as
+                another spelling in Reference data and re-check).
+            </p>
+            <div class="flex flex-wrap gap-2">
+                <span
+                    v-for="item in newItems"
+                    :key="`${item.kind}:${item.name}:${item.parent}`"
+                    class="inline-flex items-center gap-2 rounded-lg border border-dashed border-sand bg-sand-soft px-2.5 py-1.5"
+                >
+                    <span class="text-[11px] text-sand">{{
+                        NEW_ITEM_KINDS[item.kind]
+                    }}</span>
+                    <b dir="auto" class="font-semibold">{{ item.name }}</b>
+                    <span v-if="item.parent" class="text-subtle" dir="auto"
+                        >in {{ item.parent }}</span
+                    >
+                    <span class="font-mono text-subtle num">{{
+                        format(item.rows)
+                    }}</span>
                 </span>
             </div>
         </div>

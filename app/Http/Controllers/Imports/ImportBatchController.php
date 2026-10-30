@@ -18,6 +18,7 @@ use App\Http\Resources\ImportBatchResource;
 use App\Http\Resources\StagedRowResource;
 use App\Models\ImportBatch;
 use App\Models\Source;
+use App\Queries\Imports\BatchNewReferenceItemsQuery;
 use App\Queries\Imports\BatchSourcesQuery;
 use App\Queries\Imports\ImportBatchListQuery;
 use App\Queries\Imports\ImportReviewOptionsQuery;
@@ -47,7 +48,7 @@ class ImportBatchController extends Controller
     /**
      * The preview: summary, filters and the editable rows (rows only once the analysis is done).
      */
-    public function show(ShowImportBatchRequest $request, ImportBatch $batch, StagedRowListQuery $rows, ImportReviewOptionsQuery $options, BatchSourcesQuery $fileSources): Response
+    public function show(ShowImportBatchRequest $request, ImportBatch $batch, StagedRowListQuery $rows, ImportReviewOptionsQuery $options, BatchSourcesQuery $fileSources, BatchNewReferenceItemsQuery $newItems): Response
     {
         $batch->load('source', 'user:id,name', 'mappingTemplate');
         $hasRows = in_array($batch->status, [ImportBatchStatus::Ready, ImportBatchStatus::Failed], true);
@@ -60,6 +61,7 @@ class ImportBatchController extends Controller
             'filters' => $request->stagedRowFilters(),
             'issueCounts' => fn (): array => $hasRows ? $rows->issueCounts($batch) : [],
             'fileSources' => fn (): array => $hasRows ? $fileSources->handle($batch) : [],
+            'newItems' => fn (): array => $hasRows ? $newItems->handle($batch) : [],
             'options' => $options->handle(),
         ]);
     }

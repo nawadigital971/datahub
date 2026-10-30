@@ -18,6 +18,7 @@ final readonly class AnalyzedRow
         'import_batch_id', 'row_number', 'raw', 'source_name', 'type', 'name_en', 'name_ar', 'company_name', 'gender',
         'nationality_country_id', 'mobile_e164', 'landline_e164', 'email', 'country_id', 'region_id', 'area_id',
         'sector_id', 'address_raw', 'seen_year', 'call_outcome', 'extra', 'issue_codes', 'issues', 'severity',
+        'country_iso', 'nationality_iso', 'region_name', 'area_name', 'sector_name',
     ];
 
     /**
@@ -44,6 +45,11 @@ final readonly class AnalyzedRow
         public array $extra,
         public array $issues,
         public ?string $sourceName = null,
+        public ?string $countryIso = null,
+        public ?string $nationalityIso = null,
+        public ?string $regionName = null,
+        public ?string $areaName = null,
+        public ?string $sectorName = null,
     ) {}
 
     public function severity(): RowSeverity
@@ -100,6 +106,11 @@ final readonly class AnalyzedRow
             'issue_codes' => $this->issueCodes(),
             'issues' => array_map(fn (Issue $issue): array => $issue->toArray(), $this->issues),
             'severity' => $this->severity(),
+            'country_iso' => $this->countryIso,
+            'nationality_iso' => $this->nationalityIso,
+            'region_name' => $this->regionName,
+            'area_name' => $this->areaName,
+            'sector_name' => $this->sectorName,
         ];
     }
 
@@ -139,6 +150,11 @@ final readonly class AnalyzedRow
             '{'.implode(',', $codes).'}',
             $json(array_map(fn (Issue $issue): array => $issue->toArray(), $this->issues)),
             $this->severity()->value,
+            $this->countryIso,
+            $this->nationalityIso,
+            $this->regionName,
+            $this->areaName,
+            $this->sectorName,
         ];
     }
 }

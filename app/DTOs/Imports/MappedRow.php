@@ -38,6 +38,7 @@ final readonly class MappedRow
         public ?string $nationality = null,
         public ?string $address = null,
         public ?string $region = null,
+        public ?string $area = null,
         public ?string $sector = null,
         public ?string $seenYear = null,
         public array $notes = [],
@@ -101,6 +102,7 @@ final readonly class MappedRow
             nationality: $first(ImportTarget::Nationality->value),
             address: isset($values[ImportTarget::Address->value]) ? implode(', ', $values[ImportTarget::Address->value]) : null,
             region: $first(ImportTarget::Region->value),
+            area: $first(ImportTarget::Area->value),
             sector: $first(ImportTarget::Sector->value),
             seenYear: $values[ImportTarget::SeenYear->value][0] ?? null,
             notes: $values[ImportTarget::Notes->value] ?? [],
@@ -113,7 +115,7 @@ final readonly class MappedRow
     /**
      * A row sent as a JSON object (MCP stage_contacts). Keys are the mapping targets
      * (name_en, name_ar, name, company_name, type, gender, phone, landline, email, nationality,
-     * address, region, sector, seen_year, notes) plus "extra" for anything else to keep.
+     * address, region, area, sector, seen_year, notes) plus "extra" for anything else to keep.
      * phone, landline, email and notes may be a string or a list of strings.
      *
      * @param  array<string, mixed>  $row
@@ -141,6 +143,7 @@ final readonly class MappedRow
             nationality: $string('nationality'),
             address: $string('address'),
             region: $string('region'),
+            area: $string('area'),
             sector: $string('sector'),
             seenYear: $string('seen_year'),
             notes: $list('notes'),
@@ -173,9 +176,11 @@ final readonly class MappedRow
             phones: array_values(array_filter([$string($value('mobile_e164')), ...$list('other_phones'), ...$list('invalid_phones')])),
             landlines: array_filter([$string($value('landline_e164'))]),
             emails: array_values(array_filter([$string($value('email')) ?? $string($extra['invalid_email'] ?? null), ...$list('other_emails')])),
-            nationality: $string($extra['nationality_raw'] ?? null),
+            nationality: $string($extra['nationality_raw'] ?? null) ?? $string($value('nationality_iso')),
             address: $string($value('address_raw')),
-            sector: $string($extra['sector_raw'] ?? null),
+            region: $string($value('region_name')),
+            area: $string($value('area_name')),
+            sector: $string($value('sector_name')) ?? $string($extra['sector_raw'] ?? null),
             notes: array_filter([$string($extra['notes'] ?? null)]),
             source: $string($value('source_name')),
             extra: array_diff_key($extra, array_flip(self::DERIVED_EXTRA_KEYS)),
