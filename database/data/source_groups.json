@@ -1,0 +1,44 @@
+[
+    {
+        "slug": "magazines",
+        "name": {
+            "en": "Magazines",
+            "ar": "المجلات"
+        }
+    },
+    {
+        "slug": "waseet",
+        "name": {
+            "en": "Waseet",
+            "ar": "الوسيط"
+        }
+    },
+    {
+        "slug": "photography",
+        "name": {
+            "en": "Photography",
+            "ar": "التصوير"
+        }
+    },
+    {
+        "slug": "retail",
+        "name": {
+            "en": "Retail",
+            "ar": "التجزئة"
+        }
+    },
+    {
+        "slug": "call-centre",
+        "name": {
+            "en": "Call centre",
+            "ar": "مركز الاتصال"
+        }
+    },
+    {
+        "slug": "real-estate",
+        "name": {
+            "en": "Real estate",
+            "ar": "العقارات"
+        }
+    }
+]

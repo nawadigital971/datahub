@@ -1,0 +1,156 @@
+[
+    {
+        "slug": "real-estate",
+        "name": {
+            "en": "Real estate",
+            "ar": "العقارات"
+        }
+    },
+    {
+        "slug": "retail",
+        "name": {
+            "en": "Retail",
+            "ar": "التجزئة"
+        }
+    },
+    {
+        "slug": "hospitality",
+        "name": {
+            "en": "Hospitality",
+            "ar": "الضيافة"
+        }
+    },
+    {
+        "slug": "healthcare",
+        "name": {
+            "en": "Healthcare",
+            "ar": "الرعاية الصحية"
+        }
+    },
+    {
+        "slug": "education",
+        "name": {
+            "en": "Education",
+            "ar": "التعليم"
+        }
+    },
+    {
+        "slug": "construction",
+        "name": {
+            "en": "Construction",
+            "ar": "البناء والمقاولات"
+        }
+    },
+    {
+        "slug": "automotive",
+        "name": {
+            "en": "Automotive",
+            "ar": "السيارات"
+        }
+    },
+    {
+        "slug": "media-publishing",
+        "name": {
+            "en": "Media & publishing",
+            "ar": "الإعلام والنشر"
+        }
+    },
+    {
+        "slug": "photography",
+        "name": {
+            "en": "Photography",
+            "ar": "التصوير"
+        }
+    },
+    {
+        "slug": "beauty-wellness",
+        "name": {
+            "en": "Beauty & wellness",
+            "ar": "التجميل والعناية"
+        }
+    },
+    {
+        "slug": "food-beverage",
+        "name": {
+            "en": "Food & beverage",
+            "ar": "الأغذية والمشروبات"
+        }
+    },
+    {
+        "slug": "logistics",
+        "name": {
+            "en": "Logistics & transport",
+            "ar": "الخدمات اللوجستية والنقل"
+        }
+    },
+    {
+        "slug": "finance",
+        "name": {
+            "en": "Finance & insurance",
+            "ar": "المالية والتأمين"
+        }
+    },
+    {
+        "slug": "it-telecom",
+        "name": {
+            "en": "IT & telecom",
+            "ar": "تقنية المعلومات والاتصالات"
+        }
+    },
+    {
+        "slug": "government",
+        "name": {
+            "en": "Government",
+            "ar": "القطاع الحكومي"
+        }
+    },
+    {
+        "slug": "manufacturing",
+        "name": {
+            "en": "Manufacturing",
+            "ar": "التصنيع"
+        }
+    },
+    {
+        "slug": "trading",
+        "name": {
+            "en": "Trading",
+            "ar": "التجارة العامة"
+        }
+    },
+    {
+        "slug": "professional-services",
+        "name": {
+            "en": "Professional services",
+            "ar": "الخدمات المهنية"
+        }
+    },
+    {
+        "slug": "events",
+        "name": {
+            "en": "Events",
+            "ar": "الفعاليات"
+        }
+    },
+    {
+        "slug": "fashion",
+        "name": {
+            "en": "Fashion",
+            "ar": "الأزياء"
+        }
+    },
+    {
+        "slug": "cleaning-services",
+        "name": {
+            "en": "Cleaning services",
+            "ar": "خدمات التنظيف"
+        }
+    },
+    {
+        "slug": "other",
+        "name": {
+            "en": "Other",
+            "ar": "أخرى"
+        }
+    }
+]

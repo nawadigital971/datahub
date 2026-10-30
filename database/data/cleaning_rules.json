@@ -1,0 +1,1794 @@
+[
+    {
+        "type": "call_code",
+        "key": "CB",
+        "value": "call_back"
+    },
+    {
+        "type": "call_code",
+        "key": "NI",
+        "value": "not_interested"
+    },
+    {
+        "type": "call_code",
+        "key": "SW",
+        "value": "switched_off"
+    },
+    {
+        "type": "call_code",
+        "key": "SO",
+        "value": "switched_off"
+    },
+    {
+        "type": "call_code",
+        "key": "D",
+        "value": "wrong_number"
+    },
+    {
+        "type": "call_code",
+        "key": "DC",
+        "value": "wrong_number"
+    },
+    {
+        "type": "call_code",
+        "key": "WN",
+        "value": "wrong_number"
+    },
+    {
+        "type": "call_code",
+        "key": "SUB",
+        "value": "subscribed"
+    },
+    {
+        "type": "call_phrase",
+        "key": "call back",
+        "value": "call_back"
+    },
+    {
+        "type": "call_phrase",
+        "key": "not interested",
+        "value": "not_interested"
+    },
+    {
+        "type": "call_phrase",
+        "key": "switched off",
+        "value": "switched_off"
+    },
+    {
+        "type": "call_phrase",
+        "key": "switch off",
+        "value": "switched_off"
+    },
+    {
+        "type": "call_phrase",
+        "key": "disconnected",
+        "value": "wrong_number"
+    },
+    {
+        "type": "call_phrase",
+        "key": "wrong number",
+        "value": "wrong_number"
+    },
+    {
+        "type": "call_phrase",
+        "key": "subscribed",
+        "value": "subscribed"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "gamil.com",
+        "value": "gmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "gmial.com",
+        "value": "gmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "gmai.com",
+        "value": "gmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "gmaill.com",
+        "value": "gmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "gnail.com",
+        "value": "gmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "gmail.co",
+        "value": "gmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "gmail.con",
+        "value": "gmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "gmail.cm",
+        "value": "gmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "gmail.om",
+        "value": "gmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "gmail.comm",
+        "value": "gmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "gmal.com",
+        "value": "gmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "g.mail.com",
+        "value": "gmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "hotmial.com",
+        "value": "hotmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "hotmai.com",
+        "value": "hotmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "hotmail.co",
+        "value": "hotmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "hotmail.con",
+        "value": "hotmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "hotamil.com",
+        "value": "hotmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "hotmal.com",
+        "value": "hotmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "hormail.com",
+        "value": "hotmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "hotmaill.com",
+        "value": "hotmail.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "yaho.com",
+        "value": "yahoo.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "yahoo.co",
+        "value": "yahoo.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "yahoo.con",
+        "value": "yahoo.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "yhoo.com",
+        "value": "yahoo.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "yahooo.com",
+        "value": "yahoo.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "outlok.com",
+        "value": "outlook.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "outlook.co",
+        "value": "outlook.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "outllook.com",
+        "value": "outlook.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "outlook.con",
+        "value": "outlook.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "iclod.com",
+        "value": "icloud.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "icloud.co",
+        "value": "icloud.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "icoud.com",
+        "value": "icloud.com"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "emirates.net",
+        "value": "emirates.net.ae"
+    },
+    {
+        "type": "email_domain_fix",
+        "key": "emirate.net.ae",
+        "value": "emirates.net.ae"
+    },
+    {
+        "type": "email_tld_fix",
+        "key": ".comm",
+        "value": ".com"
+    },
+    {
+        "type": "email_tld_fix",
+        "key": ".cmo",
+        "value": ".com"
+    },
+    {
+        "type": "email_tld_fix",
+        "key": ".ocm",
+        "value": ".com"
+    },
+    {
+        "type": "email_tld_fix",
+        "key": ".coom",
+        "value": ".com"
+    },
+    {
+        "type": "email_tld_fix",
+        "key": ".con",
+        "value": ".com"
+    },
+    {
+        "type": "email_tld_fix",
+        "key": ".cpm",
+        "value": ".com"
+    },
+    {
+        "type": "junk_name",
+        "key": "test"
+    },
+    {
+        "type": "junk_name",
+        "key": "testing"
+    },
+    {
+        "type": "junk_name",
+        "key": "x"
+    },
+    {
+        "type": "junk_name",
+        "key": "xx"
+    },
+    {
+        "type": "junk_name",
+        "key": "xxx"
+    },
+    {
+        "type": "junk_name",
+        "key": "a"
+    },
+    {
+        "type": "junk_name",
+        "key": "aa"
+    },
+    {
+        "type": "junk_name",
+        "key": "asdf"
+    },
+    {
+        "type": "junk_name",
+        "key": "qwerty"
+    },
+    {
+        "type": "junk_name",
+        "key": "abc"
+    },
+    {
+        "type": "junk_name",
+        "key": "n/a"
+    },
+    {
+        "type": "junk_name",
+        "key": "na"
+    },
+    {
+        "type": "junk_name",
+        "key": "none"
+    },
+    {
+        "type": "junk_name",
+        "key": "null"
+    },
+    {
+        "type": "junk_name",
+        "key": "nil"
+    },
+    {
+        "type": "junk_name",
+        "key": "no name"
+    },
+    {
+        "type": "junk_name",
+        "key": "noname"
+    },
+    {
+        "type": "junk_name",
+        "key": "unknown"
+    },
+    {
+        "type": "junk_name",
+        "key": "customer"
+    },
+    {
+        "type": "junk_name",
+        "key": "client"
+    },
+    {
+        "type": "junk_name",
+        "key": "camera"
+    },
+    {
+        "type": "junk_name",
+        "key": "iphone"
+    },
+    {
+        "type": "junk_name",
+        "key": "i phone"
+    },
+    {
+        "type": "junk_name",
+        "key": "i phone 11"
+    },
+    {
+        "type": "junk_name",
+        "key": "mobile"
+    },
+    {
+        "type": "junk_name",
+        "key": "phone"
+    },
+    {
+        "type": "junk_name",
+        "key": "mk"
+    },
+    {
+        "type": "junk_name",
+        "key": "be your self"
+    },
+    {
+        "type": "junk_name",
+        "key": "name"
+    },
+    {
+        "type": "junk_name",
+        "key": "-"
+    },
+    {
+        "type": "junk_name",
+        "key": "."
+    },
+    {
+        "type": "junk_name",
+        "key": "?"
+    },
+    {
+        "type": "junk_name",
+        "key": "0"
+    },
+    {
+        "type": "junk_name",
+        "key": "لا يوجد"
+    },
+    {
+        "type": "junk_name",
+        "key": "غير معروف"
+    },
+    {
+        "type": "junk_name",
+        "key": "عميل"
+    },
+    {
+        "type": "junk_name",
+        "key": "تجربة"
+    },
+    {
+        "type": "first_name",
+        "key": "mohammed",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "mohamed",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "muhammad",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "mohammad",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "ahmed",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "ahmad",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "ali",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "omar",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "khaled",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "khalid",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "hassan",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "hussein",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "abdullah",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "youssef",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "yousef",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "ibrahim",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "saeed",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "rashid",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "sultan",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "majid",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "majed",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "faisal",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "tariq",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "tarek",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "karim",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "mahmoud",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "mustafa",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "nasser",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "waleed",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "ziad",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "samer",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "rami",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "fadi",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "hamza",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "bilal",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "adel",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "jamal",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "saif",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "mansour",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "hamad",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "mazen",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "nabil",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "john",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "james",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "david",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "michael",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "rahul",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "amit",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "imran",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "محمد",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "احمد",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "علي",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "عمر",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "خالد",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "حسن",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "حسين",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "عبدالله",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "يوسف",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "ابراهيم",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "سعيد",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "راشد",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "سلطان",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "ماجد",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "فيصل",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "طارق",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "كريم",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "محمود",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "مصطفي",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "ناصر",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "وليد",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "زياد",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "سامر",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "رامي",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "فادي",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "حمزه",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "بلال",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "عادل",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "جمال",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "سيف",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "منصور",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "حمد",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "مازن",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "نبيل",
+        "value": "m"
+    },
+    {
+        "type": "first_name",
+        "key": "fatima",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "fatma",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "aisha",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "ayesha",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "mariam",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "maryam",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "noura",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "nora",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "sara",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "sarah",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "layla",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "laila",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "hessa",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "amna",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "shaikha",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "reem",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "huda",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "rania",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "rana",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "dina",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "lina",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "rasha",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "salma",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "zainab",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "khadija",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "nada",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "hala",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "maha",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "dana",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "alia",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "yasmin",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "ghada",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "hind",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "basma",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "samira",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "manal",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "abeer",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "maria",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "priya",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "anjali",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "emma",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "sophie",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "فاطمه",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "عائشه",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "مريم",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "نوره",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "ساره",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "ليلي",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "حصه",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "امنه",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "شيخه",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "ريم",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "هدي",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "رانيا",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "رنا",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "دينا",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "لينا",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "رشا",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "سلمي",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "زينب",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "خديجه",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "ندي",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "هاله",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "مها",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "دانه",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "علياء",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "ياسمين",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "غاده",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "هند",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "بسمه",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "سميره",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "منال",
+        "value": "f"
+    },
+    {
+        "type": "first_name",
+        "key": "عبير",
+        "value": "f"
+    },
+    {
+        "type": "landline_prefix",
+        "key": "+9712",
+        "value": "abu-dhabi"
+    },
+    {
+        "type": "landline_prefix",
+        "key": "+9714",
+        "value": "dubai"
+    },
+    {
+        "type": "landline_prefix",
+        "key": "+9717",
+        "value": "ras-al-khaimah"
+    },
+    {
+        "type": "landline_prefix",
+        "key": "+9719",
+        "value": "fujairah"
+    },
+    {
+        "type": "blocked_filename",
+        "key": "medical insurance",
+        "value": "Employee data (medical insurance list)"
+    },
+    {
+        "type": "blocked_filename",
+        "key": "staff info",
+        "value": "Employee data"
+    },
+    {
+        "type": "blocked_filename",
+        "key": "stuff info",
+        "value": "Employee data"
+    },
+    {
+        "type": "header_hint",
+        "key": "source",
+        "value": "source"
+    },
+    {
+        "type": "header_hint",
+        "key": "list name",
+        "value": "source"
+    },
+    {
+        "type": "header_hint",
+        "key": "campaign",
+        "value": "source"
+    },
+    {
+        "type": "header_hint",
+        "key": "المصدر",
+        "value": "source"
+    },
+    {
+        "type": "header_hint",
+        "key": "القائمة",
+        "value": "source"
+    },
+    {
+        "type": "header_hint",
+        "key": "landline",
+        "value": "landline"
+    },
+    {
+        "type": "header_hint",
+        "key": "land line",
+        "value": "landline"
+    },
+    {
+        "type": "header_hint",
+        "key": "telephone",
+        "value": "landline"
+    },
+    {
+        "type": "header_hint",
+        "key": "=tel",
+        "value": "landline",
+        "notes": "Exact header (the whole header must equal this)."
+    },
+    {
+        "type": "header_hint",
+        "key": "=phone",
+        "value": "landline",
+        "notes": "Exact header (the whole header must equal this)."
+    },
+    {
+        "type": "header_hint",
+        "key": "هاتف ثابت",
+        "value": "landline"
+    },
+    {
+        "type": "header_hint",
+        "key": "الهاتف الارضي",
+        "value": "landline"
+    },
+    {
+        "type": "header_hint",
+        "key": "mobile",
+        "value": "phone"
+    },
+    {
+        "type": "header_hint",
+        "key": "phone",
+        "value": "phone"
+    },
+    {
+        "type": "header_hint",
+        "key": "cell",
+        "value": "phone"
+    },
+    {
+        "type": "header_hint",
+        "key": "gsm",
+        "value": "phone"
+    },
+    {
+        "type": "header_hint",
+        "key": "whatsapp",
+        "value": "phone"
+    },
+    {
+        "type": "header_hint",
+        "key": "whats app",
+        "value": "phone"
+    },
+    {
+        "type": "header_hint",
+        "key": "msisdn",
+        "value": "phone"
+    },
+    {
+        "type": "header_hint",
+        "key": "number",
+        "value": "phone"
+    },
+    {
+        "type": "header_hint",
+        "key": "جوال",
+        "value": "phone"
+    },
+    {
+        "type": "header_hint",
+        "key": "موبايل",
+        "value": "phone"
+    },
+    {
+        "type": "header_hint",
+        "key": "هاتف",
+        "value": "phone"
+    },
+    {
+        "type": "header_hint",
+        "key": "رقم",
+        "value": "phone"
+    },
+    {
+        "type": "header_hint",
+        "key": "البريد",
+        "value": "email"
+    },
+    {
+        "type": "header_hint",
+        "key": "ايميل",
+        "value": "email"
+    },
+    {
+        "type": "header_hint",
+        "key": "الاسم بالعربي",
+        "value": "name_ar"
+    },
+    {
+        "type": "header_hint",
+        "key": "الاسم العربي",
+        "value": "name_ar"
+    },
+    {
+        "type": "header_hint",
+        "key": "company",
+        "value": "company_name"
+    },
+    {
+        "type": "header_hint",
+        "key": "business",
+        "value": "company_name"
+    },
+    {
+        "type": "header_hint",
+        "key": "establishment",
+        "value": "company_name"
+    },
+    {
+        "type": "header_hint",
+        "key": "شركة",
+        "value": "company_name"
+    },
+    {
+        "type": "header_hint",
+        "key": "الشركة",
+        "value": "company_name"
+    },
+    {
+        "type": "header_hint",
+        "key": "المؤسسة",
+        "value": "company_name"
+    },
+    {
+        "type": "header_hint",
+        "key": "arabic name",
+        "value": "name_ar"
+    },
+    {
+        "type": "header_hint",
+        "key": "english name",
+        "value": "name_en"
+    },
+    {
+        "type": "header_hint",
+        "key": "e-mail",
+        "value": "email"
+    },
+    {
+        "type": "header_hint",
+        "key": "email",
+        "value": "email"
+    },
+    {
+        "type": "header_hint",
+        "key": "name",
+        "value": "name"
+    },
+    {
+        "type": "header_hint",
+        "key": "الاسم",
+        "value": "name"
+    },
+    {
+        "type": "header_hint",
+        "key": "اسم",
+        "value": "name"
+    },
+    {
+        "type": "header_hint",
+        "key": "gender",
+        "value": "gender"
+    },
+    {
+        "type": "header_hint",
+        "key": "=sex",
+        "value": "gender",
+        "notes": "Exact header (the whole header must equal this)."
+    },
+    {
+        "type": "header_hint",
+        "key": "الجنس",
+        "value": "gender"
+    },
+    {
+        "type": "header_hint",
+        "key": "nationality",
+        "value": "nationality"
+    },
+    {
+        "type": "header_hint",
+        "key": "الجنسية",
+        "value": "nationality"
+    },
+    {
+        "type": "header_hint",
+        "key": "emirate",
+        "value": "region"
+    },
+    {
+        "type": "header_hint",
+        "key": "الامارة",
+        "value": "region"
+    },
+    {
+        "type": "header_hint",
+        "key": "الإمارة",
+        "value": "region"
+    },
+    {
+        "type": "header_hint",
+        "key": "address",
+        "value": "address_raw"
+    },
+    {
+        "type": "header_hint",
+        "key": "location",
+        "value": "address_raw"
+    },
+    {
+        "type": "header_hint",
+        "key": "area",
+        "value": "address_raw"
+    },
+    {
+        "type": "header_hint",
+        "key": "city",
+        "value": "address_raw"
+    },
+    {
+        "type": "header_hint",
+        "key": "العنوان",
+        "value": "address_raw"
+    },
+    {
+        "type": "header_hint",
+        "key": "المنطقة",
+        "value": "address_raw"
+    },
+    {
+        "type": "header_hint",
+        "key": "المدينة",
+        "value": "address_raw"
+    },
+    {
+        "type": "header_hint",
+        "key": "sector",
+        "value": "sector"
+    },
+    {
+        "type": "header_hint",
+        "key": "industry",
+        "value": "sector"
+    },
+    {
+        "type": "header_hint",
+        "key": "category",
+        "value": "sector"
+    },
+    {
+        "type": "header_hint",
+        "key": "القطاع",
+        "value": "sector"
+    },
+    {
+        "type": "header_hint",
+        "key": "النشاط",
+        "value": "sector"
+    },
+    {
+        "type": "header_hint",
+        "key": "note",
+        "value": "notes"
+    },
+    {
+        "type": "header_hint",
+        "key": "comment",
+        "value": "notes"
+    },
+    {
+        "type": "header_hint",
+        "key": "remark",
+        "value": "notes"
+    },
+    {
+        "type": "header_hint",
+        "key": "ملاحظ",
+        "value": "notes"
+    },
+    {
+        "type": "header_hint",
+        "key": "date",
+        "value": "seen_year"
+    },
+    {
+        "type": "header_hint",
+        "key": "year",
+        "value": "seen_year"
+    },
+    {
+        "type": "header_hint",
+        "key": "timestamp",
+        "value": "seen_year"
+    },
+    {
+        "type": "header_hint",
+        "key": "added",
+        "value": "seen_year"
+    },
+    {
+        "type": "header_hint",
+        "key": "التاريخ",
+        "value": "seen_year"
+    },
+    {
+        "type": "header_hint",
+        "key": "السنة",
+        "value": "seen_year"
+    },
+    {
+        "type": "header_hint",
+        "key": "record type",
+        "value": "type"
+    },
+    {
+        "type": "header_hint",
+        "key": "=type",
+        "value": "type",
+        "notes": "Exact header (the whole header must equal this)."
+    },
+    {
+        "type": "header_hint",
+        "key": "النوع",
+        "value": "type"
+    },
+    {
+        "type": "gender_word",
+        "key": "m",
+        "value": "m"
+    },
+    {
+        "type": "gender_word",
+        "key": "male",
+        "value": "m"
+    },
+    {
+        "type": "gender_word",
+        "key": "man",
+        "value": "m"
+    },
+    {
+        "type": "gender_word",
+        "key": "mr",
+        "value": "m"
+    },
+    {
+        "type": "gender_word",
+        "key": "mr.",
+        "value": "m"
+    },
+    {
+        "type": "gender_word",
+        "key": "ذكر",
+        "value": "m"
+    },
+    {
+        "type": "gender_word",
+        "key": "رجل",
+        "value": "m"
+    },
+    {
+        "type": "gender_word",
+        "key": "f",
+        "value": "f"
+    },
+    {
+        "type": "gender_word",
+        "key": "female",
+        "value": "f"
+    },
+    {
+        "type": "gender_word",
+        "key": "woman",
+        "value": "f"
+    },
+    {
+        "type": "gender_word",
+        "key": "mrs",
+        "value": "f"
+    },
+    {
+        "type": "gender_word",
+        "key": "mrs.",
+        "value": "f"
+    },
+    {
+        "type": "gender_word",
+        "key": "ms",
+        "value": "f"
+    },
+    {
+        "type": "gender_word",
+        "key": "ms.",
+        "value": "f"
+    },
+    {
+        "type": "gender_word",
+        "key": "miss",
+        "value": "f"
+    },
+    {
+        "type": "gender_word",
+        "key": "أنثى",
+        "value": "f"
+    },
+    {
+        "type": "gender_word",
+        "key": "امرأة",
+        "value": "f"
+    },
+    {
+        "type": "business_word",
+        "key": "business"
+    },
+    {
+        "type": "business_word",
+        "key": "company"
+    },
+    {
+        "type": "business_word",
+        "key": "b2b"
+    },
+    {
+        "type": "business_word",
+        "key": "corporate"
+    },
+    {
+        "type": "business_word",
+        "key": "شركة"
+    },
+    {
+        "type": "business_word",
+        "key": "مؤسسة"
+    },
+    {
+        "type": "business_word",
+        "key": "تجاري"
+    },
+    {
+        "type": "note_label",
+        "key": "landline",
+        "value": "landline"
+    },
+    {
+        "type": "note_label",
+        "key": "land line",
+        "value": "landline"
+    },
+    {
+        "type": "note_label",
+        "key": "tel",
+        "value": "landline"
+    },
+    {
+        "type": "note_label",
+        "key": "phone",
+        "value": "landline"
+    },
+    {
+        "type": "note_label",
+        "key": "contract number",
+        "value": "contract"
+    },
+    {
+        "type": "note_label",
+        "key": "contract no.",
+        "value": "contract"
+    },
+    {
+        "type": "note_label",
+        "key": "contract no",
+        "value": "contract"
+    },
+    {
+        "type": "note_label",
+        "key": "contract #",
+        "value": "contract"
+    },
+    {
+        "type": "note_label",
+        "key": "contract",
+        "value": "contract"
+    },
+    {
+        "type": "note_label",
+        "key": "agent",
+        "value": "agent"
+    },
+    {
+        "type": "note_label",
+        "key": "verify translit",
+        "value": "verify_transliteration"
+    },
+    {
+        "type": "phone_separator",
+        "key": "or"
+    },
+    {
+        "type": "phone_separator",
+        "key": "او"
+    },
+    {
+        "type": "phone_separator",
+        "key": "أو"
+    }
+]

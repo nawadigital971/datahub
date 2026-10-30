@@ -1,0 +1,628 @@
+<title>NAWAA Data Hub</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: operator console — fixed filter rail on the left, audience summary + channel readiness + charts + records on the right. Rail becomes a drawer on phones. */
+:root{
+  --bg:#FAFAFB; --surface:#FFFFFF; --surface-2:#F3F4F6; --line:#E4E6EA;
+  --fg:#17191C; --muted:#5F6670; --faint:#9AA0A8;
+  --accent:#1F2328; --accent-soft:#EEF0F3; --accent-fg:#FFFFFF;
+  --sand:#A87A2C; --sand-soft:#F7F0E2;
+  --good:#1D8A4E; --warn:#B7791F; --bad:#B4372E; --bad-soft:#FBE9E7;
+  --bar:#2B3036; --bar-2:#C5CAD1;
+  color-scheme:light;
+  --f-display:"Readex Pro","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Arabic","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --r:10px;
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:14px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--f-mono)}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px}
+.top-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap;max-width:1480px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.nucleus{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 50% 50%,var(--accent) 0 30%,transparent 31%),conic-gradient(var(--accent-soft) 0 100%);border:2px solid var(--accent);flex:none}
+.brand h1{font-family:var(--f-display);font-size:17px;font-weight:600;margin:0;letter-spacing:.01em;white-space:nowrap}
+.brand small{display:block;color:var(--muted);font-size:11.5px;font-weight:400;letter-spacing:.02em}
+.tabs{display:flex;gap:4px;background:var(--surface-2);padding:3px;border-radius:9px}
+.tabs a{padding:6px 12px;border-radius:7px;text-decoration:none;color:var(--muted);font-weight:500;font-size:13px;white-space:nowrap}
+.tabs a[aria-current="page"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.demo-pill{margin-left:auto;font-size:11.5px;background:var(--sand-soft);color:var(--sand);padding:4px 10px;border-radius:99px;font-weight:600;letter-spacing:.02em;white-space:nowrap}
+
+.wrap{max-width:1480px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 40px}
+.view[hidden]{display:none!important}
+
+/* audience layout */
+.console{display:grid;grid-template-columns:290px minmax(0,1fr);gap:18px;align-items:start}
+.rail{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);max-height:calc(100vh - 90px);overflow:auto}
+.rail-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--surface);z-index:1}
+.rail-head h2{font-size:13px;margin:0;font-family:var(--f-display);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.link-btn{background:none;border:0;color:var(--accent);font-weight:500;font-size:12.5px;padding:2px 4px}
+.fgroup{border-bottom:1px solid var(--line);padding:12px 14px}
+.fgroup:last-child{border-bottom:0}
+.fgroup h3{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px;font-weight:600;display:flex;justify-content:space-between}
+.search{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2)}
+.opts{display:flex;flex-direction:column;gap:2px;max-height:190px;overflow:auto}
+.opt{display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:6px;font-size:13px;cursor:pointer}
+.opt:hover{background:var(--surface-2)}
+.opt input{accent-color:var(--accent);margin:0}
+.opt .lbl{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.opt .ct{color:var(--faint);font-size:12px;font-family:var(--f-mono)}
+.opt.zero{opacity:.45}
+.toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;padding:4px 0}
+.switch{appearance:none;width:34px;height:20px;border-radius:99px;background:var(--line);position:relative;flex:none;cursor:pointer;transition:background .15s}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--surface);transition:transform .15s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.switch:checked{background:var(--accent)}
+.switch:checked::after{transform:translateX(14px)}
+.range{display:flex;gap:8px;align-items:center}
+.range select{flex:1;padding:6px;border:1px solid var(--line);border-radius:7px;background:var(--surface-2)}
+
+.main{display:flex;flex-direction:column;gap:18px;min-width:0}
+.summary{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:grid;grid-template-columns:minmax(0,1.3fr) repeat(4,minmax(0,1fr));gap:18px;align-items:end}
+.big .k{font-size:12px;color:var(--muted);font-weight:500}
+.big .v{font-family:var(--f-display);font-size:40px;font-weight:600;line-height:1.05;letter-spacing:-.01em}
+.big .of{font-size:12.5px;color:var(--muted)}
+.stat .k{font-size:12px;color:var(--muted)}
+.stat .v{font-family:var(--f-display);font-size:22px;font-weight:600}
+.stat .meter{height:4px;background:var(--surface-2);border-radius:99px;margin-top:6px;overflow:hidden}
+.stat .meter i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.active-filters{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;min-height:0}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--accent-soft);color:var(--fg);border-radius:99px;padding:3px 6px 3px 10px;font-size:12px;border:0}
+.chip b{font-weight:600;color:var(--accent)}
+.chip span.x{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-size:13px;line-height:1;color:var(--muted)}
+.chip:hover span.x{background:var(--surface)}
+
+.section-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 10px}
+.section-h h2{font-family:var(--f-display);font-size:16px;margin:0;font-weight:600}
+.section-h p{margin:0;color:var(--muted);font-size:12.5px}
+
+.segments{display:flex;gap:8px;flex-wrap:wrap}
+.seg{border:1px dashed var(--line);background:var(--surface);border-radius:8px;padding:7px 11px;font-size:12.5px;text-align:left}
+.seg:hover{border-color:var(--accent);border-style:solid}
+.seg small{display:block;color:var(--muted);font-size:11px}
+
+.channels{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.ch{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.ch .name{font-weight:600;font-size:13px;display:flex;align-items:center;gap:7px}
+.ch .glyph{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;background:var(--surface-2);font-size:11px;font-family:var(--f-mono);font-weight:500;color:var(--accent);flex:none}
+.ch .v{font-family:var(--f-display);font-size:24px;font-weight:600;line-height:1.1}
+.ch .rule{font-size:11.5px;color:var(--muted);min-height:34px}
+.ch .note{font-size:11px;color:var(--warn);font-weight:500}
+.ch button{margin-top:auto;border:1px solid var(--accent);background:transparent;color:var(--accent);border-radius:7px;padding:6px 8px;font-size:12.5px;font-weight:600}
+.ch button:hover{background:var(--accent);color:var(--accent-fg)}
+.ch button:disabled{opacity:.4;cursor:not-allowed;background:transparent;color:var(--accent)}
+
+.charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;min-width:0}
+.card h3{margin:0 0 2px;font-size:13.5px;font-weight:600}
+.card .sub{margin:0 0 10px;font-size:12px;color:var(--muted)}
+.bars{display:flex;flex-direction:column;gap:5px}
+.brow{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr) 54px;gap:10px;align-items:center;font-size:12.5px;cursor:pointer;border-radius:5px;padding:1px 3px}
+.brow:hover{background:var(--surface-2)}
+.brow .bl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brow .track{height:14px;background:var(--surface-2);border-radius:3px;position:relative;overflow:hidden}
+.brow .fill{position:absolute;inset:0 auto 0 0;background:var(--bar);border-radius:3px}
+.brow .bv{text-align:right;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.brow.sel .bl{font-weight:600;color:var(--accent)}
+.cols{display:flex;align-items:flex-end;gap:6px;height:150px;padding-top:14px;border-bottom:1px solid var(--line);position:relative}
+.col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;min-width:0}
+.col .c{width:100%;background:var(--bar);border-radius:3px 3px 0 0;min-height:1px}
+.col .cv{font-size:10.5px;font-family:var(--f-mono);color:var(--muted)}
+.collabels{display:flex;gap:6px;margin-top:5px}
+.collabels span{flex:1;text-align:center;font-size:11px;color:var(--muted);font-family:var(--f-mono)}
+.complete{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px}
+.complete div{font-size:12.5px}
+.complete .meter{height:6px;background:var(--surface-2);border-radius:99px;margin-top:4px;overflow:hidden}
+.complete .meter i{display:block;height:100%;background:var(--bar)}
+.complete .meter.low i{background:var(--warn)}
+
+/* table */
+.tablecard{padding:0;overflow:hidden}
+.tbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tscroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:980px;font-size:12.5px}
+th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:9px 12px;background:var(--surface-2);white-space:nowrap}
+td{padding:8px 12px;border-top:1px solid var(--line);vertical-align:top}
+td .ar{font-family:var(--f-body);color:var(--muted);font-size:12px}
+.tag{display:inline-block;padding:1px 7px;border-radius:99px;font-size:11px;font-weight:500;background:var(--surface-2);color:var(--muted);white-space:nowrap}
+.tag.b2b{background:var(--sand-soft);color:var(--sand)}
+.tag.flag{background:var(--bad-soft);color:var(--bad)}
+.tag.ok{background:var(--accent-soft);color:var(--accent)}
+.dots{display:flex;gap:4px}
+.dot{width:20px;height:20px;border-radius:5px;display:grid;place-items:center;font-size:10px;font-family:var(--f-mono);background:var(--surface-2);color:var(--faint)}
+.dot.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.pager{display:flex;align-items:center;gap:8px;padding:10px 16px;border-top:1px solid var(--line);justify-content:flex-end;font-size:12.5px;color:var(--muted)}
+.pager button{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:4px 10px}
+.pager button:disabled{opacity:.4}
+.btn{border:0;background:var(--accent);color:var(--accent-fg);border-radius:8px;padding:8px 14px;font-weight:600;font-size:13px}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+
+/* export dialog */
+.overlay{position:fixed;inset:0;background:rgba(10,20,17,.45);z-index:20;display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.dialog{background:var(--surface);border-radius:14px;width:min(760px,100%);max-height:100%;overflow:auto;border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.dialog header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.dialog h2{margin:0;font-family:var(--f-display);font-size:18px;font-weight:600}
+.dialog .body{padding:16px 18px;display:flex;flex-direction:column;gap:14px}
+.fmt{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.fmt label{border:1px solid var(--line);border-radius:9px;padding:9px 10px;font-size:12.5px;cursor:pointer;display:flex;gap:8px;align-items:flex-start}
+.fmt label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.fmt input{accent-color:var(--accent);margin-top:3px}
+.fmt small{display:block;color:var(--muted);font-size:11px}
+textarea{width:100%;min-height:180px;font-family:var(--f-mono);font-size:11.5px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface-2);color:var(--fg);resize:vertical}
+.callout{background:var(--sand-soft);color:var(--fg);border-radius:9px;padding:10px 12px;font-size:12.5px}
+.callout b{color:var(--sand)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+/* health + sources */
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.issue{display:grid;grid-template-columns:6px minmax(0,1fr);gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px 14px 0;overflow:hidden}
+.issue .stripe{border-radius:0 4px 4px 0}
+.issue h3{margin:0;font-size:14px;font-weight:600}
+.issue p{margin:4px 0 0;color:var(--muted);font-size:12.5px;max-width:70ch}
+.issue .fix{margin-top:8px;font-size:12.5px}
+.issue .fix b{color:var(--accent)}
+.issue code{font-family:var(--f-mono);font-size:11.5px;background:var(--surface-2);padding:1px 5px;border-radius:4px}
+.sev-high{background:var(--bad)} .sev-med{background:var(--warn)} .sev-low{background:var(--good)}
+.lede{max-width:80ch;color:var(--muted);margin:0 0 16px}
+.schema{font-family:var(--f-mono);font-size:11.5px;color:var(--muted)}
+.status{font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.st-clean{background:var(--accent-soft);color:var(--accent)}
+.st-proc{background:var(--sand-soft);color:var(--sand)}
+.st-skip{background:var(--bad-soft);color:var(--bad)}
+.arch{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:6px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px}
+.step .n{font-family:var(--f-mono);font-size:11px;color:var(--accent);font-weight:600}
+.step h4{margin:2px 0 4px;font-size:13.5px}
+.step p{margin:0;font-size:12px;color:var(--muted)}
+
+.mobile-filter{display:none}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:13px;z-index:30}
+
+@media (max-width:1200px){.channels{grid-template-columns:repeat(3,minmax(0,1fr))}.summary{grid-template-columns:repeat(2,minmax(0,1fr))}.big{grid-column:1/-1}.arch{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:900px){
+  .console{grid-template-columns:minmax(0,1fr)}
+  .rail{position:fixed;inset:0 auto 0 0;width:min(320px,88vw);max-height:none;border-radius:0;z-index:15;transform:translateX(-105%);transition:transform .2s;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  .rail.open{transform:none;box-shadow:0 0 40px rgba(0,0,0,.3)}
+  .mobile-filter{display:inline-flex}
+  .charts,.grid2{grid-template-columns:minmax(0,1fr)}
+  .demo-pill{margin-left:0}
+}
+@media (max-width:560px){.channels{grid-template-columns:repeat(2,minmax(0,1fr))}.fmt{grid-template-columns:minmax(0,1fr)}.big .v{font-size:32px}.complete{grid-template-columns:minmax(0,1fr)}.arch{grid-template-columns:minmax(0,1fr)}.brow{grid-template-columns:minmax(0,100px) minmax(0,1fr) 46px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="top">
+  <div class="top-in">
+    <div class="brand"><div class="nucleus" aria-hidden="true"></div><h1>NAWAA Data Hub<small>Contacts · Segments · Campaign exports</small></h1></div>
+    <nav class="tabs" aria-label="Views">
+      <a href="#audience" data-view="audience">Audience</a>
+      <a href="#health" data-view="health">Data health</a>
+      <a href="#sources" data-view="sources">Sources &amp; build</a>
+    </nav>
+    <span class="demo-pill" title="Records are generated to mirror the structure of your files. No real contacts are shown.">Prototype · demo records</span>
+  </div>
+</header>
+
+<main class="wrap">
+<!-- ============ AUDIENCE ============ -->
+<section class="view" id="view-audience">
+  <div class="console">
+    <aside class="rail" id="rail" aria-label="Filters">
+      <div class="rail-head"><h2>Filters</h2><div><button class="link-btn" id="reset">Reset</button><button class="link-btn mobile-filter" id="closeRail">Close</button></div></div>
+      <div class="fgroup"><input class="search" id="q" type="search" placeholder="Name, company, phone, email…" aria-label="Search contacts"></div>
+      <div class="fgroup">
+        <h3>Compliance</h3>
+        <label class="toggle">Hide do-not-contact<input type="checkbox" class="switch" id="f-supp" checked></label>
+        <label class="toggle">Hide duplicates (keep master)<input type="checkbox" class="switch" id="f-dup" checked></label>
+        <label class="toggle">Hide junk / unusable names<input type="checkbox" class="switch" id="f-junk"></label>
+      </div>
+      <div class="fgroup">
+        <h3>Must have</h3>
+        <label class="toggle">Mobile number<input type="checkbox" class="switch" id="f-mob"></label>
+        <label class="toggle">Email address<input type="checkbox" class="switch" id="f-email"></label>
+        <label class="toggle">Landline<input type="checkbox" class="switch" id="f-land"></label>
+        <label class="toggle">Arabic name<input type="checkbox" class="switch" id="f-ar"></label>
+      </div>
+      <div class="fgroup"><h3>Data year</h3>
+        <div class="range"><select id="y1" aria-label="From year"></select><span>to</span><select id="y2" aria-label="To year"></select></div>
+      </div>
+      <div id="facets"></div>
+    </aside>
+
+    <div class="main">
+      <div class="summary" id="summary"></div>
+
+      <div>
+        <div class="section-h"><h2>Quick segments</h2><p>Saved filter sets. Click to apply.</p></div>
+        <div class="segments" id="segments"></div>
+      </div>
+
+      <div>
+        <div class="section-h"><h2>Channel readiness</h2><p>How many of the current audience each channel can actually reach.</p></div>
+        <div class="channels" id="channels"></div>
+      </div>
+
+      <div class="charts" id="charts"></div>
+
+      <div class="card tablecard">
+        <div class="tbar">
+          <div class="row"><button class="btn ghost mobile-filter" id="openRail">Filters</button><strong id="tcount" class="num"></strong></div>
+          <div class="row"><button class="btn" id="exportAll">Export this audience</button></div>
+        </div>
+        <div class="tscroll"><table>
+          <thead><tr><th>Contact</th><th>Type</th><th>Source</th><th>Location</th><th>Mobile</th><th>Email</th><th>Reach</th><th>Status</th></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table></div>
+        <div class="pager"><span id="pinfo" class="num"></span><button id="prev">Previous</button><button id="next">Next</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HEALTH ============ -->
+<section class="view" id="view-health" hidden>
+  <div class="section-h"><h2>What we found in your files</h2></div>
+  <p class="lede">Findings from reading the DATA Files folder (Clean DATA, Under Process DATA, SO CLEAN, ORGANIZED). Each one becomes a rule in the import pipeline, so it is fixed once and never again by hand.</p>
+  <div class="grid2" id="issues"></div>
+</section>
+
+<!-- ============ SOURCES ============ -->
+<section class="view" id="view-sources" hidden>
+  <div class="section-h"><h2>How the real system works</h2><p>Laravel + Filament + PostgreSQL</p></div>
+  <div class="arch" id="arch"></div>
+  <div style="height:22px"></div>
+  <div class="section-h"><h2>Source files found in Drive</h2><p id="srcsum"></p></div>
+  <div class="card tablecard"><div class="tscroll"><table>
+    <thead><tr><th>File</th><th>Folder</th><th>Format</th><th>Size</th><th>Detected layout</th><th>Plan</th></tr></thead>
+    <tbody id="srcbody"></tbody></table></div></div>
+</section>
+</main>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">
+    <header><div><h2 id="dlgTitle">Export audience</h2><div id="dlgSub" class="sub" style="color:var(--muted);font-size:12.5px"></div></div><button class="btn ghost" id="dlgClose">Close</button></header>
+    <div class="body">
+      <div class="fmt" id="fmts"></div>
+      <div class="callout" id="dlgNote"></div>
+      <textarea id="out" readonly aria-label="Export preview"></textarea>
+      <div class="row"><button class="btn" id="copy">Copy CSV</button><span style="color:var(--muted);font-size:12px">In the live system this saves a file and logs who exported what. Here you can copy it.</span></div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+"use strict";
+/* ---------- seeded random ---------- */
+let seed=20261029;function rnd(){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}
+function pick(a){return a[Math.floor(rnd()*a.length)]}
+function wpick(o){const t=Object.values(o).reduce((a,b)=>a+b,0);let r=rnd()*t;for(const[k,v]of Object.entries(o)){r-=v;if(r<=0)return k}return Object.keys(o)[0]}
+function digits(n){let s="";for(let i=0;i<n;i++)s+=Math.floor(rnd()*10);return s}
+
+/* ---------- name pools (generic) ---------- */
+const M=[["Ahmed","احمد"],["Mohammed","محمد"],["Khaled","خالد"],["Omar","عمر"],["Ali","علي"],["Samer","سامر"],["Youssef","يوسف"],["Ibrahim","ابراهيم"],["Tarek","طارق"],["Hassan","حسن"],["Majed","ماجد"],["Rami","رامي"],["Sultan","سلطان"],["Fadi","فادي"],["Mazen","مازن"],["Hamad","حمد"],["Saeed","سعيد"],["Nabil","نبيل"]];
+const F=[["Fatima","فاطمة"],["Aisha","عائشة"],["Rana","رنا"],["Huda","هدى"],["Layla","ليلى"],["Mariam","مريم"],["Sara","سارة"],["Reem","ريم"],["Noura","نورة"],["Dina","دينا"],["Rasha","رشا"],["Hind","هند"],["Basma","بسمة"],["Samira","سميرة"],["Manal","منال"],["Abeer","عبير"]];
+const L=[["Al Shamsi","الشامسي"],["Al Kaabi","الكعبي"],["Haddad","حداد"],["Saleh","صالح"],["Al Hashmi","الهاشمي"],["Barakat","بركات"],["Al Marzouqi","المرزوقي"],["Khalil","خليل"],["Nasser","ناصر"],["Al Zaabi","الزعابي"],["Hamdan","حمدان"],["Darwish","درويش"],["Mansour","منصور"],["Al Nuaimi","النعيمي"],["Yassin","ياسين"]];
+const BIZ={"Restaurants & cafes":["Cedar Tree","Saj & Forn","Palm Village Café","Al Reef Grill","Spice Route","Bait Al Mandi","Zaatar House","Blue Lagoon Café"],"Beauty salons":["Lamsa Salon","Rose Beauty Center","Lulu Ladies Salon","Glow Studio","Najma Beauty"],"Garages & auto":["Al Quoz Auto Care","Speed Line Garage","Prime Motors Service","Desert Auto Works"],"Real estate":["Marina Homes","Key Point Properties","Blue Sky Realty","Al Wasl Estates","Ocean View Brokers"],"Hajj & Umrah":["Al Noor Hajj Services","Safa Umrah Travel","Al Huda Tours"],"Hotels":["City Inn Deira","Al Bustan Suites","Corniche Residence"],"Retail & trading":["Union Trading","Gulf Star General Trading","Al Fajr Electronics","Noor Textiles"]};
+const AREAS={"Dubai":["Deira","Bur Dubai","Al Barsha","JLT","Dubai Marina","International City","Al Qusais","Mirdif","Jumeirah","Karama","Business Bay","Silicon Oasis"],"Sharjah":["Al Taawun","Al Khan","Al Majaz","Al Nahda","Muwaileh","Industrial Area"],"Abu Dhabi":["Khalifa City","Al Reem","Mussafah","Corniche","Al Khalidiya"],"Ajman":["Al Nuaimiya","Al Rashidiya","Al Jurf"],"Ras Al Khaimah":["Al Nakheel","Al Muntasir","Khuzam"],"Fujairah":["Hamad Bin Abdullah St","Faseel","Sakamkam"],"Umm Al Quwain":["Al Salamah","Al Raas"]};
+const INTL={"Egypt":["20",10],"Morocco":["212",9],"Algeria":["213",9],"Tunisia":["216",8],"Oman":["968",8],"Iraq":["964",10],"Saudi Arabia":["966",9],"Bahrain":["973",8],"Kuwait":["965",8],"Libya":["218",9],"Jordan":["962",9],"Lebanon":["961",8]};
+const NATS=["UAE","Syria","Egypt","Jordan","Lebanon","India","Pakistan","Philippines","Iraq","Sudan","Palestine","UK"];
+
+/* ---------- source profiles (mirrors files found in Drive) ---------- */
+const SOURCES=[
+ {name:"Layalina subscribers",grp:"Magazines",type:"Person",n:1500,years:[2013,2013],emirates:{"Dubai":50,"Sharjah":16,"Abu Dhabi":12,"Ras Al Khaimah":8,"Fujairah":6,"Ajman":6,"Umm Al Quwain":2},email:.02,land:.45,gender:.85,callout:.4,translit:.6},
+ {name:"Top Gear / Gala subscribers",grp:"Magazines",type:"Person",n:520,years:[2013,2013],emirates:{"Dubai":55,"Abu Dhabi":20,"Sharjah":15,"Ras Al Khaimah":10},email:.03,land:.2,gender:.9,callout:.2,translit:.4},
+ {name:"Call centre lists 2013",grp:"Magazines",type:"Person",n:640,years:[2013,2013],emirates:{"Dubai":60,"Sharjah":25,"Ajman":15},email:.01,land:.1,gender:.5,callout:.9,translit:.7},
+ {name:"Photographers – award entrants",grp:"Photography",type:"Person",n:420,years:[2023,2023],intl:.86,email:.98,land:0,gender:1,callout:0,translit:0,nat:true},
+ {name:"Photographers – UAE community",grp:"Photography",type:"Person",n:360,years:[2022,2024],emirates:{"Dubai":55,"Abu Dhabi":20,"Sharjah":15,"Ajman":10},intl:.1,email:.05,land:0,gender:.6,callout:0,translit:0,junk:.12},
+ {name:"Real estate agents",grp:"Real estate",type:"Person",n:900,years:[2024,2026],emirates:{"Dubai":75,"Abu Dhabi":15,"Sharjah":10},email:.85,land:.1,gender:.7,callout:0,translit:0,sector:"Real estate"},
+ {name:"Waseet business directory",grp:"Waseet",type:"Business",n:2100,years:[2015,2020],emirates:{"Dubai":35,"Sharjah":25,"Ajman":12,"Ras Al Khaimah":12,"Fujairah":8,"Abu Dhabi":8},email:.08,land:.7,gender:0,callout:0,translit:0},
+ {name:"Designer Outlet customers",grp:"Retail",type:"Person",n:2600,years:[2018,2021],emirates:{"Dubai":45,"Sharjah":25,"Abu Dhabi":15,"Ajman":10,"Ras Al Khaimah":5},email:.35,land:.05,gender:.95,callout:0,translit:.1},
+ {name:"SoClean customers",grp:"Services",type:"Person",n:1300,years:[2014,2016],emirates:{"Dubai":85,"Sharjah":15},areaBias:"Deira",email:.06,land:.3,gender:.4,callout:.15,translit:.2},
+ {name:"RE email list 2024",grp:"Real estate",type:"Person",n:380,years:[2024,2024],emirates:{"Dubai":80,"Abu Dhabi":20},email:1,mobileless:.85,land:0,gender:.3,callout:0,translit:0,sector:"Real estate"}
+];
+const OUTCOMES={"Not interested":28,"Call back":30,"Switched off":22,"Wrong / disconnected":12,"Subscribed":8};
+const DOMAINS=["gmail.com","hotmail.com","yahoo.com","outlook.com","icloud.com","emirates.net.ae"];
+
+function makeRecord(src,i){
+  const r={id:src.name.slice(0,3).toUpperCase()+"-"+(i+1),source:src.name,grp:src.grp,type:src.type};
+  r.year=src.years[0]+Math.floor(rnd()*(src.years[1]-src.years[0]+1));
+  const isIntl=src.intl&&rnd()<src.intl;
+  if(isIntl){r.country=wpick({"Egypt":34,"Morocco":20,"Algeria":18,"Tunisia":8,"Oman":6,"Iraq":4,"Saudi Arabia":3,"Bahrain":2,"Kuwait":2,"Libya":2,"Jordan":1});r.emirate="";r.area=""}
+  else{r.country="UAE";r.emirate=wpick(src.emirates||{"Dubai":1});const al=AREAS[r.emirate];r.area=(src.areaBias&&rnd()<.55)?src.areaBias:pick(al)}
+  if(src.type==="Business"){
+    r.sector=src.sector||wpick({"Restaurants & cafes":30,"Beauty salons":14,"Garages & auto":12,"Real estate":12,"Hajj & Umrah":6,"Hotels":8,"Retail & trading":18});
+    r.company=pick(BIZ[r.sector]);r.gender="";
+    const c=rnd()<.55?(rnd()<.5?pick(M):pick(F)):null;
+    r.nameEn=c?c[0]:"";r.nameAr=c?c[1]:"";
+  }else{
+    r.sector=src.sector||"";r.company="";
+    const isF=rnd()<.42;const fn=isF?pick(F):pick(M);const ln=rnd()<.6?pick(L):null;
+    r.nameEn=fn[0]+(ln?" "+ln[0]:"");r.nameAr=fn[1]+(ln?" "+ln[1]:"");
+    r.gender=rnd()<src.gender?(isF?"Female":"Male"):"";
+    if(src.junk&&rnd()<src.junk){r.nameEn=pick(["a",".","Camera","MK","Be Your Self","I Phone 11"]);r.nameAr="";r.junk=true}
+  }
+  if(src.mobileless&&rnd()<src.mobileless){r.mobile=""}
+  else if(r.country==="UAE"){r.mobile="971"+pick(["50","52","54","55","56","58"])+digits(7)}
+  else{const[cc,len]=INTL[r.country];r.mobile=cc+digits(len)}
+  r.landline=(r.country==="UAE"&&rnd()<src.land)?("971"+({"Dubai":"4","Sharjah":"6","Ajman":"6","Umm Al Quwain":"6","Abu Dhabi":"2","Ras Al Khaimah":"7","Fujairah":"9"}[r.emirate]||"4")+digits(7)):"";
+  if(rnd()<src.email){const base=(r.company||r.nameEn||"info").toLowerCase().replace(/[^a-z]+/g,".").replace(/^\.|\.$/g,"")||"info";r.email=base+digits(2)+"@"+(r.type==="Business"&&rnd()<.5?base.split(".")[0]+".ae":pick(DOMAINS));if(rnd()<.03){r.email=r.email.replace("gmail","gamil");r.badEmail=true}}else r.email="";
+  r.nationality=src.nat?r.country:(r.type==="Person"&&rnd()<.15?pick(NATS):"");
+  r.outcome=(src.callout&&rnd()<src.callout)?wpick(OUTCOMES):"";
+  r.suppressed=r.outcome==="Not interested"||r.outcome==="Wrong / disconnected";
+  r.translit=src.translit&&rnd()<src.translit;
+  r.dup=false;r.genderConflict=src.gender&&src.gender<.8&&rnd()<.12;
+  return r;
+}
+const DATA=[];SOURCES.forEach(s=>{for(let i=0;i<s.n;i++)DATA.push(makeRecord(s,i))});
+/* cross-source duplicates: same phone appears in another list */
+for(let i=0;i<900;i++){const a=DATA[Math.floor(rnd()*DATA.length)];if(!a.mobile)continue;const s=pick(SOURCES);if(s.name===a.source||s.type!==a.type)continue;const b=Object.assign({},a,{id:a.id+"-D"+i,source:s.name,grp:s.grp,dup:true,year:s.years[0]});DATA.push(b)}
+DATA.forEach(r=>{r.waCapable=!!r.mobile;r.uaeMobile=/^9715/.test(r.mobile);r.sms=r.uaeMobile});
+
+/* ---------- state ---------- */
+const FACETS=[
+ {key:"source",label:"Source",get:r=>r.source},
+ {key:"type",label:"Record type",get:r=>r.type==="Business"?"Business (B2B)":"Person (B2C)"},
+ {key:"country",label:"Country (from phone)",get:r=>r.country},
+ {key:"emirate",label:"Emirate",get:r=>r.emirate||"Outside UAE"},
+ {key:"area",label:"Area / district",get:r=>r.area||"—"},
+ {key:"sector",label:"Business sector",get:r=>r.sector||"Not a business"},
+ {key:"gender",label:"Gender",get:r=>r.gender||"Unknown"},
+ {key:"outcome",label:"Last call outcome",get:r=>r.outcome||"Never called"}
+];
+const S={sel:{},q:"",supp:true,dup:true,junk:false,mob:false,email:false,land:false,ar:false,y1:2013,y2:2026,page:0};
+FACETS.forEach(f=>S.sel[f.key]=new Set());
+const PER=25;
+
+function passBase(r,skip){
+  if(S.supp&&r.suppressed)return false;
+  if(S.dup&&r.dup)return false;
+  if(S.junk&&r.junk)return false;
+  if(S.mob&&!r.mobile)return false;
+  if(S.email&&!r.email)return false;
+  if(S.land&&!r.landline)return false;
+  if(S.ar&&!r.nameAr)return false;
+  if(r.year<S.y1||r.year>S.y2)return false;
+  if(S.q){const q=S.q.toLowerCase();if(!((r.nameEn+" "+r.nameAr+" "+r.company+" "+r.mobile+" "+r.email+" "+r.area).toLowerCase().includes(q)))return false}
+  for(const f of FACETS){if(f.key===skip)continue;const s=S.sel[f.key];if(s.size&&!s.has(f.get(r)))return false}
+  return true;
+}
+let FILTERED=[];
+
+/* ---------- helpers ---------- */
+const $=id=>document.getElementById(id);
+const fmt=n=>n.toLocaleString("en-US");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+function maskPhone(p){if(!p)return"";const cc=p.startsWith("971")?"971":p.slice(0,p.length-9>0?p.length-9:2);return"+"+cc+" "+p.slice(cc.length,cc.length+2)+" ••• ••"+p.slice(-2)}
+function maskEmail(e){if(!e)return"";const[u,d]=e.split("@");return u.slice(0,2)+"•••@"+d}
+function toast(t){const el=$("toast");el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2200)}
+
+/* ---------- facets UI ---------- */
+function buildFacets(){
+  const box=$("facets");box.innerHTML="";
+  FACETS.forEach(f=>{
+    const counts=new Map();
+    for(const r of DATA){if(!passBase(r,f.key))continue;const v=f.get(r);counts.set(v,(counts.get(v)||0)+1)}
+    const all=new Set(DATA.map(f.get));
+    const opts=[...all].sort((a,b)=>(counts.get(b)||0)-(counts.get(a)||0));
+    const g=document.createElement("div");g.className="fgroup";
+    const n=S.sel[f.key].size;
+    g.innerHTML=`<h3><span>${f.label}</span>${n?`<button class="link-btn" data-clear="${f.key}">Clear ${n}</button>`:""}</h3><div class="opts"></div>`;
+    const o=g.querySelector(".opts");
+    opts.forEach(v=>{const c=counts.get(v)||0;const id="f-"+f.key+"-"+v.replace(/[^a-z0-9]+/gi,"-");
+      const lab=document.createElement("label");lab.className="opt"+(c?"":" zero");
+      lab.innerHTML=`<input type="checkbox" id="${esc(id)}" ${S.sel[f.key].has(v)?"checked":""}><span class="lbl" dir="auto">${esc(v)}</span><span class="ct num">${fmt(c)}</span>`;
+      lab.querySelector("input").addEventListener("change",e=>{e.target.checked?S.sel[f.key].add(v):S.sel[f.key].delete(v);S.page=0;render()});
+      o.appendChild(lab)});
+    box.appendChild(g);
+  });
+  box.querySelectorAll("[data-clear]").forEach(b=>b.addEventListener("click",()=>{S.sel[b.dataset.clear].clear();render()}));
+}
+
+/* ---------- summary ---------- */
+function renderSummary(){
+  const F=FILTERED,n=F.length||1;
+  const mob=F.filter(r=>r.mobile).length,uae=F.filter(r=>r.uaeMobile).length,em=F.filter(r=>r.email&&!r.badEmail).length,land=F.filter(r=>r.landline).length;
+  const uniquePeople=DATA.filter(r=>!r.dup).length;
+  const chips=[];
+  FACETS.forEach(f=>S.sel[f.key].forEach(v=>chips.push({t:f.label,v,clear:()=>S.sel[f.key].delete(v)})));
+  if(S.q)chips.push({t:"Search",v:S.q,clear:()=>{S.q="";$("q").value=""}});
+  [["mob","Has mobile"],["email","Has email"],["land","Has landline"],["ar","Arabic name"],["junk","No junk names"]].forEach(([k,l])=>{if(S[k])chips.push({t:"Must",v:l,clear:()=>{S[k]=false;$("f-"+k).checked=false}})});
+  if(S.y1!==2013||S.y2!==2026)chips.push({t:"Years",v:S.y1+"–"+S.y2,clear:()=>{S.y1=2013;S.y2=2026;$("y1").value=2013;$("y2").value=2026}});
+  $("summary").innerHTML=`
+   <div class="big"><div class="k">Contacts in this audience</div><div class="v num">${fmt(F.length)}</div><div class="of">of ${fmt(uniquePeople)} unique contacts · ${fmt(DATA.length)} raw rows across ${SOURCES.length} sources</div></div>
+   ${stat("With a mobile",mob,n)}${stat("UAE mobile",uae,n)}${stat("Usable email",em,n)}${stat("With a landline",land,n)}
+   <div class="active-filters" id="chips"></div>`;
+  const cb=$("chips");chips.forEach(c=>{const b=document.createElement("button");b.className="chip";b.innerHTML=`${esc(c.t)}: <b dir="auto">${esc(c.v)}</b><span class="x" aria-hidden="true">×</span>`;b.setAttribute("aria-label","Remove filter "+c.t+" "+c.v);b.onclick=()=>{c.clear();S.page=0;render()};cb.appendChild(b)});
+}
+function stat(k,v,n){const p=Math.round(v/n*100);return`<div class="stat"><div class="k">${k}</div><div class="v num">${fmt(v)} <span style="font-size:13px;color:var(--muted);font-weight:400">${FILTERED.length?p:0}%</span></div><div class="meter"><i style="width:${FILTERED.length?p:0}%"></i></div></div>`}
+
+/* ---------- channels ---------- */
+const CHANNELS=[
+ {id:"email",name:"Email campaign",g:"@",test:r=>r.email&&!r.badEmail,rule:"Valid email, not on do-not-contact",note:"Old lists: warm up and verify before a big send"},
+ {id:"wa",name:"WhatsApp",g:"WA",test:r=>r.waCapable,rule:"Any mobile in international format",note:"Business API needs opt-in"},
+ {id:"sms",name:"SMS",g:"SMS",test:r=>r.uaeMobile,rule:"UAE mobile (9715…) only",note:"Sender ID must be registered"},
+ {id:"meta",name:"Meta audience",g:"f",test:r=>r.mobile||r.email,rule:"Phone or email, hashed SHA-256 on export",note:""},
+ {id:"google",name:"Google Customer Match",g:"G",test:r=>r.email||r.mobile,rule:"Email or phone, hashed",note:"Match rates drop on old data"},
+ {id:"calls",name:"Call centre",g:"☎",test:r=>r.mobile||r.landline,rule:"Any phone, excludes do-not-call",note:""}
+];
+function renderChannels(){
+  $("channels").innerHTML=CHANNELS.map(c=>{const v=FILTERED.filter(c.test).length;return`<div class="ch"><div class="name"><span class="glyph">${c.g}</span>${c.name}</div><div class="v num">${fmt(v)}</div><div class="rule">${c.rule}</div>${c.note?`<div class="note">${c.note}</div>`:""}<button data-ch="${c.id}" ${v?"":"disabled"}>Export for ${c.name.split(" ")[0]}</button></div>`}).join("");
+  $("channels").querySelectorAll("button").forEach(b=>b.onclick=()=>openExport(b.dataset.ch));
+}
+
+/* ---------- charts ---------- */
+function tally(get,rows){const m=new Map();rows.forEach(r=>{const k=get(r);if(k)m.set(k,(m.get(k)||0)+1)});return[...m].sort((a,b)=>b[1]-a[1])}
+function bars(title,sub,data,facetKey,limit){
+  data=data.slice(0,limit||8);const max=Math.max(1,...data.map(d=>d[1]));
+  return`<div class="card"><h3>${title}</h3><p class="sub">${sub}</p><div class="bars">${data.map(([k,v])=>`<div class="brow${facetKey&&S.sel[facetKey].has(k)?" sel":""}" ${facetKey?`data-f="${facetKey}" data-v="${esc(k)}" role="button" tabindex="0"`:""}><span class="bl" dir="auto" title="${esc(k)}">${esc(k)}</span><span class="track"><span class="fill" style="width:${(v/max*100).toFixed(1)}%"></span></span><span class="bv num">${fmt(v)}</span></div>`).join("")||`<p class="sub">No contacts match.</p>`}</div></div>`;
+}
+function renderCharts(){
+  const F=FILTERED;
+  const years={};F.forEach(r=>{const b=r.year<=2014?"2013–14":r.year<=2016?"2015–16":r.year<=2018?"2017–18":r.year<=2020?"2019–20":r.year<=2022?"2021–22":r.year<=2024?"2023–24":"2025–26";years[b]=(years[b]||0)+1});
+  const order=["2013–14","2015–16","2017–18","2019–20","2021–22","2023–24","2025–26"];const ymax=Math.max(1,...order.map(k=>years[k]||0));
+  const comp=[["Mobile",F.filter(r=>r.mobile).length],["Email",F.filter(r=>r.email).length],["Arabic name",F.filter(r=>r.nameAr).length],["English name",F.filter(r=>r.nameEn).length],["Gender",F.filter(r=>r.gender||r.type==="Business").length],["Area / district",F.filter(r=>r.area).length]];
+  const n=F.length||1;
+  $("charts").innerHTML=
+    bars("By source","Click a bar to filter",tally(r=>r.source,F),"source",10)+
+    bars("By emirate","UAE contacts by emirate",tally(r=>r.emirate,F),"emirate",7)+
+    bars("By country","Country of the phone number",tally(r=>r.country,F),"country",8)+
+    `<div class="card"><h3>Data age</h3><p class="sub">Year the record was collected. Older numbers churn more.</p>
+      <div class="cols">${order.map(k=>{const v=years[k]||0;return`<div class="col"><span class="cv num">${v?fmt(v):""}</span><div class="c" style="height:${(v/ymax*100).toFixed(1)}%;${k<"2017"?"background:var(--bar-2)":""}"></div></div>`}).join("")}</div>
+      <div class="collabels">${order.map(k=>`<span>${k}</span>`).join("")}</div></div>`+
+    bars("Top areas","Districts inside the selected emirates",tally(r=>r.area,F),"area",8)+
+    `<div class="card"><h3>Field completeness</h3><p class="sub">Share of this audience with each field filled</p><div class="complete">${comp.map(([k,v])=>{const p=Math.round(v/n*100);return`<div><div style="display:flex;justify-content:space-between"><span>${k}</span><span class="num mono" style="color:var(--muted)">${F.length?p:0}%</span></div><div class="meter${p<40?" low":""}"><i style="width:${F.length?p:0}%"></i></div></div>`}).join("")}</div></div>`;
+  $("charts").querySelectorAll(".brow[data-f]").forEach(el=>{const go=()=>{const s=S.sel[el.dataset.f],v=el.dataset.v;s.has(v)?s.delete(v):s.add(v);S.page=0;render()};el.onclick=go;el.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}}});
+}
+
+/* ---------- table ---------- */
+function renderTable(){
+  const F=FILTERED,pages=Math.max(1,Math.ceil(F.length/PER));if(S.page>=pages)S.page=pages-1;
+  const rows=F.slice(S.page*PER,S.page*PER+PER);
+  $("tcount").textContent=fmt(F.length)+" contacts";
+  $("tbody").innerHTML=rows.map(r=>{
+    const flags=[];if(r.suppressed)flags.push('<span class="tag flag">Do not contact</span>');if(r.dup)flags.push('<span class="tag flag">Duplicate</span>');if(r.translit)flags.push('<span class="tag">Check spelling</span>');if(r.junk)flags.push('<span class="tag flag">Junk name</span>');if(r.badEmail)flags.push('<span class="tag flag">Email typo</span>');if(r.genderConflict)flags.push('<span class="tag">Gender?</span>');
+    if(!flags.length)flags.push('<span class="tag ok">Clean</span>');
+    const title=r.company?`<strong>${esc(r.company)}</strong>${r.nameEn?`<div class="ar">Contact: ${esc(r.nameEn)}</div>`:""}`:`<strong>${esc(r.nameEn||"(no name)")}</strong>${r.nameAr?`<div class="ar" dir="rtl" lang="ar">${esc(r.nameAr)}</div>`:""}`;
+    return`<tr><td>${title}</td><td><span class="tag ${r.type==="Business"?"b2b":""}">${r.type==="Business"?esc(r.sector):"Person"}</span></td><td>${esc(r.source)}<div class="ar num">${r.year}</div></td><td>${r.country==="UAE"?`${esc(r.emirate)}<div class="ar" dir="auto">${esc(r.area)}</div>`:esc(r.country)}</td><td class="mono num" dir="ltr">${maskPhone(r.mobile)||'<span style="color:var(--faint)">—</span>'}${r.landline?`<div class="ar">Tel ${maskPhone(r.landline)}</div>`:""}</td><td class="mono" dir="ltr">${maskEmail(r.email)||'<span style="color:var(--faint)">—</span>'}</td><td><div class="dots"><span class="dot ${r.email&&!r.badEmail?"on":""}" title="Email">@</span><span class="dot ${r.waCapable?"on":""}" title="WhatsApp">W</span><span class="dot ${r.uaeMobile?"on":""}" title="SMS">S</span></div></td><td>${flags.join(" ")}</td></tr>`}).join("")||`<tr><td colspan="8" style="padding:30px;text-align:center;color:var(--muted)">No contacts match these filters. Remove a filter above to widen the audience.</td></tr>`;
+  $("pinfo").textContent=F.length?`${fmt(S.page*PER+1)}–${fmt(Math.min(F.length,S.page*PER+PER))} of ${fmt(F.length)}`:"";
+  $("prev").disabled=S.page===0;$("next").disabled=S.page>=pages-1;
+}
+
+function render(){FILTERED=DATA.filter(r=>passBase(r));buildFacets();renderSummary();renderChannels();renderCharts();renderTable()}
+
+/* ---------- segments ---------- */
+const SEGMENTS=[
+ {t:"Dubai women · magazine readers",s:"WhatsApp / Meta lookalike",f:{grp:"Magazines",emirate:["Dubai"],gender:["Female"]}},
+ {t:"North African photographers",s:"Email · award promotions",f:{source:["Photographers – award entrants"],country:["Egypt","Morocco","Algeria","Tunisia"]},must:{email:true}},
+ {t:"Restaurants & cafés, Northern Emirates",s:"B2B · call + WhatsApp",f:{sector:["Restaurants & cafes"],emirate:["Sharjah","Ajman","Ras Al Khaimah","Fujairah","Umm Al Quwain"]}},
+ {t:"Real estate agents with email",s:"Email · property launches",f:{sector:["Real estate"]},must:{email:true}},
+ {t:"Deira households",s:"SMS · local services",f:{area:["Deira"],type:["Person (B2C)"]},must:{mob:true}},
+ {t:"Fresh data only (2023+)",s:"Lowest bounce risk",years:[2023,2026]}
+];
+function applySeg(sg){
+  FACETS.forEach(f=>S.sel[f.key].clear());["mob","email","land","ar"].forEach(k=>{S[k]=false;$("f-"+k).checked=false});
+  S.y1=2013;S.y2=2026;
+  if(sg.f){for(const[k,v]of Object.entries(sg.f)){if(k==="grp"){SOURCES.filter(s=>s.grp===v).forEach(s=>S.sel.source.add(s.name))}else v.forEach(x=>S.sel[k].add(x))}}
+  if(sg.must)for(const k in sg.must){S[k]=true;$("f-"+k).checked=true}
+  if(sg.years){S.y1=sg.years[0];S.y2=sg.years[1]}
+  $("y1").value=S.y1;$("y2").value=S.y2;S.page=0;render();toast("Applied: "+sg.t);
+}
+$("segments").innerHTML=SEGMENTS.map((s,i)=>`<button class="seg" data-i="${i}">${s.t}<small>${s.s}</small></button>`).join("");
+$("segments").querySelectorAll(".seg").forEach(b=>b.onclick=()=>applySeg(SEGMENTS[+b.dataset.i]));
+
+/* ---------- export ---------- */
+const FORMATS=[
+ {id:"email",ch:"email",t:"Email platform",d:"Mailchimp / Brevo columns",cols:["email","first_name","last_name","emirate","source"],row:r=>[r.email,(r.nameEn||"").split(" ")[0],(r.nameEn||"").split(" ").slice(1).join(" "),r.emirate,r.source]},
+ {id:"wa",ch:"wa",t:"WhatsApp",d:"E.164 phone + name",cols:["phone","name","language"],row:r=>["+"+r.mobile,r.company||r.nameEn,r.nameAr?"ar":"en"]},
+ {id:"sms",ch:"sms",t:"SMS gateway",d:"UAE mobiles only",cols:["msisdn","name"],row:r=>[r.mobile,r.nameEn||r.company]},
+ {id:"meta",ch:"meta",t:"Meta Custom Audience",d:"SHA-256 hashed keys",hash:true,cols:["email","phone","fn","ln","ct","country"]},
+ {id:"google",ch:"google",t:"Google Customer Match",d:"Hashed Email + Phone",hash:true,cols:["Email","Phone","First Name","Last Name","Country"]},
+ {id:"calls",ch:"calls",t:"Call centre sheet",d:"Phones + last outcome",cols:["name","company","mobile","landline","emirate","area","last_outcome"],row:r=>[r.nameEn,r.company,r.mobile,r.landline,r.emirate,r.area,r.outcome]}
+];
+let curFmt="email";
+function openExport(ch){curFmt=(FORMATS.find(f=>f.ch===ch)||FORMATS[0]).id;$("overlay").hidden=false;buildFmts();buildExport();$("dlgClose").focus()}
+function buildFmts(){
+  $("fmts").innerHTML=FORMATS.map(f=>{const c=CHANNELS.find(c=>c.id===f.ch);const n=FILTERED.filter(c.test).length;return`<label><input type="radio" name="fmt" id="fmt-${f.id}" value="${f.id}" ${f.id===curFmt?"checked":""}><span>${f.t}<small>${f.d} · ${fmt(n)} rows</small></span></label>`}).join("");
+  $("fmts").querySelectorAll("input").forEach(i=>i.onchange=()=>{curFmt=i.value;buildExport()});
+}
+async function sha(s){if(!s)return"";try{const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}catch(e){return"(hash unavailable)"}}
+const csvCell=v=>{v=v==null?"":String(v);return/[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
+async function buildExport(){
+  const f=FORMATS.find(x=>x.id===curFmt),c=CHANNELS.find(c=>c.id===f.ch);
+  const rows=FILTERED.filter(c.test);
+  $("dlgSub").textContent=`${fmt(rows.length)} contacts · ${f.t}`;
+  const notes={email:"<b>Before sending:</b> run these addresses through a verification service. Lists from 2013–2016 will bounce heavily and can damage your sending domain.",
+    wa:"<b>WhatsApp rule:</b> the Business API only allows template messages to people who opted in. Cold sends to old lists get numbers banned quickly.",
+    sms:"<b>UAE SMS:</b> promotional SMS must go through a TDRA-registered sender ID and respect quiet hours.",
+    meta:"<b>Hashed on export:</b> email and phone are lowercased, trimmed and SHA-256 hashed in the browser, which is the format Meta asks for.",
+    google:"<b>Hashed on export:</b> Google Customer Match accepts SHA-256 hashed email and phone in E.164.",
+    calls:"<b>Do-not-call respected:</b> contacts marked Not interested or Wrong number are already removed."};
+  $("dlgNote").innerHTML=notes[f.ch];
+  const sample=rows.slice(0,40);let lines;
+  if(f.hash){lines=await Promise.all(sample.map(async r=>{const fn=(r.nameEn||"").split(" ")[0].toLowerCase(),ln=(r.nameEn||"").split(" ").slice(1).join(" ").toLowerCase();const he=await sha((r.email||"").trim().toLowerCase()),hp=await sha(r.mobile?"+"+r.mobile:"");return f.id==="meta"?[he,hp,await sha(fn),await sha(ln),await sha((r.emirate||"").toLowerCase().replace(/\s/g,"")),r.country==="UAE"?"ae":""]:[he,hp,fn,ln,r.country==="UAE"?"AE":""]}))}
+  else lines=sample.map(f.row);
+  $("out").value=[f.cols.join(","),...lines.map(l=>l.map(csvCell).join(","))].join("\n")+(rows.length>40?`\n… ${fmt(rows.length-40)} more rows in the full export`:"");
+}
+$("dlgClose").onclick=()=>$("overlay").hidden=true;
+$("overlay").addEventListener("click",e=>{if(e.target.id==="overlay")$("overlay").hidden=true});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("overlay").hidden=true});
+$("exportAll").onclick=()=>openExport("email");
+$("copy").onclick=()=>{const t=$("out");const p=navigator.clipboard?navigator.clipboard.writeText(t.value):Promise.reject();p.then(()=>toast("Copied")).catch(()=>{t.select();toast("Selected — press Ctrl+C to copy")})};
+
+/* ---------- controls ---------- */
+const yrs=[];for(let y=2013;y<=2026;y++)yrs.push(y);
+$("y1").innerHTML=yrs.map(y=>`<option ${y===2013?"selected":""}>${y}</option>`).join("");
+$("y2").innerHTML=yrs.map(y=>`<option ${y===2026?"selected":""}>${y}</option>`).join("");
+$("y1").onchange=e=>{S.y1=+e.target.value;if(S.y1>S.y2){S.y2=S.y1;$("y2").value=S.y2}S.page=0;render()};
+$("y2").onchange=e=>{S.y2=+e.target.value;if(S.y2<S.y1){S.y1=S.y2;$("y1").value=S.y1}S.page=0;render()};
+let qt;$("q").addEventListener("input",e=>{clearTimeout(qt);qt=setTimeout(()=>{S.q=e.target.value.trim();S.page=0;render()},180)});
+[["supp","f-supp"],["dup","f-dup"],["junk","f-junk"],["mob","f-mob"],["email","f-email"],["land","f-land"],["ar","f-ar"]].forEach(([k,id])=>$(id).addEventListener("change",e=>{S[k]=e.target.checked;S.page=0;render()}));
+$("reset").onclick=()=>{FACETS.forEach(f=>S.sel[f.key].clear());Object.assign(S,{q:"",supp:true,dup:true,junk:false,mob:false,email:false,land:false,ar:false,y1:2013,y2:2026,page:0});$("q").value="";["supp","dup"].forEach(k=>$("f-"+k).checked=true);["junk","mob","email","land","ar"].forEach(k=>$("f-"+k).checked=false);$("y1").value=2013;$("y2").value=2026;render()};
+$("prev").onclick=()=>{S.page--;renderTable()};$("next").onclick=()=>{S.page++;renderTable()};
+$("openRail").onclick=()=>$("rail").classList.add("open");$("closeRail").onclick=()=>$("rail").classList.remove("open");
+
+/* ---------- health view (real findings) ---------- */
+const ISSUES=[
+ ["high","Three different file layouts","The cleaned magazine file uses a master layout (Date Added, Record Type, Source, English + Arabic name, Mobile AE, Mobile Intl, Email, Location, Notes). Photographer files are form exports (Sex, Nationality, Union member). Old Waseet files are business directories (Company, Client Name, Address, Mobile, Landline, Email/Website).","One column-mapping template per layout. Every import is mapped into the master layout before it touches the database."],
+ ["high","Same person in several lists","Phone numbers repeat across Layalina, call-centre and SoClean lists, and some files already carry a Duplicate Flag column.","Unique key on the normalized mobile (E.164) and email. Duplicates merge into one contact; every source is kept on a contact_sources link so you still filter by source."],
+ ["high","Call results hidden in a Notes column","Notes hold outcomes like CB, NI, SW and D (call back, not interested, switched off, disconnected), plus contract numbers and agent names.","Parse Notes into structured fields: last_outcome, agent, contract_no. NI and D go straight to the do-not-contact list."],
+ ["med","Phones in many shapes","UAE mobiles are mostly stored as 9715XXXXXXXX, landlines as 04-4473955, landlines also pushed into Notes, and international numbers from 13+ countries.","Normalize everything with libphonenumber to E.164, split mobile vs landline, and derive country from the dialling code."],
+ ["med","Location is free text","Addresses mix Arabic and English and include directions (⁨قريب سفير مول⁩, “near Lulu SM, first R”). Emirate is sometimes a separate column, sometimes inside the address.","Extract emirate and area with a dictionary of UAE districts in both languages; keep the raw address as-is for delivery teams."],
+ ["med","Machine-transliterated names","Many rows are tagged “Verify transliteration”, with English names generated from Arabic (Mhnd, Asama, Nsryn).","Treat the Arabic name as the primary name for Arabic audiences; flag the English one as unverified so campaigns can greet in Arabic instead."],
+ ["med","Gender looks unreliable in places","In the photographer list several obviously male names are marked Female and the reverse.","Keep gender only from trusted sources; mark the rest Unknown rather than guessing. Don't target by gender on low-confidence rows."],
+ ["med","Most data is 6–13 years old","Magazine and call-centre lists are from 2013, Waseet from 2015–2020. Numbers and emails churn a lot in that time.","Store collection year on every row, filter by age, and run a WhatsApp/number validity check before campaigns."],
+ ["low","Junk rows","Rows with names like “a”, “.”, emoji or device names, and rows with only a phone and nothing else.","Flag as low quality; keep for Meta/Google matching (phone only is enough) but exclude from personalised email."],
+ ["low","Emails are scarce for consumers","Consumer magazine lists have almost no emails; photographers and real estate agents mostly do. Some typos (gamil.com).","Email typo fixer on import; plan consumer campaigns around WhatsApp, SMS and ad audiences rather than email."],
+ ["high","Staff insurance file is not marketing data","“Waseet Stuff Info for Medical Insurance Final.xlsx” sits in the same folder.","Exclude it from import. Employee data has no place in a marketing contact store."],
+ ["high","Consent and lawful use","These lists come from subscriptions, award forms, call centres and directories. Under the UAE data protection law, marketing use needs a lawful basis, and people must be able to opt out.","Keep source + date on every contact, a global do-not-contact list, an unsubscribe path in every channel, and an export log of who pulled which audience."]
+];
+$("issues").innerHTML=ISSUES.map(([sev,t,p,fix])=>`<div class="issue"><div class="stripe sev-${sev}"></div><div><h3>${t}</h3><p>${p}</p><div class="fix"><b>Rule:</b> ${fix}</div></div></div>`).join("");
+
+/* ---------- sources view (real inventory) ---------- */
+const FILES=[
+ ["Magazine Subscribers.xlsx","Clean DATA","xlsx",64787,"Master layout","clean"],
+ ["All_Magazine_Subs_2013.xlsx","Clean DATA","xlsx",19316,"Master layout","clean"],
+ ["Layalina_AD_Subscribers.xlsx","Clean DATA","xlsx",74472,"Magazine list","clean"],
+ ["Dubai_List_Layalina.xlsx","Clean DATA","xlsx",89853,"Magazine list","clean"],
+ ["CallCentre_Magazines_Feb2013.xlsx","Clean DATA","xlsx",36392,"Call-centre list","clean"],
+ ["Commercial_Magazine_Lead_Waseet_Dubai.xlsx","Clean DATA","xlsx",27301,"Business directory","clean"],
+ ["Real Estate Agents Data.xlsx","Clean DATA","xlsx",97707,"Agent list","clean"],
+ ["Meta_Audience_RealEstate_Agents.xlsx / .csv","Clean DATA","xlsx+csv",96754,"Ad audience export","clean"],
+ ["Data - Photographers.xlsx","Clean DATA","xlsx",44879,"Form export","clean"],
+ ["Designer Outlet … Data.xlsx (2 files)","Clean DATA","xlsx",15347255,"Customer list (largest)","clean"],
+ ["Waseet regional client files (Dubai, Sharjah, Ajman, RAK, Fujairah, Abu Dhabi)","Under Process","xls/xlsx/txt",5200000,"Business directory","proc"],
+ ["Sector lists (Restaurants, Beauty Salon, Garage, Hotels, Hajj & Omra)","Under Process","xls/xlsx/txt",1600000,"Business directory","proc"],
+ ["Sales client sheets 2017 (Digital Team, Daleel, Ahmed Emam, Ahmad Main)","Under Process","xlsx",4128000,"CRM export","proc"],
+ ["Waseet Webform WhatsApp Data.xlsx","Under Process","xlsx",1614966,"Web form leads","proc"],
+ ["Email docs (Email Data, Media Agency, Chamber Meeting)","Under Process","docx",62000,"Emails in Word","proc"],
+ ["SoClean phone books & SMS lists (16 files)","SO CLEAN","xls/xlsx/txt",1950000,"Customer phone book","proc"],
+ ["ORGANIZED (Customer Details, Nubalaa Gulf, CustomersData, RE Emails, UAE Restaurants)","ORGANIZED","xls/xlsx",392000,"Mixed","proc"],
+ ["Waseet Stuff Info for Medical Insurance Final.xlsx","Under Process","xlsx",27312,"Employee data","skip"]
+];
+const kb=b=>b>1048576?(b/1048576).toFixed(1)+" MB":Math.round(b/1024)+" KB";
+$("srcbody").innerHTML=FILES.map(f=>`<tr><td>${esc(f[0])}</td><td>${f[1]}</td><td class="mono">${f[2]}</td><td class="mono num">${kb(f[3])}</td><td class="schema">${f[4]}</td><td><span class="status ${f[5]==="clean"?"st-clean":f[5]==="proc"?"st-proc":"st-skip"}">${f[5]==="clean"?"Import first":f[5]==="proc"?"Map, then import":"Exclude"}</span></td></tr>`).join("");
+$("srcsum").textContent="About 85 files, ~30 MB. Estimated a few hundred thousand rows before de-duplication.";
+const ARCH=[["1","Upload","Drop xlsx, xls, csv, txt or docx. Pick a mapping template or map columns once and save it."],["2","Stage","File becomes CSV and is bulk-loaded into a staging table with COPY. Millions of rows in minutes."],["3","Clean","SQL rules: E.164 phones, lowercase emails, emirate/area dictionary, Notes parsing, junk flags."],["4","Merge","Upsert into contacts by phone/email. Each source kept as a link, so one person can carry many sources."],["5","Use","This screen: filter by anything, save segments, export per channel with hashing and an export log."]];
+$("arch").innerHTML=ARCH.map(a=>`<div class="step"><div class="n">STEP ${a[0]}</div><h4>${a[1]}</h4><p>${a[2]}</p></div>`).join("");
+
+/* ---------- routing ---------- */
+const VIEWS=["audience","health","sources"];
+function route(){const v=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):"audience";VIEWS.forEach(x=>$("view-"+x).hidden=x!==v);document.querySelectorAll(".tabs a").forEach(a=>a.toggleAttribute("aria-current",a.dataset.view===v)&&a.setAttribute("aria-current","page"))}
+window.addEventListener("hashchange",route);route();
+render();
+})();
+</script>

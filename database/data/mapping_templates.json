@@ -1,0 +1,54 @@
+[
+    {
+        "name": "Master sheet",
+        "layout": "master",
+        "column_map": {
+            "Date Added": "seen_year",
+            "Record Type": "type",
+            "Source": "source",
+            "English Full Name": "name_en",
+            "Arabic Full Name": "name_ar",
+            "Gender": "gender",
+            "Company": "company_name",
+            "Title": "extra.title",
+            "Mobile AE": "phone",
+            "Mobile AE 2": "phone",
+            "Mobile Intl 1": "phone",
+            "Mobile Intl 2": "phone",
+            "Phone": "landline",
+            "Email": "email",
+            "Email 2": "email",
+            "Location": "address_raw",
+            "Notes": "notes"
+        }
+    },
+    {
+        "name": "Photographers form export",
+        "layout": "form_export",
+        "column_map": {
+            "Timestamp": "seen_year",
+            "Full Name in Arabic": "name_ar",
+            "Full Name in English": "name_en",
+            "AE Number": "phone",
+            "Intl Number": "phone",
+            "Sex": "gender",
+            "Email": "email",
+            "Nationality": "nationality",
+            "Member of Union Of Arab Photographers?": "extra.union_member",
+            "Source": "source",
+            "Duplicate Flag": "extra.duplicate_flag"
+        }
+    },
+    {
+        "name": "Waseet business directory",
+        "layout": "business_directory",
+        "column_map": {
+            "Company Name": "company_name",
+            "Client Name": "name",
+            "Address": "address_raw",
+            "Mobile": "phone",
+            "Landline": "landline",
+            "Email/ Website": "email"
+        }
+    }
+]

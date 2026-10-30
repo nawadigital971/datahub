@@ -1,0 +1,1279 @@
+[
+    {
+        "region": "dubai",
+        "slug": "deira",
+        "name": {
+            "en": "Deira",
+            "ar": "ديرة"
+        },
+        "aliases": ["Deira", "Deirah", "Dera", "ديرة", "ديره"]
+    },
+    {
+        "region": "dubai",
+        "slug": "bur-dubai",
+        "name": {
+            "en": "Bur Dubai",
+            "ar": "بر دبي"
+        },
+        "aliases": ["Bur Dubai", "Burdubai", "بر دبي", "بردبي"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-karama",
+        "name": {
+            "en": "Al Karama",
+            "ar": "الكرامة"
+        },
+        "aliases": ["Al Karama", "Karama", "الكرامة", "الكرامه", "كرامة"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-qusais",
+        "name": {
+            "en": "Al Qusais",
+            "ar": "القصيص"
+        },
+        "aliases": ["Al Qusais", "Qusais", "القصيص"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-nahda-dubai",
+        "name": {
+            "en": "Al Nahda (Dubai)",
+            "ar": "النهدة (دبي)"
+        },
+        "aliases": [
+            "Al Nahda",
+            "Al Nahda (Dubai)",
+            "Nahda",
+            "النهدة",
+            "النهدة (دبي)",
+            "النهده"
+        ]
+    },
+    {
+        "region": "dubai",
+        "slug": "international-city",
+        "name": {
+            "en": "International City",
+            "ar": "المدينة العالمية"
+        },
+        "aliases": [
+            "International City",
+            "Intl City",
+            "المدينة العالمية",
+            "المدينه العالميه",
+            "انترناشونال سيتي",
+            "انترناشيونال سيتي"
+        ]
+    },
+    {
+        "region": "dubai",
+        "slug": "jumeirah",
+        "name": {
+            "en": "Jumeirah",
+            "ar": "جميرا"
+        },
+        "aliases": ["Jumeira", "Jumeirah", "جميرا", "جميرة"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-barsha",
+        "name": {
+            "en": "Al Barsha",
+            "ar": "البرشاء"
+        },
+        "aliases": ["Al Barsha", "Barsha", "البرشا", "البرشاء"]
+    },
+    {
+        "region": "dubai",
+        "slug": "dubai-marina",
+        "name": {
+            "en": "Dubai Marina",
+            "ar": "دبي مارينا"
+        },
+        "aliases": [
+            "Dubai Marina",
+            "Marina",
+            "دبي مارينا",
+            "مارينا",
+            "مرسى دبي"
+        ]
+    },
+    {
+        "region": "dubai",
+        "slug": "jumeirah-lakes-towers",
+        "name": {
+            "en": "Jumeirah Lakes Towers",
+            "ar": "أبراج بحيرات جميرا"
+        },
+        "aliases": [
+            "JLT",
+            "Jumeirah Lake Towers",
+            "Jumeirah Lakes Towers",
+            "أبراج بحيرات جميرا"
+        ]
+    },
+    {
+        "region": "dubai",
+        "slug": "jumeirah-village-circle",
+        "name": {
+            "en": "Jumeirah Village Circle",
+            "ar": "قرية جميرا الدائرية"
+        },
+        "aliases": [
+            "Jumeirah Village",
+            "Jumeirah Village Circle",
+            "JVC",
+            "قرية جميرا الدائرية"
+        ]
+    },
+    {
+        "region": "dubai",
+        "slug": "business-bay",
+        "name": {
+            "en": "Business Bay",
+            "ar": "الخليج التجاري"
+        },
+        "aliases": ["Business Bay", "الخليج التجاري", "بزنس باي"]
+    },
+    {
+        "region": "dubai",
+        "slug": "downtown-dubai",
+        "name": {
+            "en": "Downtown Dubai",
+            "ar": "وسط مدينة دبي"
+        },
+        "aliases": ["Downtown", "Downtown Dubai", "داون تاون", "وسط مدينة دبي"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-satwa",
+        "name": {
+            "en": "Al Satwa",
+            "ar": "السطوة"
+        },
+        "aliases": ["Al Satwa", "Satwa", "السطوة", "السطوه"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-quoz",
+        "name": {
+            "en": "Al Quoz",
+            "ar": "القوز"
+        },
+        "aliases": ["Al Quoz", "Quoz", "القوز"]
+    },
+    {
+        "region": "dubai",
+        "slug": "mirdif",
+        "name": {
+            "en": "Mirdif",
+            "ar": "مردف"
+        },
+        "aliases": ["Mirdef", "Mirdif", "Mirdiff", "مردف"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-warqa",
+        "name": {
+            "en": "Al Warqa",
+            "ar": "الورقاء"
+        },
+        "aliases": ["Al Warqa", "Al Warqaa", "Warqa", "الورقا", "الورقاء"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-rashidiya",
+        "name": {
+            "en": "Al Rashidiya",
+            "ar": "الراشدية"
+        },
+        "aliases": ["Al Rashidiya", "Rashidiya", "الراشدية", "الراشديه"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-mizhar",
+        "name": {
+            "en": "Al Mizhar",
+            "ar": "المزهر"
+        },
+        "aliases": ["Al Mizhar", "Mizhar", "المزهر"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-muhaisnah",
+        "name": {
+            "en": "Al Muhaisnah",
+            "ar": "المحيصنة"
+        },
+        "aliases": [
+            "Al Muhaisnah",
+            "Muhaisna",
+            "Muhaisnah",
+            "المحيصنة",
+            "محيصنه"
+        ]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-twar",
+        "name": {
+            "en": "Al Twar",
+            "ar": "الطوار"
+        },
+        "aliases": ["Al Tawar", "Al Twar", "Twar", "الطوار"]
+    },
+    {
+        "region": "dubai",
+        "slug": "hor-al-anz",
+        "name": {
+            "en": "Hor Al Anz",
+            "ar": "هور العنز"
+        },
+        "aliases": ["Hor Al Anz", "Hor Alanz", "هور العنز"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-rigga",
+        "name": {
+            "en": "Al Rigga",
+            "ar": "الرقة"
+        },
+        "aliases": ["Al Rigga", "Al Riqqa", "Rigga", "الرقة", "الرقه"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-garhoud",
+        "name": {
+            "en": "Al Garhoud",
+            "ar": "القرهود"
+        },
+        "aliases": ["Al Garhoud", "Al Qarhoud", "Garhoud", "القرهود"]
+    },
+    {
+        "region": "dubai",
+        "slug": "oud-metha",
+        "name": {
+            "en": "Oud Metha",
+            "ar": "عود ميثاء"
+        },
+        "aliases": ["Oud Mehta", "Oud Metha", "عود ميثا", "عود ميثاء"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-mankhool",
+        "name": {
+            "en": "Al Mankhool",
+            "ar": "المنخول"
+        },
+        "aliases": ["Al Mankhool", "Mankhool", "المنخول"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-jaddaf",
+        "name": {
+            "en": "Al Jaddaf",
+            "ar": "الجداف"
+        },
+        "aliases": ["Al Jaddaf", "Jaddaf", "الجداف"]
+    },
+    {
+        "region": "dubai",
+        "slug": "jebel-ali",
+        "name": {
+            "en": "Jebel Ali",
+            "ar": "جبل علي"
+        },
+        "aliases": ["Jabal Ali", "Jebel Ali", "جبل علي"]
+    },
+    {
+        "region": "dubai",
+        "slug": "discovery-gardens",
+        "name": {
+            "en": "Discovery Gardens",
+            "ar": "ديسكفري جاردنز"
+        },
+        "aliases": ["Discovery Gardens", "ديسكفري جاردنز"]
+    },
+    {
+        "region": "dubai",
+        "slug": "dubai-silicon-oasis",
+        "name": {
+            "en": "Dubai Silicon Oasis",
+            "ar": "واحة دبي للسيليكون"
+        },
+        "aliases": [
+            "DSO",
+            "Dubai Silicon Oasis",
+            "Silicon Oasis",
+            "واحة دبي للسيليكون"
+        ]
+    },
+    {
+        "region": "dubai",
+        "slug": "dubai-sports-city",
+        "name": {
+            "en": "Dubai Sports City",
+            "ar": "مدينة دبي الرياضية"
+        },
+        "aliases": ["Dubai Sports City", "Sports City", "مدينة دبي الرياضية"]
+    },
+    {
+        "region": "dubai",
+        "slug": "motor-city",
+        "name": {
+            "en": "Motor City",
+            "ar": "موتور سيتي"
+        },
+        "aliases": ["Motor City", "موتور سيتي"]
+    },
+    {
+        "region": "dubai",
+        "slug": "arabian-ranches",
+        "name": {
+            "en": "Arabian Ranches",
+            "ar": "المرابع العربية"
+        },
+        "aliases": ["Arabian Ranches", "المرابع العربية"]
+    },
+    {
+        "region": "dubai",
+        "slug": "palm-jumeirah",
+        "name": {
+            "en": "Palm Jumeirah",
+            "ar": "نخلة جميرا"
+        },
+        "aliases": ["Palm Jumeirah", "The Palm", "نخلة جميرا", "نخلة جميرة"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-sufouh",
+        "name": {
+            "en": "Al Sufouh",
+            "ar": "الصفوح"
+        },
+        "aliases": ["Al Sufouh", "Sufouh", "الصفوح"]
+    },
+    {
+        "region": "dubai",
+        "slug": "umm-suqeim",
+        "name": {
+            "en": "Umm Suqeim",
+            "ar": "أم سقيم"
+        },
+        "aliases": ["Um Suqeim", "Umm Suqeim", "أم سقيم"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-khawaneej",
+        "name": {
+            "en": "Al Khawaneej",
+            "ar": "الخوانيج"
+        },
+        "aliases": ["Al Khawaneej", "Khawaneej", "الخوانيج"]
+    },
+    {
+        "region": "dubai",
+        "slug": "nad-al-sheba",
+        "name": {
+            "en": "Nad Al Sheba",
+            "ar": "ند الشبا"
+        },
+        "aliases": ["Nad Al Sheba", "Nad Alsheba", "ند الشبا"]
+    },
+    {
+        "region": "dubai",
+        "slug": "dubai-investments-park",
+        "name": {
+            "en": "Dubai Investments Park",
+            "ar": "مجمع دبي للاستثمار"
+        },
+        "aliases": [
+            "DIP",
+            "Dubai Investment Park",
+            "Dubai Investments Park",
+            "مجمع دبي للاستثمار"
+        ]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-awir",
+        "name": {
+            "en": "Al Awir",
+            "ar": "العوير"
+        },
+        "aliases": ["Al Aweer", "Al Awir", "Awir", "العوير"]
+    },
+    {
+        "region": "dubai",
+        "slug": "hatta",
+        "name": {
+            "en": "Hatta",
+            "ar": "حتا"
+        },
+        "aliases": ["Hatta", "حتا"]
+    },
+    {
+        "region": "dubai",
+        "slug": "difc",
+        "name": {
+            "en": "DIFC",
+            "ar": "مركز دبي المالي العالمي"
+        },
+        "aliases": [
+            "DIFC",
+            "Dubai International Financial Centre",
+            "مركز دبي المالي العالمي"
+        ]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-wasl",
+        "name": {
+            "en": "Al Wasl",
+            "ar": "الوصل"
+        },
+        "aliases": ["Al Wasl", "Wasl", "الوصل"]
+    },
+    {
+        "region": "dubai",
+        "slug": "port-saeed",
+        "name": {
+            "en": "Port Saeed",
+            "ar": "بور سعيد"
+        },
+        "aliases": ["Port Saeed", "Port Said", "بور سعيد"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-baraha",
+        "name": {
+            "en": "Al Baraha",
+            "ar": "البراحة"
+        },
+        "aliases": ["Al Baraha", "Baraha", "البراحة"]
+    },
+    {
+        "region": "dubai",
+        "slug": "naif",
+        "name": {
+            "en": "Naif",
+            "ar": "نايف"
+        },
+        "aliases": ["Naif", "Naif Road", "Nayef", "نايف"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-murar",
+        "name": {
+            "en": "Al Murar",
+            "ar": "المرر"
+        },
+        "aliases": ["Al Murar", "Murar", "المرر"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-mamzar",
+        "name": {
+            "en": "Al Mamzar",
+            "ar": "الممزر"
+        },
+        "aliases": ["Al Mamzar", "Mamzar", "الممزر"]
+    },
+    {
+        "region": "dubai",
+        "slug": "al-hamriya-dubai",
+        "name": {
+            "en": "Al Hamriya (Dubai)",
+            "ar": "الحمرية (دبي)"
+        },
+        "aliases": ["Al Hamriya (Dubai)", "Hamriya", "الحمرية", "الحمرية (دبي)"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "al-majaz",
+        "name": {
+            "en": "Al Majaz",
+            "ar": "المجاز"
+        },
+        "aliases": ["Al Majaz", "Majaz", "المجاز"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "al-nahda-sharjah",
+        "name": {
+            "en": "Al Nahda (Sharjah)",
+            "ar": "النهدة (الشارقة)"
+        },
+        "aliases": [
+            "Al Nahda",
+            "Al Nahda (Sharjah)",
+            "Nahda",
+            "النهدة",
+            "النهدة (الشارقة)",
+            "النهده"
+        ]
+    },
+    {
+        "region": "sharjah",
+        "slug": "al-taawun",
+        "name": {
+            "en": "Al Taawun",
+            "ar": "التعاون"
+        },
+        "aliases": ["Al Taawan", "Al Taawun", "Taawun", "التعاون"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "al-khan",
+        "name": {
+            "en": "Al Khan",
+            "ar": "الخان"
+        },
+        "aliases": ["Al Khan", "Khan", "الخان"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "al-qasimia",
+        "name": {
+            "en": "Al Qasimia",
+            "ar": "القاسمية"
+        },
+        "aliases": [
+            "Al Qasimia",
+            "Al Qasimiya",
+            "Qasimia",
+            "القاسمية",
+            "القاسميه"
+        ]
+    },
+    {
+        "region": "sharjah",
+        "slug": "abu-shagara",
+        "name": {
+            "en": "Abu Shagara",
+            "ar": "أبو شغارة"
+        },
+        "aliases": ["Abu Shagara", "Abu Shagarah", "أبو شغارة", "ابو شغاره"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "al-nabba",
+        "name": {
+            "en": "Al Nabba",
+            "ar": "النباعة"
+        },
+        "aliases": ["Al Nabba", "Nabba", "النباعة"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "rolla",
+        "name": {
+            "en": "Rolla",
+            "ar": "رولا"
+        },
+        "aliases": ["Al Rolla", "Rolla", "رولا"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "al-mujarrah",
+        "name": {
+            "en": "Al Mujarrah",
+            "ar": "المجرة"
+        },
+        "aliases": ["Al Mujarrah", "Mujarrah", "المجرة"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "al-butina",
+        "name": {
+            "en": "Al Butina",
+            "ar": "البطينة"
+        },
+        "aliases": ["Al Butina", "Butina", "البطينة"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "muwaileh",
+        "name": {
+            "en": "Muwaileh",
+            "ar": "مويلح"
+        },
+        "aliases": ["Muwaileh", "Muwailih", "Muweileh", "مويلح"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "al-qadisiya",
+        "name": {
+            "en": "Al Qadisiya",
+            "ar": "القادسية"
+        },
+        "aliases": ["Al Qadisiya", "Qadisiya", "القادسية"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "al-yarmook",
+        "name": {
+            "en": "Al Yarmook",
+            "ar": "اليرموك"
+        },
+        "aliases": ["Al Yarmook", "Yarmook", "اليرموك"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "al-khalidiya-sharjah",
+        "name": {
+            "en": "Al Khalidiya (Sharjah)",
+            "ar": "الخالدية (الشارقة)"
+        },
+        "aliases": ["Al Khalidiya (Sharjah)", "الخالدية", "الخالدية (الشارقة)"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "al-ghuwair",
+        "name": {
+            "en": "Al Ghuwair",
+            "ar": "الغوير"
+        },
+        "aliases": ["Al Ghuwair", "Ghuwair", "الغوير"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "industrial-area-sharjah",
+        "name": {
+            "en": "Industrial Area (Sharjah)",
+            "ar": "المنطقة الصناعية (الشارقة)"
+        },
+        "aliases": [
+            "Industrial Area",
+            "Industrial Area (Sharjah)",
+            "Sanaiya",
+            "الصناعية",
+            "المنطقة الصناعية (الشارقة)"
+        ]
+    },
+    {
+        "region": "sharjah",
+        "slug": "al-rahmaniya",
+        "name": {
+            "en": "Al Rahmaniya",
+            "ar": "الرحمانية"
+        },
+        "aliases": ["Al Rahmaniya", "Rahmaniya", "الرحمانية"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "al-suyoh",
+        "name": {
+            "en": "Al Suyoh",
+            "ar": "السيوح"
+        },
+        "aliases": ["Al Suyoh", "Suyoh", "السيوح"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "university-city-sharjah",
+        "name": {
+            "en": "University City",
+            "ar": "المدينة الجامعية"
+        },
+        "aliases": ["University City", "المدينة الجامعية"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "al-jazzat",
+        "name": {
+            "en": "Al Jazzat",
+            "ar": "الجزات"
+        },
+        "aliases": ["Al Jazzat", "Jazzat", "الجزات"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "al-dhaid",
+        "name": {
+            "en": "Al Dhaid",
+            "ar": "الذيد"
+        },
+        "aliases": ["Al Dhaid", "Dhaid", "الذيد"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "khor-fakkan",
+        "name": {
+            "en": "Khor Fakkan",
+            "ar": "خورفكان"
+        },
+        "aliases": ["Khor Fakkan", "Khorfakkan", "خور فكان", "خورفكان"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "kalba",
+        "name": {
+            "en": "Kalba",
+            "ar": "كلباء"
+        },
+        "aliases": ["Kalba", "كلبا", "كلباء"]
+    },
+    {
+        "region": "sharjah",
+        "slug": "dibba-al-hisn",
+        "name": {
+            "en": "Dibba Al Hisn",
+            "ar": "دبا الحصن"
+        },
+        "aliases": ["Dibba Al Hisn", "دبا الحصن"]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "al-khalidiya-abu-dhabi",
+        "name": {
+            "en": "Al Khalidiya (Abu Dhabi)",
+            "ar": "الخالدية (أبوظبي)"
+        },
+        "aliases": [
+            "Al Khalidiya (Abu Dhabi)",
+            "Khalidiya",
+            "Khalidiyah",
+            "الخالدية",
+            "الخالدية (أبوظبي)"
+        ]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "al-mushrif",
+        "name": {
+            "en": "Al Mushrif",
+            "ar": "المشرف"
+        },
+        "aliases": ["Al Mushrif", "Mushrif", "المشرف"]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "al-bateen",
+        "name": {
+            "en": "Al Bateen",
+            "ar": "البطين"
+        },
+        "aliases": ["Al Bateen", "Bateen", "البطين"]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "al-markaziya",
+        "name": {
+            "en": "Al Markaziya",
+            "ar": "المركزية"
+        },
+        "aliases": [
+            "Al Markaziya",
+            "Downtown Abu Dhabi",
+            "Markaziya",
+            "المركزية"
+        ]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "al-zahiyah",
+        "name": {
+            "en": "Al Zahiyah",
+            "ar": "الزاهية"
+        },
+        "aliases": [
+            "Al Zahiyah",
+            "Tourist Club",
+            "Tourist Club Area",
+            "الزاهية",
+            "منطقة النادي السياحي"
+        ]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "al-muroor",
+        "name": {
+            "en": "Al Muroor",
+            "ar": "المرور"
+        },
+        "aliases": ["Al Muroor", "Muroor", "المرور"]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "al-nahyan",
+        "name": {
+            "en": "Al Nahyan",
+            "ar": "النهيان"
+        },
+        "aliases": ["Al Nahyan", "Nahyan", "النهيان"]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "al-wahda",
+        "name": {
+            "en": "Al Wahda",
+            "ar": "الوحدة"
+        },
+        "aliases": ["Al Wahda", "Wahda", "الوحدة"]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "khalifa-city",
+        "name": {
+            "en": "Khalifa City",
+            "ar": "مدينة خليفة"
+        },
+        "aliases": ["KCA", "Khalifa City", "Khalifa City A", "مدينة خليفة"]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "mohammed-bin-zayed-city",
+        "name": {
+            "en": "Mohammed Bin Zayed City",
+            "ar": "مدينة محمد بن زايد"
+        },
+        "aliases": [
+            "MBZ",
+            "MBZ City",
+            "Mohamed Bin Zayed City",
+            "Mohammed Bin Zayed City",
+            "مدينة محمد بن زايد"
+        ]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "mussafah",
+        "name": {
+            "en": "Mussafah",
+            "ar": "مصفح"
+        },
+        "aliases": ["Musaffah", "Mussafa", "Mussafah", "مصفح"]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "al-reem-island",
+        "name": {
+            "en": "Al Reem Island",
+            "ar": "جزيرة الريم"
+        },
+        "aliases": ["Al Reem Island", "Reem Island", "جزيرة الريم"]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "saadiyat-island",
+        "name": {
+            "en": "Saadiyat Island",
+            "ar": "جزيرة السعديات"
+        },
+        "aliases": ["Saadiyat", "Saadiyat Island", "جزيرة السعديات"]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "yas-island",
+        "name": {
+            "en": "Yas Island",
+            "ar": "جزيرة ياس"
+        },
+        "aliases": ["Yas", "Yas Island", "جزيرة ياس"]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "al-raha",
+        "name": {
+            "en": "Al Raha",
+            "ar": "الراحة"
+        },
+        "aliases": ["Al Raha", "Raha Beach", "الراحة"]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "al-shamkha",
+        "name": {
+            "en": "Al Shamkha",
+            "ar": "الشامخة"
+        },
+        "aliases": ["Al Shamkha", "Shamkha", "الشامخة"]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "baniyas",
+        "name": {
+            "en": "Baniyas",
+            "ar": "بني ياس"
+        },
+        "aliases": ["Bani Yas", "Baniyas", "بني ياس"]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "al-shahama",
+        "name": {
+            "en": "Al Shahama",
+            "ar": "الشهامة"
+        },
+        "aliases": ["Al Shahama", "Shahama", "الشهامة"]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "al-ain",
+        "name": {
+            "en": "Al Ain",
+            "ar": "العين"
+        },
+        "aliases": ["Ain", "Al Ain", "Alain", "العين"]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "madinat-zayed",
+        "name": {
+            "en": "Madinat Zayed",
+            "ar": "مدينة زايد"
+        },
+        "aliases": ["Madinat Zayed", "مدينة زايد"]
+    },
+    {
+        "region": "abu-dhabi",
+        "slug": "ruwais",
+        "name": {
+            "en": "Ruwais",
+            "ar": "الرويس"
+        },
+        "aliases": ["Al Ruwais", "Ruwais", "الرويس"]
+    },
+    {
+        "region": "ajman",
+        "slug": "al-nuaimiya",
+        "name": {
+            "en": "Al Nuaimiya",
+            "ar": "النعيمية"
+        },
+        "aliases": [
+            "Al Nuaimia",
+            "Al Nuaimiya",
+            "Nuaimia",
+            "النعيمية",
+            "النعيميه"
+        ]
+    },
+    {
+        "region": "ajman",
+        "slug": "al-rashidiya-ajman",
+        "name": {
+            "en": "Al Rashidiya (Ajman)",
+            "ar": "الراشدية (عجمان)"
+        },
+        "aliases": ["Al Rashidiya (Ajman)", "الراشدية", "الراشدية (عجمان)"]
+    },
+    {
+        "region": "ajman",
+        "slug": "al-jurf",
+        "name": {
+            "en": "Al Jurf",
+            "ar": "الجرف"
+        },
+        "aliases": ["Al Jurf", "Jurf", "الجرف"]
+    },
+    {
+        "region": "ajman",
+        "slug": "al-rawda",
+        "name": {
+            "en": "Al Rawda",
+            "ar": "الروضة"
+        },
+        "aliases": ["Al Rawda", "Rawda", "الروضة"]
+    },
+    {
+        "region": "ajman",
+        "slug": "al-hamidiya",
+        "name": {
+            "en": "Al Hamidiya",
+            "ar": "الحميدية"
+        },
+        "aliases": ["Al Hamidiya", "Hamidiya", "الحميدية"]
+    },
+    {
+        "region": "ajman",
+        "slug": "al-mowaihat",
+        "name": {
+            "en": "Al Mowaihat",
+            "ar": "المويهات"
+        },
+        "aliases": ["Al Mowaihat", "Mowaihat", "Muwaihat", "المويهات"]
+    },
+    {
+        "region": "ajman",
+        "slug": "al-nakhil-ajman",
+        "name": {
+            "en": "Al Nakhil (Ajman)",
+            "ar": "النخيل (عجمان)"
+        },
+        "aliases": ["Al Nakhil (Ajman)", "النخيل", "النخيل (عجمان)"]
+    },
+    {
+        "region": "ajman",
+        "slug": "al-zahra-ajman",
+        "name": {
+            "en": "Al Zahra",
+            "ar": "الزهراء"
+        },
+        "aliases": ["Al Zahra", "Zahra", "الزهراء"]
+    },
+    {
+        "region": "ajman",
+        "slug": "emirates-city",
+        "name": {
+            "en": "Emirates City",
+            "ar": "مدينة الإمارات"
+        },
+        "aliases": ["Emirates City", "مدينة الإمارات"]
+    },
+    {
+        "region": "ajman",
+        "slug": "al-bustan",
+        "name": {
+            "en": "Al Bustan",
+            "ar": "البستان"
+        },
+        "aliases": ["Al Bustan", "Bustan", "البستان"]
+    },
+    {
+        "region": "ajman",
+        "slug": "ajman-industrial",
+        "name": {
+            "en": "Ajman Industrial Area",
+            "ar": "المنطقة الصناعية (عجمان)"
+        },
+        "aliases": [
+            "Ajman Industrial",
+            "Ajman Industrial Area",
+            "المنطقة الصناعية (عجمان)"
+        ]
+    },
+    {
+        "region": "ras-al-khaimah",
+        "slug": "al-nakheel-rak",
+        "name": {
+            "en": "Al Nakheel (RAK)",
+            "ar": "النخيل (رأس الخيمة)"
+        },
+        "aliases": [
+            "Al Nakheel (RAK)",
+            "Nakheel",
+            "النخيل",
+            "النخيل (رأس الخيمة)"
+        ]
+    },
+    {
+        "region": "ras-al-khaimah",
+        "slug": "al-dhait",
+        "name": {
+            "en": "Al Dhait",
+            "ar": "الظيت"
+        },
+        "aliases": ["Al Dhait", "Dhait", "الظيت"]
+    },
+    {
+        "region": "ras-al-khaimah",
+        "slug": "al-hamra",
+        "name": {
+            "en": "Al Hamra",
+            "ar": "الحمراء"
+        },
+        "aliases": ["Al Hamra", "Al Hamra Village", "الحمراء"]
+    },
+    {
+        "region": "ras-al-khaimah",
+        "slug": "al-mamourah",
+        "name": {
+            "en": "Al Mamourah",
+            "ar": "المعمورة"
+        },
+        "aliases": ["Al Mamourah", "Mamourah", "المعمورة"]
+    },
+    {
+        "region": "ras-al-khaimah",
+        "slug": "khuzam",
+        "name": {
+            "en": "Khuzam",
+            "ar": "خزام"
+        },
+        "aliases": ["Khuzam", "خزام"]
+    },
+    {
+        "region": "ras-al-khaimah",
+        "slug": "julphar",
+        "name": {
+            "en": "Julphar",
+            "ar": "جلفار"
+        },
+        "aliases": ["Julphar", "جلفار"]
+    },
+    {
+        "region": "ras-al-khaimah",
+        "slug": "al-qusaidat",
+        "name": {
+            "en": "Al Qusaidat",
+            "ar": "القصيدات"
+        },
+        "aliases": ["Al Qusaidat", "Qusaidat", "القصيدات"]
+    },
+    {
+        "region": "ras-al-khaimah",
+        "slug": "al-jazeera-al-hamra",
+        "name": {
+            "en": "Al Jazeera Al Hamra",
+            "ar": "الجزيرة الحمراء"
+        },
+        "aliases": ["Al Jazeera Al Hamra", "الجزيرة الحمراء"]
+    },
+    {
+        "region": "ras-al-khaimah",
+        "slug": "al-rams",
+        "name": {
+            "en": "Al Rams",
+            "ar": "الرمس"
+        },
+        "aliases": ["Al Rams", "Rams", "الرمس"]
+    },
+    {
+        "region": "ras-al-khaimah",
+        "slug": "al-uraibi",
+        "name": {
+            "en": "Al Uraibi",
+            "ar": "العريبي"
+        },
+        "aliases": ["Al Uraibi", "Uraibi", "العريبي"]
+    },
+    {
+        "region": "ras-al-khaimah",
+        "slug": "mina-al-arab",
+        "name": {
+            "en": "Mina Al Arab",
+            "ar": "ميناء العرب"
+        },
+        "aliases": ["Mina Al Arab", "ميناء العرب"]
+    },
+    {
+        "region": "fujairah",
+        "slug": "fujairah-city",
+        "name": {
+            "en": "Fujairah City",
+            "ar": "مدينة الفجيرة"
+        },
+        "aliases": ["Fujairah", "Fujairah City", "مدينة الفجيرة"]
+    },
+    {
+        "region": "fujairah",
+        "slug": "dibba-al-fujairah",
+        "name": {
+            "en": "Dibba Al Fujairah",
+            "ar": "دبا الفجيرة"
+        },
+        "aliases": ["Dibba", "Dibba Al Fujairah", "دبا", "دبا الفجيرة"]
+    },
+    {
+        "region": "fujairah",
+        "slug": "masafi",
+        "name": {
+            "en": "Masafi",
+            "ar": "مسافي"
+        },
+        "aliases": ["Masafi", "مسافي"]
+    },
+    {
+        "region": "fujairah",
+        "slug": "al-faseel",
+        "name": {
+            "en": "Al Faseel",
+            "ar": "الفصيل"
+        },
+        "aliases": ["Al Faseel", "Faseel", "الفصيل"]
+    },
+    {
+        "region": "fujairah",
+        "slug": "sakamkam",
+        "name": {
+            "en": "Sakamkam",
+            "ar": "سكمكم"
+        },
+        "aliases": ["Sakamkam", "سكمكم"]
+    },
+    {
+        "region": "fujairah",
+        "slug": "merashid",
+        "name": {
+            "en": "Merashid",
+            "ar": "مريشيد"
+        },
+        "aliases": ["Merashid", "مريشيد"]
+    },
+    {
+        "region": "fujairah",
+        "slug": "qidfa",
+        "name": {
+            "en": "Qidfa",
+            "ar": "قدفع"
+        },
+        "aliases": ["Qidfa", "قدفع"]
+    },
+    {
+        "region": "fujairah",
+        "slug": "al-bidiya",
+        "name": {
+            "en": "Al Bidiya",
+            "ar": "البدية"
+        },
+        "aliases": ["Al Bidiya", "Bidiya", "البدية"]
+    },
+    {
+        "region": "umm-al-quwain",
+        "slug": "al-salamah",
+        "name": {
+            "en": "Al Salamah",
+            "ar": "السلمة"
+        },
+        "aliases": ["Al Salamah", "Salamah", "السلمة"]
+    },
+    {
+        "region": "umm-al-quwain",
+        "slug": "al-raas",
+        "name": {
+            "en": "Al Raas",
+            "ar": "الراس"
+        },
+        "aliases": ["Al Raas", "Raas", "الراس"]
+    },
+    {
+        "region": "umm-al-quwain",
+        "slug": "al-ramlah",
+        "name": {
+            "en": "Al Ramlah",
+            "ar": "الرملة"
+        },
+        "aliases": ["Al Ramlah", "Ramlah", "الرملة"]
+    },
+    {
+        "region": "umm-al-quwain",
+        "slug": "falaj-al-mualla",
+        "name": {
+            "en": "Falaj Al Mualla",
+            "ar": "فلج المعلا"
+        },
+        "aliases": ["Falaj Al Mualla", "فلج المعلا"]
+    },
+    {
+        "region": "umm-al-quwain",
+        "slug": "al-maidan",
+        "name": {
+            "en": "Al Maidan",
+            "ar": "الميدان"
+        },
+        "aliases": ["Al Maidan", "Maidan", "الميدان"]
+    },
+    {
+        "region": "umm-al-quwain",
+        "slug": "al-humrah",
+        "name": {
+            "en": "Al Humrah",
+            "ar": "الحمرة"
+        },
+        "aliases": ["Al Humrah", "Humrah", "الحمرة"]
+    }
+]

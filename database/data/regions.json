@@ -1,0 +1,72 @@
+[
+    {
+        "country": "AE",
+        "slug": "dubai",
+        "name": {
+            "en": "Dubai",
+            "ar": "دبي"
+        },
+        "aliases": ["dxb", "dubai", "دبي"]
+    },
+    {
+        "country": "AE",
+        "slug": "abu-dhabi",
+        "name": {
+            "en": "Abu Dhabi",
+            "ar": "أبوظبي"
+        },
+        "aliases": [
+            "abu dhabi",
+            "abudhabi",
+            "abu-dhabi",
+            "auh",
+            "ابوظبي",
+            "ابو ظبي"
+        ]
+    },
+    {
+        "country": "AE",
+        "slug": "sharjah",
+        "name": {
+            "en": "Sharjah",
+            "ar": "الشارقة"
+        },
+        "aliases": ["sharjah", "shj", "sharja", "الشارقه", "شارقه"]
+    },
+    {
+        "country": "AE",
+        "slug": "ajman",
+        "name": {
+            "en": "Ajman",
+            "ar": "عجمان"
+        },
+        "aliases": ["ajman", "عجمان"]
+    },
+    {
+        "country": "AE",
+        "slug": "ras-al-khaimah",
+        "name": {
+            "en": "Ras Al Khaimah",
+            "ar": "رأس الخيمة"
+        },
+        "aliases": ["ras al khaimah", "ras al khaima", "rak", "راس الخيمه"]
+    },
+    {
+        "country": "AE",
+        "slug": "fujairah",
+        "name": {
+            "en": "Fujairah",
+            "ar": "الفجيرة"
+        },
+        "aliases": ["fujairah", "fujeirah", "fujaira", "الفجيره"]
+    },
+    {
+        "country": "AE",
+        "slug": "umm-al-quwain",
+        "name": {
+            "en": "Umm Al Quwain",
+            "ar": "أم القيوين"
+        },
+        "aliases": ["umm al quwain", "umm al qaiwain", "uaq", "ام القيوين"]
+    }
+]

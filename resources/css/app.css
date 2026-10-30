@@ -1,0 +1,187 @@
+@import 'tailwindcss';
+
+@import 'tw-animate-css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-sans: var(--font-body);
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar-background);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/*
+  NAWAA design tokens — copied from docs/design/prototype.html (:root).
+  Light theme only for now; every colour stays a CSS variable so a dark theme can be added later.
+  Name mapping from the prototype: --accent → ink, --muted → subtle (avoids clashing with the UI kit's names).
+*/
+@theme {
+    --color-bg: #fafafb;
+    --color-surface: #ffffff;
+    --color-surface-2: #f3f4f6;
+    --color-line: #e4e6ea;
+    --color-fg: #17191c;
+    --color-subtle: #5f6670;
+    --color-faint: #9aa0a8;
+    --color-ink: #1f2328;
+    --color-ink-soft: #eef0f3;
+    --color-ink-fg: #ffffff;
+    --color-sand: #a87a2c;
+    --color-sand-soft: #f7f0e2;
+    --color-good: #1d8a4e;
+    --color-warn: #b7791f;
+    --color-bad: #b4372e;
+    --color-bad-soft: #fbe9e7;
+    --color-bar: #2b3036;
+    --color-bar-2: #c5cad1;
+
+    --font-display: 'Readex Pro', 'IBM Plex Sans Arabic', system-ui, sans-serif;
+    --font-body: 'IBM Plex Sans Arabic', 'Segoe UI', system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+
+    --radius-card: 10px;
+    --container-shell: 1480px;
+}
+
+/* UI-kit (shadcn) variables mapped onto the NAWAA palette so auth/profile screens match. */
+:root {
+    color-scheme: light;
+    --background: var(--color-bg);
+    --foreground: var(--color-fg);
+    --card: var(--color-surface);
+    --card-foreground: var(--color-fg);
+    --popover: var(--color-surface);
+    --popover-foreground: var(--color-fg);
+    --primary: var(--color-ink);
+    --primary-foreground: var(--color-ink-fg);
+    --secondary: var(--color-surface-2);
+    --secondary-foreground: var(--color-fg);
+    --muted: var(--color-surface-2);
+    --muted-foreground: var(--color-subtle);
+    --accent: var(--color-surface-2);
+    --accent-foreground: var(--color-fg);
+    --destructive: var(--color-bad);
+    --destructive-foreground: var(--color-ink-fg);
+    --border: var(--color-line);
+    --input: var(--color-line);
+    --ring: var(--color-ink);
+    --chart-1: var(--color-bar);
+    --chart-2: var(--color-bar-2);
+    --chart-3: var(--color-sand);
+    --chart-4: var(--color-good);
+    --chart-5: var(--color-warn);
+    --radius: 0.5rem;
+    --sidebar-background: var(--color-surface);
+    --sidebar-foreground: var(--color-fg);
+    --sidebar-primary: var(--color-ink);
+    --sidebar-primary-foreground: var(--color-ink-fg);
+    --sidebar-accent: var(--color-surface-2);
+    --sidebar-accent-foreground: var(--color-fg);
+    --sidebar-border: var(--color-line);
+    --sidebar-ring: var(--color-ink);
+    --sidebar: var(--color-surface);
+}
+
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-line);
+    }
+
+    body {
+        background: var(--color-bg);
+        color: var(--color-fg);
+        font-family: var(--font-body);
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* Paint the iOS safe-area strip above the sticky top bar. */
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0 0 auto;
+        height: env(safe-area-inset-top, 0px);
+        z-index: 10;
+        background: var(--color-surface);
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--color-ink);
+        outline-offset: 2px;
+    }
+
+    /* Never let iOS zoom into a field: inputs are at least 16px on small screens. */
+    @media (max-width: 640px) {
+        input,
+        select,
+        textarea {
+            font-size: 16px !important;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            transition: none !important;
+        }
+    }
+}
+
+@utility num {
+    font-variant-numeric: tabular-nums;
+}
