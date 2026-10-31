@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
 
         {{-- Light theme only for now (see the colour tokens in resources/css/app.css). --}}
         <style>
