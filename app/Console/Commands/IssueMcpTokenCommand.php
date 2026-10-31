@@ -30,7 +30,10 @@ class IssueMcpTokenCommand extends Command
         $this->components->info("Token for {$user->name}, valid {$days} days. It is shown only once:");
         $this->line($token->plainTextToken);
         $this->newLine();
-        $this->line('MCP endpoint: '.url('/mcp').'  (send it as "Authorization: Bearer <token>")');
+        $this->line('MCP URL (keep it secret, it contains the token):');
+        $this->line(url('/mcp').'?token='.urlencode($token->plainTextToken));
+        $this->newLine();
+        $this->line('Or use '.url('/mcp').' with the header "Authorization: Bearer <token>".');
 
         return self::SUCCESS;
     }

@@ -176,6 +176,19 @@ describe('HTTP endpoint', function () {
         $this->post('/mcp', ['jsonrpc' => '2.0', 'id' => 1, 'method' => 'tools/list'])->assertUnauthorized();
     });
 
+    it('accepts the token in the URL instead of a header', function () {
+        $token = mcpUser(Role::Viewer)->createToken('Claude', ['mcp'])->plainTextToken;
+
+        $this->postJson('/mcp?token='.urlencode($token), ['jsonrpc' => '2.0', 'id' => 1, 'method' => 'tools/list'])
+            ->assertOk()
+            ->assertJsonPath('result.tools.0.name', fn (string $name) => $name !== '');
+    });
+
+    it('rejects a wrong token in the URL', function () {
+        $this->postJson('/mcp?token=1|not-a-real-token', ['jsonrpc' => '2.0', 'id' => 1, 'method' => 'tools/list'])
+            ->assertUnauthorized();
+    });
+
     it('rejects tokens that were not issued for MCP', function () use ($listTools) {
         $listTools(mcpUser()->createToken('other', ['reports'])->plainTextToken)->assertForbidden();
     });
