@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import AppLogoIcon from '@/components/AppLogoIcon.vue';
-import { home } from '@/routes';
+import { Link, usePage } from "@inertiajs/vue3";
+import { home } from "@/routes";
 
 defineProps<{
     title?: string;
     description?: string;
 }>();
+
+const page = usePage();
 </script>
 
 <template>
@@ -20,13 +21,18 @@ defineProps<{
                         :href="home()"
                         class="flex flex-col items-center gap-2 font-medium"
                     >
-                        <div
-                            class="mb-1 flex h-9 w-9 items-center justify-center rounded-md"
-                        >
-                            <AppLogoIcon
-                                class="size-9 fill-current text-[var(--foreground)] dark:text-white"
-                            />
-                        </div>
+                        <img
+                            v-if="page.props.brand?.logo_light"
+                            :src="page.props.brand.logo_light"
+                            :alt="page.props.name"
+                            class="h-16 w-auto max-w-56 object-contain"
+                        />
+                        <img
+                            v-else
+                            src="/branding/datacenter-logo.svg"
+                            :alt="page.props.name"
+                            class="h-20 w-auto"
+                        />
                         <span class="sr-only">{{ title }}</span>
                     </Link>
                     <div class="space-y-2 text-center">
