@@ -21,7 +21,7 @@ use App\Queries\Exports\ExportPreviewQuery;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ExportController extends Controller
 {
@@ -72,7 +72,7 @@ class ExportController extends Controller
         return new ExportResource($export->load('user:id,name', 'media'));
     }
 
-    public function download(ShowExportRequest $request, Export $export, DownloadExportAction $action): Media
+    public function download(ShowExportRequest $request, Export $export, DownloadExportAction $action): StreamedResponse
     {
         return $action->handle($export);
     }

@@ -127,6 +127,25 @@ describe('download', function () {
         expect($this->export->fresh()->downloaded_at)->not->toBeNull();
     });
 
+    it('sends the whole file with a matching size', function () {
+        $file = $this->export->getFirstMedia('file');
+
+        $response = $this->actingAs($this->owner)->get("/exports/{$this->export->id}/download")->assertOk();
+
+        expect($response->streamedContent())->toBe(file_get_contents($file->getPath()))
+            ->and((int) $response->headers->get('Content-Length'))->toBe(filesize($file->getPath()));
+    });
+
+    it('returns 404 instead of a broken download when the file is missing on disk', function () {
+        unlink($this->export->getFirstMedia('file')->getPath());
+
+        $this->actingAs($this->owner)
+            ->get("/exports/{$this->export->id}/download")
+            ->assertNotFound();
+
+        expect($this->export->fresh()->downloaded_at)->toBeNull();
+    });
+
     it('lets people who can see the export log download it', function () {
         $this->actingAs(exportUser(Role::Admin))
             ->get("/exports/{$this->export->id}/download")
