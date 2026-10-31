@@ -89,6 +89,21 @@ it('adds the countries, regions, areas and sectors a file names when it is commi
         ->and(Region::query()->where('slug', 'like', 'dubay%')->exists())->toBeFalse();
 });
 
+it('shows each row\'s sector in the preview, including sectors that will be added', function () {
+    $batch = uploadNewValues($this->admin, implode("\n", [
+        'Name,Mobile,Sector',
+        'Omar Saleh,0501234567,Fintech',
+        'Sara Ali,0501111111,Real Estate',
+    ]));
+
+    $this->actingAs($this->admin)->get("/imports/{$batch->id}")
+        ->assertInertia(fn (Assert $page) => $page
+            ->where('rows.data.0.sector', null)
+            ->where('rows.data.0.sector_name', 'Fintech')
+            ->where('rows.data.1.sector.id', Sector::query()->where('slug', 'real-estate')->value('id'))
+            ->where('rows.data.1.sector_name', null));
+});
+
 it('does not add values from rows that will be skipped', function () {
     $batch = uploadNewValues($this->admin, "Name,Mobile,Sector\nOmar Saleh,0501234567,Fintech");
     StagedRow::query()->update(['action' => 3, 'action_locked' => true]);

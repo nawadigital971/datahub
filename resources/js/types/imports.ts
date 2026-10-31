@@ -1,13 +1,13 @@
-import type { SelectOption } from '@/types/ui';
+import type { SelectOption } from "@/types/ui";
 
 export type BatchStatusKey =
-    | 'analyzing'
-    | 'ready'
-    | 'committing'
-    | 'committed'
-    | 'discarded'
-    | 'failed'
-    | 'mapping';
+    | "analyzing"
+    | "ready"
+    | "committing"
+    | "committed"
+    | "discarded"
+    | "failed"
+    | "mapping";
 
 export type ImportBatch = {
     id: number;
@@ -50,7 +50,7 @@ export type RowIssue = {
 
 export type LookupValue = { id: number; label: string } | null;
 
-export type RowAction = 'create' | 'merge' | 'skip';
+export type RowAction = "create" | "merge" | "skip";
 
 export type StagedRow = {
     id: number;
@@ -63,18 +63,20 @@ export type StagedRow = {
     mobile_e164: string | null;
     landline_e164: string | null;
     email: string | null;
-    gender: 'm' | 'f' | null;
+    gender: "m" | "f" | null;
     region: LookupValue;
     area: LookupValue;
     sector: LookupValue;
+    /** Sector text from the file that is not in the list yet; added on commit. */
+    sector_name: string | null;
     nationality: LookupValue;
     address_raw: string | null;
     seen_year: number | null;
     call_outcome: string | null;
     issues: RowIssue[];
-    severity: 'clean' | 'warning' | 'error';
+    severity: "clean" | "warning" | "error";
     match: {
-        status: 'new' | 'matches_contact' | 'dup_in_batch' | 'conflict';
+        status: "new" | "matches_contact" | "dup_in_batch" | "conflict";
         label: string;
         contact_id: number | null;
         dup_of_row?: number | null;
@@ -105,7 +107,7 @@ export type BatchSource = {
 };
 
 export type NewReferenceItem = {
-    kind: 'country' | 'region' | 'area' | 'sector';
+    kind: "country" | "region" | "area" | "sector";
     name: string;
     parent: string | null;
     rows: number;
@@ -121,6 +123,6 @@ export type MergeComparison = {
         label: string;
         incoming: string | null;
         existing: string | null;
-        choice: 'incoming' | 'existing';
+        choice: "incoming" | "existing";
     }[];
 };

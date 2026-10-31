@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { useDebounceFn } from '@vueuse/core';
-import { Head, Link, router, usePoll } from '@inertiajs/vue3';
-import { computed, ref, watch } from 'vue';
-import AppSelect from '@/components/AppSelect.vue';
-import BatchStatusPill from '@/components/imports/BatchStatusPill.vue';
-import EditableCell from '@/components/imports/EditableCell.vue';
-import MergePanel from '@/components/imports/MergePanel.vue';
-import RowDrawer from '@/components/imports/RowDrawer.vue';
-import SummaryBar from '@/components/imports/SummaryBar.vue';
-import { index as audienceIndex } from '@/routes/audience';
+import { useDebounceFn } from "@vueuse/core";
+import { Head, Link, router, usePoll } from "@inertiajs/vue3";
+import { computed, ref, watch } from "vue";
+import AppSelect from "@/components/AppSelect.vue";
+import BatchStatusPill from "@/components/imports/BatchStatusPill.vue";
+import EditableCell from "@/components/imports/EditableCell.vue";
+import MergePanel from "@/components/imports/MergePanel.vue";
+import RowDrawer from "@/components/imports/RowDrawer.vue";
+import SummaryBar from "@/components/imports/SummaryBar.vue";
+import { index as audienceIndex } from "@/routes/audience";
 import {
     commit as commitBatch,
     discard as discardBatch,
     recheck as recheckBatch,
     index as importsIndex,
     show as showBatch,
-} from '@/routes/imports';
-import { edit as editMapping } from '@/routes/imports/mapping';
-import { bulk as bulkRows } from '@/routes/imports/rows';
+} from "@/routes/imports";
+import { edit as editMapping } from "@/routes/imports/mapping";
+import { bulk as bulkRows } from "@/routes/imports/rows";
 import type {
     BatchSource,
     ImportBatch,
@@ -26,7 +26,7 @@ import type {
     RowUpdateResponse,
     SelectOption,
     StagedRow,
-} from '@/types';
+} from "@/types";
 
 const props = defineProps<{
     batch: ImportBatch;
@@ -66,14 +66,14 @@ function applyUpdate(response: RowUpdateResponse): void {
 }
 
 const refreshNewItems = useDebounceFn(
-    () => router.reload({ only: ['fileSources', 'newItems'] }),
+    () => router.reload({ only: ["fileSources", "newItems"] }),
     800,
 );
 
 /* ---------- busy states poll until the background job is done ---------- */
 const { start, stop } = usePoll(
     2000,
-    { only: ['batch', 'rows', 'issueCounts', 'fileSources', 'newItems'] },
+    { only: ["batch", "rows", "issueCounts", "fileSources", "newItems"] },
     { autoStart: false },
 );
 watch(
@@ -84,13 +84,13 @@ watch(
 
 /* ---------- filters ---------- */
 const filterValues = (key: string): string[] =>
-    (props.filters[key] ?? '').split(',').filter((value) => value !== '');
+    (props.filters[key] ?? "").split(",").filter((value) => value !== "");
 
 function visit(filters: Record<string, string[]>): void {
     const filter = Object.fromEntries(
         Object.entries(filters)
             .filter(([, values]) => values.length > 0)
-            .map(([key, values]) => [key, values.join(',')]),
+            .map(([key, values]) => [key, values.join(",")]),
     );
     router.get(
         showBatch(batch.value.id).url,
@@ -98,17 +98,17 @@ function visit(filters: Record<string, string[]>): void {
         {
             preserveState: true,
             preserveScroll: true,
-            only: ['rows', 'filters', 'batch'],
+            only: ["rows", "filters", "batch"],
         },
     );
     selected.value = [];
 }
 
 const currentFilters = computed<Record<string, string[]>>(() => ({
-    issue: filterValues('issue'),
-    match: filterValues('match'),
-    action: filterValues('action'),
-    severity: filterValues('severity'),
+    issue: filterValues("issue"),
+    match: filterValues("match"),
+    action: filterValues("action"),
+    severity: filterValues("severity"),
 }));
 
 const setFilter = (key: string, values: string[]): void =>
@@ -127,15 +127,15 @@ const activeTile = computed(() => {
         f[key].length === 1 &&
         f[key][0] === value &&
         Object.entries(f).every(([k, v]) => k === key || v.length === 0);
-    if (Object.values(f).every((v) => v.length === 0)) return 'total';
-    if (only('severity', 'clean')) return 'clean';
-    if (only('severity', 'warning')) return 'warnings';
-    if (only('severity', 'error')) return 'errors';
-    if (only('match', 'new')) return 'new';
-    if (only('match', 'matches_contact')) return 'merge';
-    if (only('match', 'dup_in_batch')) return 'dup';
-    if (only('match', 'conflict')) return 'conflict';
-    if (only('action', 'skip')) return 'skipped';
+    if (Object.values(f).every((v) => v.length === 0)) return "total";
+    if (only("severity", "clean")) return "clean";
+    if (only("severity", "warning")) return "warnings";
+    if (only("severity", "error")) return "errors";
+    if (only("match", "new")) return "new";
+    if (only("match", "matches_contact")) return "merge";
+    if (only("match", "dup_in_batch")) return "dup";
+    if (only("match", "conflict")) return "conflict";
+    if (only("action", "skip")) return "skipped";
 
     return null;
 });
@@ -165,26 +165,26 @@ function toggleAll(): void {
 }
 
 const OPERATIONS: SelectOption<string>[] = [
-    { value: 'accept_suggestions', label: 'Accept all suggestions' },
-    { value: 'set_action', label: 'Set action' },
-    { value: 'set_region', label: 'Set emirate' },
-    { value: 'set_area', label: 'Set area' },
-    { value: 'set_sector', label: 'Set sector' },
-    { value: 'set_source', label: 'Set source' },
+    { value: "accept_suggestions", label: "Accept all suggestions" },
+    { value: "set_action", label: "Set action" },
+    { value: "set_region", label: "Set emirate" },
+    { value: "set_area", label: "Set area" },
+    { value: "set_sector", label: "Set sector" },
+    { value: "set_source", label: "Set source" },
 ];
-const operation = ref<string | null>('accept_suggestions');
+const operation = ref<string | null>("accept_suggestions");
 const operationValue = ref<string | number | null>(null);
 watch(operation, () => (operationValue.value = null));
 
 const valueOptions = computed<SelectOption<string | number>[] | null>(() => {
     switch (operation.value) {
-        case 'set_action':
+        case "set_action":
             return props.options.actions;
-        case 'set_region':
+        case "set_region":
             return props.options.regions;
-        case 'set_area':
+        case "set_area":
             return props.options.areas;
-        case 'set_sector':
+        case "set_sector":
             return props.options.sectors;
         default:
             return null;
@@ -195,9 +195,9 @@ const bulkReady = computed(
     () =>
         operation.value !== null &&
         (selected.value.length > 0 || allMatching.value) &&
-        (operation.value === 'set_source'
-            ? typeof operationValue.value === 'string' &&
-              operationValue.value.trim() !== ''
+        (operation.value === "set_source"
+            ? typeof operationValue.value === "string" &&
+              operationValue.value.trim() !== ""
             : valueOptions.value === null || operationValue.value !== null),
 );
 
@@ -237,13 +237,13 @@ const areaOptionsFor = (row: StagedRow): SelectOption<number>[] =>
 const actionOptionsFor = (row: StagedRow): SelectOption<string>[] =>
     props.options.actions.map((action) => ({
         ...action,
-        disabled: action.value === 'merge' && row.match.contact_id === null,
+        disabled: action.value === "merge" && row.match.contact_id === null,
     }));
 
 const SEVERITY_DOT = {
-    clean: 'bg-good',
-    warning: 'bg-warn',
-    error: 'bg-bad',
+    clean: "bg-good",
+    warning: "bg-warn",
+    error: "bg-bad",
 } as const;
 
 const drawerRow = ref<StagedRow | null>(null);
@@ -266,12 +266,12 @@ function goToCursor(cursor: string | null): void {
     router.get(
         showBatch(batch.value.id).url,
         { filter: props.filters, cursor },
-        { preserveState: true, preserveScroll: true, only: ['rows'] },
+        { preserveState: true, preserveScroll: true, only: ["rows"] },
     );
 }
 
 /* ---------- commit / discard ---------- */
-const confirming = ref<'commit' | 'discard' | 'recheck' | null>(null);
+const confirming = ref<"commit" | "discard" | "recheck" | null>(null);
 const willCreate = computed(
     () =>
         batch.value.counts.total -
@@ -305,19 +305,19 @@ function discard(): void {
     router.post(discardBatch(batch.value.id).url);
 }
 
-const format = (value: number): string => value.toLocaleString('en-US');
-const NEW_ITEM_KINDS: Record<NewReferenceItem['kind'], string> = {
-    country: 'Country',
-    region: 'Emirate / region',
-    area: 'Area',
-    sector: 'Sector',
+const format = (value: number): string => value.toLocaleString("en-US");
+const NEW_ITEM_KINDS: Record<NewReferenceItem["kind"], string> = {
+    country: "Country",
+    region: "Emirate / region",
+    area: "Area",
+    sector: "Sector",
 };
-const dateFormat = new Intl.DateTimeFormat('en-GB', {
-    dateStyle: 'medium',
-    timeStyle: 'short',
+const dateFormat = new Intl.DateTimeFormat("en-GB", {
+    dateStyle: "medium",
+    timeStyle: "short",
 });
 const formatDate = (iso: string | null): string =>
-    iso ? dateFormat.format(new Date(iso)) : '—';
+    iso ? dateFormat.format(new Date(iso)) : "—";
 </script>
 
 <template>
@@ -371,7 +371,7 @@ const formatDate = (iso: string | null): string =>
                 class="rounded-lg border-0 bg-ink px-3.5 py-2 text-[13px] font-semibold text-ink-fg"
                 @click="confirming = 'commit'"
             >
-                {{ batch.status.key === 'failed' ? 'Resume commit' : 'Commit' }}
+                {{ batch.status.key === "failed" ? "Resume commit" : "Commit" }}
             </button>
         </div>
     </div>
@@ -485,9 +485,9 @@ const formatDate = (iso: string | null): string =>
             class="mr-2 inline-block size-3 animate-pulse rounded-full bg-sand align-middle"
         ></span>
         {{
-            batch.status.key === 'committing'
-                ? 'Committing… contacts are being created and merged. This page updates by itself.'
-                : 'Analysing the file… phones, emails, areas and duplicates are being checked. This page updates by itself.'
+            batch.status.key === "committing"
+                ? "Committing… contacts are being created and merged. This page updates by itself."
+                : "Analysing the file… phones, emails, areas and duplicates are being checked. This page updates by itself."
         }}
     </div>
     <div
@@ -557,10 +557,10 @@ const formatDate = (iso: string | null): string =>
                         :class="source.existing ? 'text-subtle' : 'text-sand'"
                         >{{
                             source.existing
-                                ? 'existing'
-                                : 'new · created on commit'
+                                ? "existing"
+                                : "new · created on commit"
                         }}{{
-                            source.default ? ' · rows without a source' : ''
+                            source.default ? " · rows without a source" : ""
                         }}</span
                     >
                 </span>
@@ -713,7 +713,7 @@ const formatDate = (iso: string | null): string =>
 
             <div class="overflow-x-auto">
                 <table
-                    class="w-full min-w-[1440px] border-collapse text-[12.5px]"
+                    class="w-full min-w-[1620px] border-collapse text-[12.5px]"
                 >
                     <thead>
                         <tr>
@@ -740,6 +740,7 @@ const formatDate = (iso: string | null): string =>
                                     'Email',
                                     'Emirate',
                                     'Area',
+                                    'Sector',
                                     'Match',
                                     'Action',
                                 ]"
@@ -944,6 +945,27 @@ const formatDate = (iso: string | null): string =>
                                 />
                             </td>
                             <td
+                                class="w-44 border-t border-line px-1.5 py-1.5 align-top"
+                            >
+                                <EditableCell
+                                    :batch-id="batch.id"
+                                    :row-id="row.id"
+                                    field="sector_id"
+                                    :value="row.sector?.id ?? null"
+                                    :options="options.sectors"
+                                    label="Sector"
+                                    :disabled="!batch.can.review"
+                                    @updated="applyUpdate"
+                                />
+                                <div
+                                    v-if="!row.sector && row.sector_name"
+                                    class="mt-0.5 px-1.5 text-[11px] text-sand"
+                                    dir="auto"
+                                >
+                                    New: {{ row.sector_name }}
+                                </div>
+                            </td>
+                            <td
                                 class="border-t border-line px-3 py-1.5 align-top whitespace-nowrap"
                             >
                                 <div class="mt-1">{{ row.match.label }}</div>
@@ -969,8 +991,8 @@ const formatDate = (iso: string | null): string =>
                                 >
                                     {{
                                         row.has_merge_choices
-                                            ? 'Review merge ✓'
-                                            : 'Compare & merge'
+                                            ? "Review merge ✓"
+                                            : "Compare & merge"
                                     }}
                                 </button>
                             </td>
@@ -991,7 +1013,7 @@ const formatDate = (iso: string | null): string =>
                         </tr>
                         <tr v-if="rows.length === 0">
                             <td
-                                colspan="14"
+                                colspan="15"
                                 class="border-t border-line p-[30px] text-center text-subtle"
                             >
                                 No rows match these filters.

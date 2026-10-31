@@ -37,6 +37,7 @@ class StagedRowResource extends JsonResource
             'region' => $option('region', $this->region_id),
             'area' => $option('area', $this->area_id),
             'sector' => $option('sector', $this->sector_id),
+            'sector_name' => $this->sector_name,
             'nationality' => $option('country', $this->nationality_country_id),
             'address_raw' => $this->address_raw,
             'seen_year' => $this->seen_year,
