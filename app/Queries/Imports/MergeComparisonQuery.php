@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
  * the row matches (more than one = conflict) so the reviewer can pick which one to merge into.
  *
  * @phpstan-type Field array{field: string, label: string, incoming: string|null, existing: string|null, choice: 'incoming'|'existing'}
- * @phpstan-type Comparison array{candidates: list<array{id: int, label: string, matched_by: string}>, contact_id: int|null, fields: list<Field>}
+ * @phpstan-type Comparison array{candidates: list<array{id: int, label: string, matched_by: string}>, contact_id: int|null, fields: list<Field>, other_names: list<string>}
  */
 class MergeComparisonQuery
 {
@@ -59,7 +59,7 @@ class MergeComparisonQuery
             ];
         }
 
-        return ['candidates' => $candidates, 'contact_id' => $contactId, 'fields' => $fields];
+        return ['candidates' => $candidates, 'contact_id' => $contactId, 'fields' => $fields, 'other_names' => $contact?->other_names ?? []];
     }
 
     /**

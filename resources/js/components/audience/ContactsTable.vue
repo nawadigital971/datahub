@@ -116,6 +116,28 @@ const TAG_CLASSES = {
                                     {{ contact.name_ar }}
                                 </div>
                             </template>
+                            <div
+                                v-if="contact.other_names.length"
+                                class="text-xs text-subtle"
+                                :title="contact.other_names.join(' · ')"
+                            >
+                                Also:
+                                <template
+                                    v-for="(
+                                        name, index
+                                    ) in contact.other_names.slice(0, 2)"
+                                    :key="name"
+                                    ><template v-if="index > 0">, </template
+                                    ><bdi dir="auto">{{ name }}</bdi></template
+                                ><template
+                                    v-if="contact.other_names.length > 2"
+                                >
+                                    +{{
+                                        contact.other_names.length - 2
+                                    }}
+                                    more</template
+                                >
+                            </div>
                         </td>
                         <td class="border-t border-line px-3 py-2 align-top">
                             <span

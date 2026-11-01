@@ -34,6 +34,7 @@ class ContactResource extends JsonResource
             'is_business' => $this->type === ContactType::Business,
             'name_en' => $this->name_en,
             'name_ar' => $this->name_ar,
+            'other_names' => $this->other_names,
             'company_name' => $this->company_name,
             'sector' => $lookups->label('sector', $this->sector_id),
             'source' => [

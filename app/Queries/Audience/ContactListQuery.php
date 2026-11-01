@@ -18,7 +18,7 @@ class ContactListQuery
 
     /** Only the columns the table shows (search_text and extra stay in the database). */
     private const array COLUMNS = [
-        'id', 'type', 'name_en', 'name_ar', 'company_name', 'name_en_verified', 'gender', 'country_id',
+        'id', 'type', 'name_en', 'name_ar', 'other_names', 'company_name', 'name_en_verified', 'gender', 'country_id',
         'region_id', 'area_id', 'sector_id', 'mobile_e164', 'landline_e164', 'email', 'email_status',
         'has_mobile', 'has_uae_mobile', 'has_email', 'source_ids', 'last_seen_year', 'do_not_contact', 'is_junk',
     ];

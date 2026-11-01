@@ -207,6 +207,24 @@ async function save(): Promise<void> {
                         class="h-40 animate-pulse rounded bg-surface-2"
                     ></div>
 
+                    <p
+                        v-if="comparison"
+                        class="m-0 rounded-[9px] bg-surface-2 px-3 py-2.5 text-[12.5px] text-subtle"
+                    >
+                        <b class="text-fg">Names are never lost:</b> the name
+                        you pick becomes the main name and the other one is
+                        saved as another name of this contact.
+                        <template v-if="comparison.other_names.length">
+                            Already known as:
+                            <template
+                                v-for="(name, index) in comparison.other_names"
+                                :key="name"
+                                ><template v-if="index > 0">, </template
+                                ><bdi dir="auto">{{ name }}</bdi></template
+                            >.
+                        </template>
+                    </p>
+
                     <div class="flex flex-wrap items-center gap-2.5">
                         <button
                             type="button"

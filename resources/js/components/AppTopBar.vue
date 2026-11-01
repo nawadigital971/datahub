@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { Link, usePage } from "@inertiajs/vue3";
-import { ChevronDown } from "@lucide/vue";
-import { computed } from "vue";
-import AppLogoIcon from "@/components/AppLogoIcon.vue";
+import { Link, usePage } from '@inertiajs/vue3';
+import { ChevronDown } from '@lucide/vue';
+import { computed } from 'vue';
+import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import UserMenuContent from "@/components/UserMenuContent.vue";
-import { useCurrentUrl } from "@/composables/useCurrentUrl";
-import { getInitials } from "@/composables/useInitials";
-import { usePermissions } from "@/composables/usePermissions";
-import { toUrl } from "@/lib/utils";
-import { edit as adminSettings } from "@/routes/admin/settings";
-import { index as audience } from "@/routes/audience";
-import { index as exportsLog } from "@/routes/exports";
-import { index as health } from "@/routes/health";
-import { index as imports } from "@/routes/imports";
-import { index as sources } from "@/routes/sources";
-import type { NavItem, Permission } from "@/types";
+} from '@/components/ui/dropdown-menu';
+import UserMenuContent from '@/components/UserMenuContent.vue';
+import { useCurrentUrl } from '@/composables/useCurrentUrl';
+import { getInitials } from '@/composables/useInitials';
+import { usePermissions } from '@/composables/usePermissions';
+import { toUrl } from '@/lib/utils';
+import { edit as adminSettings } from '@/routes/admin/settings';
+import { index as audience } from '@/routes/audience';
+import { index as exportsLog } from '@/routes/exports';
+import { index as health } from '@/routes/health';
+import { index as imports } from '@/routes/imports';
+import { index as sources } from '@/routes/sources';
+import type { NavItem, Permission } from '@/types';
 
 type Tab = NavItem & { permissions: Permission[] };
 
@@ -29,23 +29,23 @@ const { canAny } = usePermissions();
 const { isCurrentOrParentUrl } = useCurrentUrl();
 
 const allTabs: Tab[] = [
-    { title: "Audience", href: audience(), permissions: ["contacts.view"] },
+    { title: 'Audience', href: audience(), permissions: ['contacts.view'] },
     {
-        title: "Imports",
+        title: 'Imports',
         href: imports(),
-        permissions: ["imports.create", "imports.review"],
+        permissions: ['imports.create', 'imports.review'],
     },
     {
-        title: "Exports",
+        title: 'Exports',
         href: exportsLog(),
-        permissions: ["exports.view_log"],
+        permissions: ['exports.view_log'],
     },
-    { title: "Data health", href: health(), permissions: ["contacts.view"] },
-    { title: "Sources", href: sources(), permissions: ["contacts.view"] },
+    { title: 'Data health', href: health(), permissions: ['contacts.view'] },
+    { title: 'Sources', href: sources(), permissions: ['contacts.view'] },
     {
-        title: "Settings",
+        title: 'Settings',
         href: adminSettings(),
-        permissions: ["settings.update"],
+        permissions: ['settings.update'],
     },
 ];
 

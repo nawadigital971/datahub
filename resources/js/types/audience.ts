@@ -70,6 +70,8 @@ export type ContactRow = {
     is_business: boolean;
     name_en: string | null;
     name_ar: string | null;
+    /** Other names this contact was seen under. */
+    other_names: string[];
     company_name: string | null;
     sector: string | null;
     source: { label: string | null; more: number; year: number | null };

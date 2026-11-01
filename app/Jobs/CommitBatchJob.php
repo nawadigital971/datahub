@@ -9,6 +9,7 @@ use App\Actions\Sources\ResolveBatchSourcesAction;
 use App\Enums\ContactEventType;
 use App\Enums\ImportBatchStatus;
 use App\Enums\IssueCode;
+use App\Enums\MatchStatus;
 use App\Enums\StagedRowAction;
 use App\Models\ImportBatch;
 use App\Queries\Imports\MergeComparisonQuery;
@@ -20,7 +21,8 @@ use Throwable;
 /**
  * Commits a reviewed batch with set-based SQL, 5,000 staged rows per transaction:
  * create new contacts, merge into existing ones (honouring per-field merge choices), add phones, emails
- * and the source link, write call/merge events, then delete the processed staged rows. Because processed
+ * and the source link, keep every name the contact was seen under, write call/merge events, then delete the
+ * processed staged rows. Because processed
  * rows are deleted chunk by chunk, a failed commit can simply be run again. Afterwards the facet counts
  * are refreshed and the Audience cache is busted.
  */
@@ -166,6 +168,7 @@ class CommitBatchJob implements ShouldQueue
                 last_seen_year = GREATEST(c.last_seen_year, s.seen_year),
                 last_call_outcome = coalesce(s.call_outcome, c.last_call_outcome),
                 extra = nullif(coalesce(c.extra, '{}'::jsonb) || (coalesce(s.extra, '{}'::jsonb) - {$working}), '{}'::jsonb),
+                other_names = c.other_names || array_remove(ARRAY[c.name_en, c.name_ar]::text[], NULL),
                 updated_at = now()
             FROM staged_rows s
             WHERE {$chunk} AND s.action = {$merge} AND s.matched_contact_id = c.id
@@ -225,6 +228,38 @@ class CommitBatchJob implements ShouldQueue
                 GROUP BY cs.contact_id
             ) agg
             WHERE c.id = agg.contact_id
+            SQL, $this->only($b, ['batch', 'lo', 'hi']));
+
+        // 3c. Keep every name: incoming names of merged rows, and names of rows in this file that share a phone
+        // or email with a committed row (skipped as duplicates, but the person may be listed under another name).
+        // The main name_en/name_ar are never repeated in other_names.
+        $suppressed = IssueCode::Suppressed->value;
+        $skip = StagedRowAction::Skip->value;
+        $dup = MatchStatus::DupInBatch->value;
+        DB::update(<<<SQL
+            UPDATE contacts c SET
+                other_names = nawaa_merge_names(c.other_names, agg.names, c.name_en, c.name_ar),
+                updated_at = now()
+            FROM (
+                SELECT t.contact_id, array_agg(n.name ORDER BY t.id, n.ord) AS names
+                FROM (
+                    SELECT s.id, s.matched_contact_id AS contact_id, s.name_en, s.name_ar
+                    FROM staged_rows s WHERE {$committed} AND NOT ('{$junk}' = ANY(s.issue_codes))
+                    UNION ALL
+                    SELECT s.id, coalesce(
+                        (SELECT p.contact_id FROM contact_phones p WHERE p.e164 IN (s.mobile_e164, s.landline_e164) LIMIT 1),
+                        (SELECT e.contact_id FROM contact_emails e WHERE e.email = s.email LIMIT 1)
+                    ), s.name_en, s.name_ar
+                    FROM staged_rows s
+                    WHERE {$chunk} AND s.action = {$skip} AND s.match_status = {$dup} AND NOT s.action_locked
+                      AND NOT ('{$junk}' = ANY(s.issue_codes)) AND NOT ('{$suppressed}' = ANY(s.issue_codes))
+                ) t
+                CROSS JOIN LATERAL unnest(ARRAY[t.name_en, t.name_ar]::text[]) WITH ORDINALITY AS n(name, ord)
+                WHERE t.contact_id IS NOT NULL AND n.name IS NOT NULL
+                GROUP BY t.contact_id
+            ) agg
+            WHERE c.id = agg.contact_id
+              AND nawaa_merge_names(c.other_names, agg.names, c.name_en, c.name_ar) IS DISTINCT FROM c.other_names
             SQL, $this->only($b, ['batch', 'lo', 'hi']));
 
         // 4. History: merges and call outcomes read from the notes.

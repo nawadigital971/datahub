@@ -44,6 +44,7 @@ use Illuminate\Support\Carbon;
  * @property bool $has_landline
  * @property bool $has_arabic_name
  * @property list<int> $source_ids
+ * @property list<string> $other_names Other names this contact was seen under (name_en / name_ar are the main ones)
  * @property int $source_count
  * @property int|null $first_seen_year
  * @property int|null $last_seen_year
@@ -57,7 +58,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['type', 'name_en', 'name_ar', 'company_name', 'name_en_verified', 'gender', 'gender_trusted', 'nationality_country_id', 'country_id', 'region_id', 'area_id', 'sector_id', 'address_raw', 'mobile_e164', 'landline_e164', 'email', 'email_status', 'source_ids', 'source_count', 'first_seen_year', 'last_seen_year', 'last_call_outcome', 'last_called_at', 'do_not_contact', 'dnc_reason', 'is_junk', 'extra'])]
+#[Fillable(['type', 'name_en', 'name_ar', 'company_name', 'other_names', 'name_en_verified', 'gender', 'gender_trusted', 'nationality_country_id', 'country_id', 'region_id', 'area_id', 'sector_id', 'address_raw', 'mobile_e164', 'landline_e164', 'email', 'email_status', 'source_ids', 'source_count', 'first_seen_year', 'last_seen_year', 'last_call_outcome', 'last_called_at', 'do_not_contact', 'dnc_reason', 'is_junk', 'extra'])]
 class Contact extends Model
 {
     /** @use HasFactory<ContactFactory> */
@@ -80,6 +81,7 @@ class Contact extends Model
             'has_landline' => 'boolean',
             'has_arabic_name' => 'boolean',
             'source_ids' => PostgresArray::class.':int',
+            'other_names' => PostgresArray::class.':string',
             'last_call_outcome' => CallOutcome::class,
             'last_called_at' => 'immutable_datetime',
             'do_not_contact' => 'boolean',

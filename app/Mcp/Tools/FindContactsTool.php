@@ -78,6 +78,7 @@ class FindContactsTool extends Tool
                 'type' => $contact->type->value,
                 'name_en' => $contact->name_en,
                 'name_ar' => $contact->name_ar,
+                'other_names' => $contact->other_names,
                 'company_name' => $contact->company_name,
                 'gender' => $contact->gender?->value,
                 'mobile' => $unmasked ? $contact->mobile_e164 : ContactResource::maskPhone($contact->mobile_e164),
