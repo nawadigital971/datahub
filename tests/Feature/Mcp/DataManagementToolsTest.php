@@ -164,6 +164,23 @@ describe('stored contacts', function () {
             ->and(ContactEvent::query()->where('contact_id', $contact->id)->first()->meta)->toMatchArray(['field' => 'name_en', 'from' => 'Mariam Kalid', 'to' => 'Mariam Khalid', 'via' => 'mcp']);
     });
 
+    it('keeps the old name when Claude renames a contact, and adds or removes other names', function () {
+        $contact = Contact::factory()->create(['name_en' => 'Ahmad Ali', 'name_ar' => 'أحمد علي', 'other_names' => ['Abu Khalid']]);
+
+        DataHubServer::actingAs($this->admin)->tool(UpdateContactsTool::class, ['updates' => [
+            ['contact_id' => $contact->id, 'field' => 'name_en', 'value' => 'Mohammed Saleh'],
+            ['contact_id' => $contact->id, 'field' => 'add_other_name', 'value' => 'احمد علي'],
+            ['contact_id' => $contact->id, 'field' => 'add_other_name', 'value' => 'Saleh Family'],
+            ['contact_id' => $contact->id, 'field' => 'remove_other_name', 'value' => 'abu  khalid'],
+        ]])->assertOk();
+
+        $contact->refresh();
+        expect($contact->name_en)->toBe('Mohammed Saleh')
+            ->and($contact->name_ar)->toBe('أحمد علي')
+            ->and($contact->other_names)->toBe(['Ahmad Ali', 'Saleh Family'])
+            ->and(ContactEvent::query()->where('contact_id', $contact->id)->count())->toBe(3);
+    });
+
     it('is not available without contacts.update', function () {
         DataHubServer::actingAs(User::factory()->create()->assignRole(Role::Marketer->value))->tool(UpdateContactsTool::class, ['updates' => [['contact_id' => 1, 'field' => 'is_junk', 'value' => 'true']]])
             ->assertHasErrors();

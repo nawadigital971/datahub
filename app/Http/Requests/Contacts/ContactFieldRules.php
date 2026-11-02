@@ -14,8 +14,11 @@ class ContactFieldRules
 {
     public const array FIELDS = [
         'name_en', 'name_ar', 'company_name', 'gender', 'type', 'region_id', 'area_id', 'sector_id',
-        'nationality_country_id', 'is_junk', 'do_not_contact',
+        'nationality_country_id', 'is_junk', 'do_not_contact', 'add_other_name', 'remove_other_name',
     ];
+
+    /** Fields that change the contact's list of other names instead of a column. */
+    public const array OTHER_NAME_FIELDS = ['add_other_name', 'remove_other_name'];
 
     /**
      * @return list<mixed>
@@ -24,6 +27,7 @@ class ContactFieldRules
     {
         return match ($field) {
             'name_en', 'name_ar', 'company_name' => ['nullable', 'string', 'max:200'],
+            'add_other_name', 'remove_other_name' => ['required', 'string', 'max:200'],
             'gender' => ['nullable', 'in:'.implode(',', array_column(Gender::cases(), 'value'))],
             'type' => ['required', 'integer', 'in:'.implode(',', array_column(ContactType::cases(), 'value'))],
             'region_id' => ['nullable', 'integer', 'exists:regions,id'],

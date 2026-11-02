@@ -17,7 +17,7 @@ use Laravel\Mcp\Server\Attributes\Name;
 use Laravel\Mcp\Server\Tool;
 
 #[Name('update_contacts')]
-#[Description('Correct stored contacts (find them with find_contacts): English/Arabic name, company, gender ("m", "f" or empty), type (1 person, 2 business), region_id, area_id (also sets the emirate), sector_id, nationality_country_id, is_junk (true/false) or do_not_contact (a reason id: 1 opted out, 2 complaint, 3 wrong person, 4 legal, 9 other; empty to clear). Ids come from list_reference_data. Every change is logged in the contact history with your name. Phones and emails cannot be changed here; to block a number or email everywhere, add it to the do_not_contact list with save_reference_data. Up to 200 changes per call.')]
+#[Description('Correct stored contacts (find them with find_contacts): English/Arabic name (the old name is kept in other_names, so nothing is lost), add_other_name (another name the person is known by, the main name stays), remove_other_name (drop a wrong spelling from other_names), company, gender ("m", "f" or empty), type (1 person, 2 business), region_id, area_id (also sets the emirate), sector_id, nationality_country_id, is_junk (true/false) or do_not_contact (a reason id: 1 opted out, 2 complaint, 3 wrong person, 4 legal, 9 other; empty to clear). Ids come from list_reference_data. Every change is logged in the contact history with your name. Phones and emails cannot be changed here; to block a number or email everywhere, add it to the do_not_contact list with save_reference_data. Up to 200 changes per call.')]
 class UpdateContactsTool extends Tool
 {
     use ChecksPermissions;
