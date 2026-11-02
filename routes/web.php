@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Audience\AudienceController;
 use App\Http\Controllers\Audience\SegmentController;
+use App\Http\Controllers\Contacts\ContactController;
 use App\Http\Controllers\Exports\ExportController;
 use App\Http\Controllers\Health\DataHealthController;
 use App\Http\Controllers\Imports\ImportBatchController;
@@ -20,6 +21,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('audience', [AudienceController::class, 'index'])
         ->middleware('permission:'.Permission::ContactsView->value)
         ->name('audience.index');
+
+    Route::get('contacts/{contact}', [ContactController::class, 'show'])
+        ->whereNumber('contact')
+        ->middleware('permission:'.Permission::ContactsView->value)
+        ->name('contacts.show');
 
     Route::middleware('permission:'.Permission::SegmentsManage->value)->group(function () {
         Route::post('segments', [SegmentController::class, 'store'])->name('segments.store');

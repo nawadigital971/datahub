@@ -4,6 +4,7 @@ import { computed, ref, watch } from 'vue';
 import AudienceCharts from '@/components/audience/AudienceCharts.vue';
 import AudienceSummary from '@/components/audience/AudienceSummary.vue';
 import ChannelCards from '@/components/audience/ChannelCards.vue';
+import ContactDrawer from '@/components/audience/ContactDrawer.vue';
 import ContactsTable from '@/components/audience/ContactsTable.vue';
 import ExportDialog from '@/components/audience/ExportDialog.vue';
 import FilterRail from '@/components/audience/FilterRail.vue';
@@ -63,6 +64,14 @@ const facetsLoading = computed(() => props.facets === undefined);
 
 const railOpen = ref(false);
 const saveOpen = ref(false);
+
+const contactOpen = ref(false);
+const contactId = ref<number | null>(null);
+
+function showContact(id: number): void {
+    contactId.value = id;
+    contactOpen.value = true;
+}
 
 /** Page number for "26–50 of N" (cursor pagination has no offsets, so it rides along in the URL). */
 const position = computed(() => {
@@ -264,10 +273,12 @@ function startExport(channel: ChannelKey = 'email'): void {
                 @next="goToCursor(contacts.meta.next_cursor, position + 1)"
                 @open-filters="railOpen = true"
                 @export="startExport()"
+                @show="showContact"
             />
         </div>
     </div>
 
+    <ContactDrawer v-model:open="contactOpen" :contact-id="contactId" />
     <SaveSegmentDialog v-model:open="saveOpen" :filters="toQuery(filters)" />
     <ExportDialog
         v-if="can('exports.create')"

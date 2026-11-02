@@ -133,3 +133,42 @@ export type ExportRow = {
     file: { name: string; size: number } | null;
     download_url: string | null;
 };
+
+/** Everything about one contact, for the details panel (phones/emails masked unless allowed). */
+export type ContactDetails = {
+    id: number;
+    is_business: boolean;
+    name_en: string | null;
+    name_ar: string | null;
+    other_names: string[];
+    company_name: string | null;
+    masked: boolean;
+    details: { label: string; value: string }[];
+    phones: { value: string; type: string; is_primary: boolean }[];
+    emails: { value: string; is_primary: boolean; status: string | null }[];
+    status: {
+        do_not_contact: boolean;
+        dnc_reason: string | null;
+        is_junk: boolean;
+        check_spelling: boolean;
+    };
+    extra: { label: string; value: string }[];
+    sources: {
+        source: string;
+        year: number | null;
+        file: string | null;
+        import_batch_id: number | null;
+        row_number: number | null;
+        added_at: string | null;
+        raw: { column: string; value: string | null }[];
+    }[];
+    history: {
+        type: string;
+        at: string;
+        by: string | null;
+        text: string;
+    }[];
+    history_more: boolean;
+    created_at: string | null;
+    updated_at: string | null;
+};

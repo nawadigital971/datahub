@@ -16,6 +16,7 @@ defineEmits<{
     next: [];
     openFilters: [];
     export: [];
+    show: [contactId: number];
 }>();
 
 const format = (value: number): string => value.toLocaleString('en-US');
@@ -84,12 +85,28 @@ const TAG_CLASSES = {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="contact in contacts" :key="contact.id">
+                    <tr
+                        v-for="contact in contacts"
+                        :key="contact.id"
+                        class="cursor-pointer hover:bg-surface-2/60"
+                        @click="$emit('show', contact.id)"
+                    >
                         <td class="border-t border-line px-3 py-2 align-top">
+                            <button
+                                type="button"
+                                class="m-0 border-0 bg-transparent p-0 text-left font-semibold text-fg hover:underline"
+                                dir="auto"
+                                :aria-label="`Show details of ${contact.company_name ?? contact.name_en ?? contact.name_ar ?? 'this contact'}`"
+                                @click.stop="$emit('show', contact.id)"
+                            >
+                                {{
+                                    contact.company_name ??
+                                    contact.name_en ??
+                                    contact.name_ar ??
+                                    '(no name)'
+                                }}
+                            </button>
                             <template v-if="contact.company_name">
-                                <strong dir="auto">{{
-                                    contact.company_name
-                                }}</strong>
                                 <div
                                     v-if="contact.name_en || contact.name_ar"
                                     class="text-xs text-subtle"
@@ -102,11 +119,6 @@ const TAG_CLASSES = {
                                 </div>
                             </template>
                             <template v-else>
-                                <strong dir="auto">{{
-                                    contact.name_en ??
-                                    contact.name_ar ??
-                                    '(no name)'
-                                }}</strong>
                                 <div
                                     v-if="contact.name_en && contact.name_ar"
                                     class="text-xs text-subtle"

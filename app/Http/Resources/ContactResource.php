@@ -118,4 +118,28 @@ class ContactResource extends JsonResource
 
         return mb_substr($local, 0, 2).'•••@'.$domain;
     }
+
+    /**
+     * Mask every email and phone-like number (7+ digits) inside free text, such as the original
+     * imported row or call notes, where they can sit in any column.
+     */
+    public static function maskText(string $text): string
+    {
+        $text = (string) preg_replace_callback('/[^\s@,;:<>"\'()]+@[^\s@,;:<>"\'()]+/u', fn (array $match): string => (string) self::maskEmail($match[0]), $text);
+
+        return (string) preg_replace_callback('/\+?\d[\d\s\-.()\/]{5,}\d/', function (array $match): string {
+            $digits = (int) preg_match_all('/\d/', $match[0]);
+            if ($digits < 7) {
+                return $match[0];
+            }
+
+            $seen = 0;
+
+            return (string) preg_replace_callback('/\d/', function (array $digit) use (&$seen, $digits): string {
+                $seen++;
+
+                return $seen <= 3 || $seen > $digits - 2 ? $digit[0] : '•';
+            }, $match[0]);
+        }, $text);
+    }
 }
