@@ -2,33 +2,44 @@
 
 namespace App\Actions\EmailVerification;
 
+use App\DTOs\EmailVerificationData;
 use App\Enums\EmailStatus;
 use App\Enums\EmailVerificationTaskStatus;
+use App\Exceptions\EmailVerifierException;
 use App\Models\EmailVerificationTask;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use RuntimeException;
 
 class SubmitEmailVerificationTaskAction
 {
+    /** The verifier accepts up to this many emails in one bulk task. */
+    public const int MAX_PER_TASK = 50000;
+
     public function __construct(private CheckReoonBalanceAction $balance) {}
 
     /**
-     * Send the next unchecked contact emails (up to the daily limit and the remaining daily credits)
-     * to the email verifier as one bulk task. Returns null when there is nothing to send.
+     * Send the next unchecked contact emails to the email verifier as one bulk task. The scheduled run
+     * sends up to the daily limit and never more than the remaining daily credits; a manual run sends
+     * exactly the requested count. Returns null when there is nothing to send.
      *
-     * @throws RuntimeException
+     * @throws EmailVerifierException
      */
-    public function handle(): ?EmailVerificationTask
+    public function handle(EmailVerificationData $data): ?EmailVerificationTask
     {
         if (blank(config('services.reoon.key'))) {
+            if ($data->isManual()) {
+                throw new EmailVerifierException('The email verifier is not set up: add REOON_API_KEY to the .env file.');
+            }
             Log::info('Email verification skipped: REOON_API_KEY is not set.');
 
             return null;
         }
 
-        $limit = min((int) config('services.reoon.daily_limit'), $this->balance->handle());
+        $limit = $data->isManual()
+            ? min($data->count, self::MAX_PER_TASK)
+            : min((int) config('services.reoon.daily_limit'), $this->balance->handle()['daily']);
 
         if ($limit <= 0) {
             Log::info('Email verification skipped: no daily credits left.');
@@ -59,17 +70,21 @@ class SubmitEmailVerificationTaskAction
 
         $emails = array_values(array_unique(array_map(fn (object $row): string => $row->email, $picked)));
 
-        $response = Http::baseUrl(config('services.reoon.url'))
-            ->acceptJson()
-            ->timeout(120)
-            ->post('create-bulk-verification-task/', [
-                'name' => 'NAWAA '.now()->format('Y-m-d H:i'),
-                'emails' => $emails,
-                'key' => config('services.reoon.key'),
-            ]);
+        try {
+            $response = Http::baseUrl(config('services.reoon.url'))
+                ->acceptJson()
+                ->timeout(300)
+                ->post('create-bulk-verification-task/', [
+                    'name' => 'NAWAA '.now()->format('Y-m-d H:i'),
+                    'emails' => $emails,
+                    'key' => config('services.reoon.key'),
+                ]);
+        } catch (ConnectionException $exception) {
+            throw new EmailVerifierException('Could not reach the email verifier: '.$exception->getMessage(), previous: $exception);
+        }
 
         if ($response->status() !== 201 || $response->json('status') !== 'success') {
-            throw new RuntimeException('Email verifier task creation failed: '.($response->json('reason') ?? $response->body()));
+            throw new EmailVerifierException('The email verifier refused the task: '.($response->json('reason') ?? $response->body()));
         }
 
         return EmailVerificationTask::query()->create([

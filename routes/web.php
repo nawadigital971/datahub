@@ -8,6 +8,7 @@ use App\Http\Controllers\Audience\SegmentController;
 use App\Http\Controllers\Contacts\ContactController;
 use App\Http\Controllers\Exports\ExportController;
 use App\Http\Controllers\Health\DataHealthController;
+use App\Http\Controllers\Health\EmailVerificationController;
 use App\Http\Controllers\Imports\ImportBatchController;
 use App\Http\Controllers\Imports\ImportMappingController;
 use App\Http\Controllers\Imports\StagedRowController;
@@ -70,6 +71,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware('permission:'.Permission::ContactsView->value)->group(function () {
         Route::get('health', [DataHealthController::class, 'index'])->name('health.index');
+        Route::post('health/email-verifications', [EmailVerificationController::class, 'store'])
+            ->middleware('permission:'.Permission::ContactsVerifyEmails->value)
+            ->name('health.email-verifications.store');
         Route::get('sources', [SourceController::class, 'index'])->name('sources.index');
     });
 

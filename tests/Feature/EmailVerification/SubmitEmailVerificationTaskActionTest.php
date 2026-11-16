@@ -1,8 +1,10 @@
 <?php
 
 use App\Actions\EmailVerification\SubmitEmailVerificationTaskAction;
+use App\DTOs\EmailVerificationData;
 use App\Enums\EmailStatus;
 use App\Enums\EmailVerificationTaskStatus;
+use App\Exceptions\EmailVerifierException;
 use App\Models\Contact;
 use App\Models\EmailVerificationTask;
 use Illuminate\Http\Client\Request;
@@ -38,7 +40,7 @@ it('submits only unchecked, contactable emails and records the task', function (
     $inFlight = Contact::factory()->create(['email' => 'pending@example.com']);
     EmailVerificationTask::factory()->create(['emails' => ['pending@example.com'], 'contact_ids' => [$inFlight->id]]);
 
-    $task = app(SubmitEmailVerificationTaskAction::class)->handle();
+    $task = app(SubmitEmailVerificationTaskAction::class)->handle(EmailVerificationData::fromArray([]));
 
     expect($task->reoon_task_id)->toBe('40676')
         ->and($task->status)->toBe(EmailVerificationTaskStatus::Submitted)
@@ -53,7 +55,7 @@ it('caps the task at the daily limit and at the remaining daily credits', functi
     fakeReoonSubmission($credits);
     Contact::factory()->count(5)->create();
 
-    $task = app(SubmitEmailVerificationTaskAction::class)->handle();
+    $task = app(SubmitEmailVerificationTaskAction::class)->handle(EmailVerificationData::fromArray([]));
 
     expect($task->emails)->toHaveCount($expected);
 })->with([
@@ -65,7 +67,7 @@ it('sends nothing when no daily credits are left', function () {
     fakeReoonSubmission(0);
     Contact::factory()->create();
 
-    expect(app(SubmitEmailVerificationTaskAction::class)->handle())->toBeNull()
+    expect(app(SubmitEmailVerificationTaskAction::class)->handle(EmailVerificationData::fromArray([])))->toBeNull()
         ->and(EmailVerificationTask::query()->exists())->toBeFalse();
     Http::assertNotSent(fn (Request $request) => $request->url() === REOON_CREATE_URL);
 });
@@ -74,7 +76,7 @@ it('calls nothing when no API key is configured', function () {
     config(['services.reoon.key' => null]);
     Contact::factory()->create();
 
-    expect(app(SubmitEmailVerificationTaskAction::class)->handle())->toBeNull();
+    expect(app(SubmitEmailVerificationTaskAction::class)->handle(EmailVerificationData::fromArray([])))->toBeNull();
     Http::assertNothingSent();
 });
 
@@ -85,8 +87,28 @@ it('throws and records nothing when the verifier refuses the task', function () 
     ]);
     Contact::factory()->create();
 
-    expect(fn () => app(SubmitEmailVerificationTaskAction::class)->handle())->toThrow(RuntimeException::class, 'Invalid API key')
+    expect(fn () => app(SubmitEmailVerificationTaskAction::class)->handle(EmailVerificationData::fromArray([])))->toThrow(EmailVerifierException::class, 'Invalid API key')
         ->and(EmailVerificationTask::query()->exists())->toBeFalse();
+});
+
+it('sends exactly the requested count on a manual run, past the daily limit and without checking credits', function () {
+    config(['services.reoon.daily_limit' => 1]);
+    fakeReoonSubmission(0);
+    Contact::factory()->count(4)->create();
+
+    $task = app(SubmitEmailVerificationTaskAction::class)->handle(new EmailVerificationData(3));
+
+    expect($task->emails)->toHaveCount(3);
+    Http::assertNotSent(fn (Request $request) => str_contains($request->url(), 'check-account-balance'));
+});
+
+it('refuses a manual run when no API key is configured', function () {
+    config(['services.reoon.key' => null]);
+    Contact::factory()->create();
+
+    expect(fn () => app(SubmitEmailVerificationTaskAction::class)->handle(new EmailVerificationData(10)))
+        ->toThrow(EmailVerifierException::class, 'REOON_API_KEY');
+    Http::assertNothingSent();
 });
 
 it('reports the submitted count from the daily command', function () {

@@ -2,30 +2,38 @@
 
 namespace App\Actions\EmailVerification;
 
-use Illuminate\Http\Client\RequestException;
+use App\Exceptions\EmailVerifierException;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
-use RuntimeException;
 
 class CheckReoonBalanceAction
 {
     /**
-     * Remaining daily credits on the email verifier account (instant credits are never spent).
+     * Remaining credits on the email verifier account.
      *
-     * @throws RequestException|RuntimeException
+     * @return array{daily: int, instant: int}
+     *
+     * @throws EmailVerifierException
      */
-    public function handle(): int
+    public function handle(): array
     {
-        $response = Http::baseUrl(config('services.reoon.url'))
-            ->acceptJson()
-            ->timeout(30)
-            ->retry(2, 1000)
-            ->get('check-account-balance/', ['key' => config('services.reoon.key')])
-            ->throw();
-
-        if ($response->json('status') !== 'success' || $response->json('api_status') !== 'active') {
-            throw new RuntimeException('Email verifier balance check failed: '.($response->json('reason') ?? $response->body()));
+        try {
+            $response = Http::baseUrl(config('services.reoon.url'))
+                ->acceptJson()
+                ->timeout(30)
+                ->retry(2, 1000, throw: false)
+                ->get('check-account-balance/', ['key' => config('services.reoon.key')]);
+        } catch (ConnectionException $exception) {
+            throw new EmailVerifierException('Could not reach the email verifier: '.$exception->getMessage(), previous: $exception);
         }
 
-        return (int) $response->json('remaining_daily_credits', 0);
+        if (! $response->successful() || $response->json('status') !== 'success' || $response->json('api_status') !== 'active') {
+            throw new EmailVerifierException('Email verifier balance check failed: '.($response->json('reason') ?? $response->body()));
+        }
+
+        return [
+            'daily' => (int) $response->json('remaining_daily_credits', 0),
+            'instant' => (int) $response->json('remaining_instant_credits', 0),
+        ];
     }
 }

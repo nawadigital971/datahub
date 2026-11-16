@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Actions\EmailVerification\SubmitEmailVerificationTaskAction;
+use App\DTOs\EmailVerificationData;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
@@ -16,7 +17,7 @@ class VerifyEmailsCommand extends Command
      */
     public function handle(SubmitEmailVerificationTaskAction $action): int
     {
-        $task = $action->handle();
+        $task = $action->handle(EmailVerificationData::fromArray([]));
 
         if ($task === null) {
             $this->components->info('Nothing submitted (no API key, no daily credits left, or no unchecked emails).');

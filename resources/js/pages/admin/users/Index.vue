@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { Head, Link, router, useForm } from '@inertiajs/vue3';
-import { useDebounceFn } from '@vueuse/core';
-import { computed, ref, watch } from 'vue';
-import AppDialog from '@/components/AppDialog.vue';
-import AppSelect from '@/components/AppSelect.vue';
-import FormField from '@/components/FormField.vue';
-import { toast } from '@/composables/useToast';
-import { fieldClasses } from '@/lib/fieldClasses';
-import { store as storeRole, update as updateRole } from '@/routes/admin/roles';
+import { Head, Link, router, useForm } from "@inertiajs/vue3";
+import { useDebounceFn } from "@vueuse/core";
+import { computed, ref, watch } from "vue";
+import AppDialog from "@/components/AppDialog.vue";
+import AppSelect from "@/components/AppSelect.vue";
+import FormField from "@/components/FormField.vue";
+import { toast } from "@/composables/useToast";
+import { fieldClasses } from "@/lib/fieldClasses";
+import { store as storeRole, update as updateRole } from "@/routes/admin/roles";
 import {
     deactivate as deactivateUser,
     index as usersIndex,
     reactivate as reactivateUser,
     store as storeUser,
     update as updateUser,
-} from '@/routes/admin/users';
+} from "@/routes/admin/users";
 import {
     destroy as revokeToken,
     store as storeToken,
-} from '@/routes/admin/users/tokens';
-import type { SelectOption } from '@/types';
+} from "@/routes/admin/users/tokens";
+import type { SelectOption } from "@/types";
 
 type Token = {
     id: number;
@@ -62,7 +62,7 @@ const roleOptions = computed<SelectOption<string>[]>(() =>
 );
 
 /* ---------- search ---------- */
-const search = ref(props.filters.search ?? '');
+const search = ref(props.filters.search ?? "");
 const runSearch = useDebounceFn(() => {
     router.get(
         usersIndex().url,
@@ -74,13 +74,13 @@ const runSearch = useDebounceFn(() => {
 /* ---------- add / edit user ---------- */
 const userDialog = ref(false);
 const editingUser = ref<UserRow | null>(null);
-const userForm = useForm({ name: '', email: '', role: null as string | null });
+const userForm = useForm({ name: "", email: "", role: null as string | null });
 
 function openUser(user: UserRow | null): void {
     editingUser.value = user;
     userForm.clearErrors();
-    userForm.name = user?.name ?? '';
-    userForm.email = user?.email ?? '';
+    userForm.name = user?.name ?? "";
+    userForm.email = user?.email ?? "";
     userForm.role = user?.role ?? null;
     userDialog.value = true;
 }
@@ -105,8 +105,8 @@ function setActive(user: UserRow, active: boolean): void {
             preserveScroll: true,
             onError: (errors) =>
                 toast(
-                    Object.values(errors)[0] ?? 'Could not change this user.',
-                    'error',
+                    Object.values(errors)[0] ?? "Could not change this user.",
+                    "error",
                 ),
         },
     );
@@ -115,7 +115,7 @@ function setActive(user: UserRow, active: boolean): void {
 /* ---------- MCP tokens ---------- */
 const tokenDialog = ref(false);
 const tokenUser = ref<UserRow | null>(null);
-const tokenForm = useForm({ name: 'Claude', days: 90 });
+const tokenForm = useForm({ name: "Claude", days: 90 });
 const newToken = ref<{ user: string; token: string; url: string } | null>(null);
 
 function openTokens(user: UserRow): void {
@@ -166,15 +166,15 @@ function removeToken(token: Token): void {
 const connectCommand = computed(() =>
     newToken.value
         ? `claude mcp add --transport http nawaa ${newToken.value.url} --header "Authorization: Bearer ${newToken.value.token}"`
-        : '',
+        : "",
 );
 
 async function copy(text: string): Promise<void> {
     try {
         await navigator.clipboard.writeText(text);
-        toast('Copied');
+        toast("Copied");
     } catch {
-        toast('Select the text and copy it with Ctrl+C', 'info');
+        toast("Select the text and copy it with Ctrl+C", "info");
     }
 }
 
@@ -209,7 +209,7 @@ function saveRole(role: RoleRow): void {
     );
 }
 
-const roleForm = useForm({ name: '', permissions: [] as string[] });
+const roleForm = useForm({ name: "", permissions: [] as string[] });
 function addRole(): void {
     roleForm.post(storeRole().url, {
         preserveScroll: true,
@@ -218,23 +218,25 @@ function addRole(): void {
 }
 
 const PERMISSION_LABELS: Record<string, string> = {
-    'contacts.view': 'See contacts and the audience',
-    'contacts.view_unmasked': 'See full phones and emails',
-    'contacts.update': 'Edit contacts',
-    'segments.manage': 'Save and delete segments',
-    'exports.create': 'Export audiences',
-    'exports.view_log': 'See the export log and download any export',
-    'imports.create': 'Upload files and stage data',
-    'imports.review': 'Review and fix staged rows',
-    'imports.commit': 'Commit imports into the contacts',
-    'imports.discard': 'Discard imports',
-    'settings.update': 'Change settings and sources',
-    'users.manage': 'Manage users, roles and MCP tokens',
+    "contacts.view": "See contacts and the audience",
+    "contacts.view_unmasked": "See full phones and emails",
+    "contacts.update": "Edit contacts",
+    "contacts.verify_emails":
+        "Run email verification (spends verifier credits)",
+    "segments.manage": "Save and delete segments",
+    "exports.create": "Export audiences",
+    "exports.view_log": "See the export log and download any export",
+    "imports.create": "Upload files and stage data",
+    "imports.review": "Review and fix staged rows",
+    "imports.commit": "Commit imports into the contacts",
+    "imports.discard": "Discard imports",
+    "settings.update": "Change settings and sources",
+    "users.manage": "Manage users, roles and MCP tokens",
 };
 
-const dateFormat = new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' });
+const dateFormat = new Intl.DateTimeFormat("en-GB", { dateStyle: "medium" });
 const formatDate = (value: string | null): string =>
-    value ? dateFormat.format(new Date(value)) : '—';
+    value ? dateFormat.format(new Date(value)) : "—";
 </script>
 
 <template>
@@ -266,7 +268,7 @@ const formatDate = (value: string | null): string =>
         >
             <strong class="num"
                 >{{ users.meta.total }}
-                {{ users.meta.total === 1 ? 'user' : 'users' }}</strong
+                {{ users.meta.total === 1 ? "user" : "users" }}</strong
             >
             <input
                 v-model="search"
@@ -315,7 +317,7 @@ const formatDate = (value: string | null): string =>
                             </div>
                         </td>
                         <td class="border-t border-line px-3 py-2">
-                            {{ user.role ?? 'No role' }}
+                            {{ user.role ?? "No role" }}
                         </td>
                         <td class="border-t border-line px-3 py-2">
                             <span
@@ -326,7 +328,7 @@ const formatDate = (value: string | null): string =>
                                         : 'bg-surface-2 text-subtle'
                                 "
                             >
-                                {{ user.is_active ? 'Active' : 'Deactivated' }}
+                                {{ user.is_active ? "Active" : "Deactivated" }}
                             </span>
                         </td>
                         <td class="border-t border-line px-3 py-2 num">
@@ -363,7 +365,7 @@ const formatDate = (value: string | null): string =>
                                 @click="setActive(user, !user.is_active)"
                             >
                                 {{
-                                    user.is_active ? 'Deactivate' : 'Reactivate'
+                                    user.is_active ? "Deactivate" : "Reactivate"
                                 }}
                             </button>
                         </td>
@@ -575,7 +577,7 @@ const formatDate = (value: string | null): string =>
                     class="rounded-lg border-0 bg-ink px-3.5 py-2 text-[13px] font-semibold text-ink-fg disabled:opacity-50"
                     :disabled="userForm.processing"
                 >
-                    {{ editingUser ? 'Save' : 'Add user and send invite' }}
+                    {{ editingUser ? "Save" : "Add user and send invite" }}
                 </button>
             </div>
         </form>

@@ -10,6 +10,7 @@ enum Permission: string
     case ContactsView = 'contacts.view';
     case ContactsViewUnmasked = 'contacts.view_unmasked';
     case ContactsUpdate = 'contacts.update';
+    case ContactsVerifyEmails = 'contacts.verify_emails';
     case SegmentsManage = 'segments.manage';
     case ExportsCreate = 'exports.create';
     case ExportsViewLog = 'exports.view_log';

@@ -19,4 +19,12 @@ class ShowDataHealthRequest extends FormRequest
     {
         return [];
     }
+
+    /**
+     * Whether the email verifier panel (credits, recent tasks, Verify emails) is shown.
+     */
+    public function canVerifyEmails(): bool
+    {
+        return $this->user()?->can(Permission::ContactsVerifyEmails->value) ?? false;
+    }
 }
