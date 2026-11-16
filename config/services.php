@@ -35,6 +35,13 @@ return [
         ],
     ],
 
+    'reoon' => [
+        // Email verifier: a daily scheduled bulk task checks up to `daily_limit` unchecked contact emails.
+        'url' => env('REOON_URL', 'https://emailverifier.reoon.com/api/v1'),
+        'key' => env('REOON_API_KEY'),
+        'daily_limit' => (int) env('REOON_DAILY_LIMIT', 1000),
+    ],
+
     'libreoffice' => [
         // Used only to convert old .xls files to CSV before import.
         'binary' => env('LIBREOFFICE_BINARY', 'soffice'),

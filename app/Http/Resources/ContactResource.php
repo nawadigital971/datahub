@@ -77,6 +77,9 @@ class ContactResource extends JsonResource
         if ($this->email_status === EmailStatus::Invalid) {
             $flags[] = ['label' => 'Bad email', 'tone' => 'flag'];
         }
+        if ($this->email_status === EmailStatus::Risky) {
+            $flags[] = ['label' => 'Risky email', 'tone' => 'neutral'];
+        }
         if ($this->name_en !== null && ! $this->name_en_verified) {
             $flags[] = ['label' => 'Check spelling', 'tone' => 'neutral'];
         }

@@ -38,6 +38,8 @@ use Illuminate\Support\Carbon;
  * @property string|null $landline_e164
  * @property string|null $email
  * @property EmailStatus $email_status
+ * @property CarbonImmutable|null $email_checked_at When the email verifier last checked the primary email
+ * @property string|null $email_check_result The email verifier's raw result (safe, invalid, catch_all…)
  * @property bool $has_mobile
  * @property bool $has_uae_mobile
  * @property bool $has_email
@@ -58,7 +60,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['type', 'name_en', 'name_ar', 'company_name', 'other_names', 'name_en_verified', 'gender', 'gender_trusted', 'nationality_country_id', 'country_id', 'region_id', 'area_id', 'sector_id', 'address_raw', 'mobile_e164', 'landline_e164', 'email', 'email_status', 'source_ids', 'source_count', 'first_seen_year', 'last_seen_year', 'last_call_outcome', 'last_called_at', 'do_not_contact', 'dnc_reason', 'is_junk', 'extra'])]
+#[Fillable(['type', 'name_en', 'name_ar', 'company_name', 'other_names', 'name_en_verified', 'gender', 'gender_trusted', 'nationality_country_id', 'country_id', 'region_id', 'area_id', 'sector_id', 'address_raw', 'mobile_e164', 'landline_e164', 'email', 'email_status', 'email_checked_at', 'email_check_result', 'source_ids', 'source_count', 'first_seen_year', 'last_seen_year', 'last_call_outcome', 'last_called_at', 'do_not_contact', 'dnc_reason', 'is_junk', 'extra'])]
 class Contact extends Model
 {
     /** @use HasFactory<ContactFactory> */
@@ -75,6 +77,7 @@ class Contact extends Model
             'name_en_verified' => 'boolean',
             'gender_trusted' => 'boolean',
             'email_status' => EmailStatus::class,
+            'email_checked_at' => 'immutable_datetime',
             'has_mobile' => 'boolean',
             'has_uae_mobile' => 'boolean',
             'has_email' => 'boolean',

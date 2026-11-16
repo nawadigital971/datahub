@@ -159,7 +159,12 @@ class CommitBatchJob implements ShouldQueue
                     THEN NOT ('{$unverified}' = ANY(s.issue_codes)) ELSE c.name_en_verified END,
                 is_junk = CASE WHEN {$choice('name_en')} = 'incoming' AND s.name_en IS NOT NULL
                     THEN '{$junk}' = ANY(s.issue_codes) ELSE c.is_junk END,
-                email_status = CASE WHEN {$choice('email')} = 'incoming' AND s.email IS NOT NULL THEN {$emailStatus} ELSE c.email_status END,
+                email_status = CASE WHEN {$choice('email')} = 'incoming' AND s.email IS NOT NULL
+                    AND (s.email IS DISTINCT FROM c.email OR c.email_checked_at IS NULL) THEN {$emailStatus} ELSE c.email_status END,
+                email_checked_at = CASE WHEN {$choice('email')} = 'incoming' AND s.email IS DISTINCT FROM c.email AND s.email IS NOT NULL
+                    THEN NULL ELSE c.email_checked_at END,
+                email_check_result = CASE WHEN {$choice('email')} = 'incoming' AND s.email IS DISTINCT FROM c.email AND s.email IS NOT NULL
+                    THEN NULL ELSE c.email_check_result END,
                 landline_e164 = coalesce(c.landline_e164, s.landline_e164),
                 country_id = coalesce(c.country_id, s.country_id),
                 source_ids = ARRAY(SELECT DISTINCT x FROM unnest(c.source_ids || s.source_id) x ORDER BY x),
